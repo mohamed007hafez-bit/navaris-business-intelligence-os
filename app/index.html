@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NAVARIS Task Control Center</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#f5f7fa;color:#17202a}header{background:#101820;color:#fff;padding:20px 28px;display:flex;justify-content:space-between;align-items:center}header h1{margin:0;font-size:22px}header span{opacity:.7;font-size:13px}.layout{display:grid;grid-template-columns:250px 1fr;min-height:calc(100vh - 70px)}aside{background:#fff;border-right:1px solid #e4e8ed;padding:18px}.nav{padding:11px 12px;border-radius:8px;margin-bottom:5px;font-size:14px}.nav.active{background:#edf2f7;font-weight:700}.main{padding:24px;max-width:1400px;width:100%;margin:auto}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}.card{background:#fff;border:1px solid #e2e7ec;border-radius:12px;padding:16px}.label{font-size:12px;color:#667085}.value{font-size:25px;font-weight:750;margin-top:7px}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:14px}.toolbar h2{margin:0;font-size:18px}.btn{border:1px solid #ccd3da;background:#fff;border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:600}.btn.primary{background:#17202a;color:#fff;border-color:#17202a}.tasks{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}.task-list{display:flex;flex-direction:column;gap:9px}.task{background:#fff;border:1px solid #e1e6eb;border-radius:10px;padding:14px;cursor:pointer}.task:hover{border-color:#9aa7b3}.task-top{display:flex;justify-content:space-between;gap:10px}.task-title{font-weight:700;font-size:14px}.meta{font-size:12px;color:#667085;margin-top:6px}.tag{display:inline-block;border-radius:20px;padding:4px 8px;font-size:11px;font-weight:700}.running{background:#e9f3ff}.gate{background:#fff2d9}.ready{background:#edf7ed}.done{background:#edf2f7}.detail{background:#fff;border:1px solid #e1e6eb;border-radius:12px;padding:18px;min-height:420px}.detail h3{margin:0 0 7px}.detail-section{border-top:1px solid #edf0f2;padding-top:13px;margin-top:13px}.detail-section b{font-size:12px}.detail-section p{font-size:13px;line-height:1.55;color:#4b5563}.actions{display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}.empty{color:#667085;font-size:13px}.gatebox{border-left:4px solid #c58b00;background:#fff8e8;padding:12px;margin-top:12px;font-size:13px}.resultbox{border-left:4px solid #3c7a57;background:#f1f8f3;padding:12px;margin-top:12px;font-size:13px}.footer{margin-top:18px;font-size:11px;color:#8a94a1}@media(max-width:900px){.layout{grid-template-columns:1fr}aside{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.tasks{grid-template-columns:1fr}}@media(max-width:520px){.kpis{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header><h1>NAVARIS ⚡ Task Control Center</h1><span>TASK → EXECUTE → VALIDATE → RESULT → NEXT ACTION</span></header>
+<div class="layout">
+  <aside>
+    <div class="nav active">Active Tasks</div><div class="nav">Human Gate</div><div class="nav">Opportunities</div><div class="nav">Cash Board</div><div class="nav">Results</div><div class="nav">Audit / History</div>
+  </aside>
+  <main class="main">
+    <section class="kpis">
+      <div class="card"><div class="label">Running</div><div class="value" id="running">1</div></div>
+      <div class="card"><div class="label">Human Gate</div><div class="value" id="gates">1</div></div>
+      <div class="card"><div class="label">Qualified Opportunities</div><div class="value">7</div></div>
+      <div class="card"><div class="label">Cash Impact</div><div class="value">$—</div></div>
+    </section>
+    <div class="toolbar"><h2>Task Queue</h2><button class="btn primary" onclick="newTask()">+ New Task</button></div>
+    <section class="tasks">
+      <div class="task-list" id="taskList"></div>
+      <div class="detail" id="detail"><div class="empty">Select a task to inspect execution state, evidence, Human Gate and result.</div></div>
+    </section>
+    <div class="footer">Prototype only — no external action is executed by this UI. Consequential actions require the NAVARIS Human Gate.</div>
+  </main>
+</div>
+<script>
+const tasks=[
+ {id:'NAV-0001',title:'Resalute — SCOS teaming response',status:'HUMAN_GATE',priority:'P0',agent:'Commercial / Outreach',objective:'Review the substantive reply and prepare the next commercial response or meeting action.',evidence:'Email thread reviewed; recipient requested a conversation.',next:'Owner decision: meeting availability and response positioning.'},
+ {id:'NAV-0002',title:'Outbound follow-up queue — 24h rule',status:'RUNNING',priority:'P1',agent:'Outreach Follow-up',objective:'Review outbound threads, detect substantive replies and send eligible follow-ups without duplicate sends.',evidence:'Original thread + subsequent replies + last-send timestamps.',next:'Continue daily until response, rejection, unsubscribe, bounce or explicit closure.'},
+ {id:'NAV-0003',title:'NAVARIS Website — task-first commercial front-end',status:'READY',priority:'P1',agent:'Website / Product',objective:'Build a website that converts visitor needs into qualified NAVARIS tasks and opportunities.',evidence:'Task OS specification and task schema committed to GitHub.',next:'Implement production UI and connect intake to the task object.'}
+];
+function badge(s){return `<span class="tag ${s.toLowerCase().replace('_','-')}">${s}</span>`}
+function render(){const list=document.getElementById('taskList');list.innerHTML=tasks.map(t=>`<div class="task" onclick="show('${t.id}')"><div class="task-top"><div class="task-title">${t.id} · ${t.title}</div>${badge(t.status)}</div><div class="meta">Priority ${t.priority} · ${t.agent}</div></div>`).join('')}
+function show(id){const t=tasks.find(x=>x.id===id);const gate=t.status==='HUMAN_GATE';document.getElementById('detail').innerHTML=`<h3>${t.title}</h3><div class="meta">${t.id} · Priority ${t.priority} · Agent: ${t.agent}</div><div class="detail-section"><b>OBJECTIVE</b><p>${t.objective}</p></div><div class="detail-section"><b>EVIDENCE</b><p>${t.evidence}</p></div>${gate?`<div class="gatebox"><b>HUMAN GATE REQUIRED</b><br>${t.next}</div>`:`<div class="resultbox"><b>NEXT ACTION</b><br>${t.next}</div>`}<div class="actions">${gate?'<button class="btn primary" onclick="alert(\'Approval action is intentionally not wired in the prototype.\')">Review Gate</button>':''}<button class="btn" onclick="alert(\'Execution timeline will appear here in the production runtime.\')">View Execution</button><button class="btn" onclick="alert(\'Evidence and artifacts will appear here.\')">View Evidence</button></div>`}
+function newTask(){alert('New Task form is the next build step. It will create a validated NAVARIS task object, not a chat message.')}render();show('NAV-0002');
+</script>
+</body>
+</html>
