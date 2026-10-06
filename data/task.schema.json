@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "navaris://schemas/task.schema.json",
+  "title": "NAVARIS Task",
+  "type": "object",
+  "required": ["task_id", "objective", "status", "priority", "source", "next_action"],
+  "properties": {
+    "task_id": {"type": "string"},
+    "objective": {"type": "string"},
+    "business_value": {"type": "string"},
+    "cash_impact": {"type": ["number", "null"]},
+    "currency": {"type": ["string", "null"]},
+    "priority": {"enum": ["P0", "P1", "P2", "P3"]},
+    "source": {"type": "string"},
+    "inputs": {"type": "array", "items": {"type": "string"}},
+    "constraints": {"type": "array", "items": {"type": "string"}},
+    "agent": {"type": ["string", "null"]},
+    "workflow": {"type": ["string", "null"]},
+    "status": {"enum": ["DRAFT", "READY", "RUNNING", "WAITING", "HUMAN_GATE", "COMPLETED", "FAILED", "CLOSED"]},
+    "planned_actions": {"type": "array", "items": {"type": "string"}},
+    "validation": {"type": "array", "items": {"type": "string"}},
+    "human_gate": {
+      "type": "object",
+      "required": ["required"],
+      "properties": {
+        "required": {"type": "boolean"},
+        "reason": {"type": ["string", "null"]},
+        "decision": {"enum": ["PENDING", "APPROVED", "REJECTED", "NOT_REQUIRED"]}
+      }
+    },
+    "result": {"type": ["string", "null"]},
+    "artifacts": {"type": "array", "items": {"type": "string"}},
+    "risks": {"type": "array", "items": {"type": "string"}},
+    "next_action": {"type": "string"},
+    "owner": {"type": "string"},
+    "created_at": {"type": "string"},
+    "updated_at": {"type": "string"},
+    "audit": {"type": "array", "items": {"type": "object"}}
+  },
+  "additionalProperties": false
+}
