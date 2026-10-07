@@ -2,51 +2,61 @@
 
 **Mohamed Hafez | NAVARIS | Business Operations & Development**
 
-NAVARIS is an execution-oriented Business Operating & Commercial Gateway designed to turn business problems and market opportunities into qualified commercial action.
+NAVARIS is an execution-oriented Business Operating & Commercial Gateway designed to turn verified business problems and market needs into qualified commercial action and cash.
 
 ## Primary Objective
 
-Build a private, modular decision and execution system that connects:
+Build a controlled, modular decision and execution system connecting:
 
-**Business Problem / Market Need → Evidence → Diagnosis → Qualified Opportunity → Right Partner → Execution → Cash**
+**VERIFIED DEMAND -> EVIDENCE -> REQUIREMENT -> QUALIFIED SUPPLY -> NAVARIS ROLE -> AGREEMENT -> EXECUTION -> CASH -> REPEAT**
 
-## Operating Principle
+**Primary KPI: CASH COLLECTED**
 
-> SMART WORK > HARD WORK
+## Stability Rule
 
-**Primary KPI:** CASH COLLECTED
+NAVARIS is not optimized for research volume, dashboards, CRM complexity or generic consulting activity. During stabilization, the operating lane is:
 
-All consequential external actions remain subject to a human gate before sending, submitting, contracting, purchasing, investing, or making commitments.
+**Demand -> Requirement -> Qualified EU OEM/Tier-2 Supply -> NAVARIS Commercial Role -> Agreement -> Offer/RFQ -> Deal -> Cash**
 
-## Intelligence Direction
+Priority assets: wells, refineries, ships, offshore platforms and energy/industrial facilities.
 
-NAVARIS will maintain a dedicated **COMPETITOR / PEER INTELLIGENCE** layer.
+Priority families: Fishing Tools, Wellhead, BOP, API 610 Pumps, LPG Hoses 6" & 8" × 12m, plus closely related maintenance items only when demand evidence supports them.
 
-The first intelligence table is intentionally **NAVARIS-only**: it defines the company's own objective, assets, capabilities, gaps, commercial priorities, evidence requirements, and next actions without benchmarking or ranking NAVARIS against competitors.
+## Anti-Distraction
 
-A second table maps the **two-sided market**:
+- One active cash priority at a time; maximum three supporting tasks.
+- No broad research without a defined Gate and commercial action.
+- No supplier search expansion before qualified demand, except a bounded supply-feasibility test.
+- No unsupported price, commission, probability or cash estimate.
+- Unknown = VERIFY/HOLD, never invented FACT.
+- Every run ends GO/HOLD/KILL + one next action.
+- Human Gate remains mandatory before external messages, tenders/RFQs, quotations, contracts, purchases, investments or commitments.
 
-**Demand Side ↔ NAVARIS ↔ Supply / Capability Side**
+## Evidence Chain
 
-NAVARIS is positioned as the connector, qualifier, orchestrator, and execution coordinator between verified need and capable supply—not as a generic broker and not as a traditional consultancy.
+**FACT -> SOURCE -> CALCULATION -> ASSUMPTION -> INTERPRETATION -> RISK -> ACTION**
+
+## Gate System
+
+**G0 SOURCE -> G1 DEMAND -> G2 REQUIREMENT -> G3 SUPPLY -> G4 FIT -> G5 AGREEMENT -> G6 ACTION -> G7 CASH**
+
+No Gate -> No Work. No Evidence -> No Gate. No Cash Path -> No GO.
 
 ## Architecture
 
-- docs/ — business model, product architecture, governance, intelligence frameworks
-- engines/ — financial, feasibility, strategy, quality, operations, commercial, risk
-- agents/ — intake, document, validation, financial, feasibility, strategy, market, quality, report
-- data/ — schemas, benchmarks, sectors, standards
-- formulas/ — finance, accounting, valuation, ratios, break-even
-- templates/ — diagnostic, feasibility, strategic plan, ISO readiness, training, executive reports
-- tests/ — formulas, validation, scenarios
-- app/ — dashboard, intake, analysis, reports
+- docs/ — strategy, governance, stability, business model, intelligence
+- engines/ — deterministic financial/feasibility/strategy/quality/operations/commercial/risk logic
+- agents/ — controlled research, validation, analysis and reporting workflows
+- data/ — schemas, evidence, opportunities, sectors and standards
+- formulas/ — finance, accounting, valuation, ratios and break-even
+- templates/ — commercial diagnostics, feasibility, strategy, readiness and reports
+- tests/ — validation, formulas and scenarios
+- app/ — task control and outputs
 
 ## Privacy
 
-The repository is private. The architecture is designed so the core operating model can support a future local/private edition, with optional online intelligence and external integrations.
+Sensitive client data must not be placed in a public repository. Use minimum necessary data and preserve the Human Gate.
 
 ## Current Build Rule
 
-Do not create functionality merely because it is technically possible. Every module must serve a measurable business purpose and trace back to:
-
-**FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → RISK → ACTION**
+Every module must serve a measurable commercial purpose and trace back to the evidence chain. Technical functionality is secondary to cash proof.
