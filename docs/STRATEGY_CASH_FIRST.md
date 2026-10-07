@@ -1,51 +1,68 @@
-# NAVARIS CASH-FIRST STRATEGY
+# NAVARIS CASH-FIRST STRATEGY — STABILITY v1
 
-## Operating Objective
-TARGET -> CASH 1ST -> FLOW
+## Objective
+**TARGET -> CASH 1ST -> FLOW**
 
-KPI: CASH COLLECTED
+Primary KPI: **CASH COLLECTED**
 
-Core function:
-FIND -> ANALYZE -> QUALIFY -> STRUCTURE -> EXECUTE -> COLLECT -> REPEAT
+NAVARIS is temporarily optimized for one thing: convert verified industrial demand into a qualified, agreement-first commercial route with the shortest credible path to cash.
 
-## Mandatory Target Gate
-A target is actionable only when:
-1. Real demand/problem is evidenced.
-2. Buyer/counterpart is identifiable.
-3. Commercial value/budget is credible; priority to USD or USD-linked cash.
-4. NAVARIS has a defined role: Sourcing, Diagnostic, Commercial Representation, Tender Readiness, Deal Support, or Turnaround.
-5. A supplier/partner is identifiable or can be qualified.
-6. Agreement-first status is preserved before any external commercial commitment.
+## Stabilized commercial lane
+**Verified Demand -> Requirement -> Qualified EU OEM/Tier-2 Supply -> NAVARIS Commercial Role -> Agreement -> Offer/RFQ -> Deal -> Cash -> Repeat**
 
-## Evidence Chain
-FACT -> SOURCE -> CALCULATION -> ASSUMPTION -> INTERPRETATION -> ACTION
+Priority assets:
+Wells | Refineries | Ships | Offshore Platforms | Energy/Industrial Facilities
 
-Never present inference as fact. Every material opportunity needs an evidence link.
+Priority families:
+Fishing Tools | Wellhead | BOP | API 610 Pumps | LPG Hoses 6" & 8" × 12m
 
-## Agreement-First Rule
-Default status:
-AGREEMENT REQUIRED FIRST
+## The Gate System
+G0 SOURCE: primary/official evidence exists.
+G1 DEMAND: buyer/counterpart and need are identifiable.
+G2 REQUIREMENT: item/spec/code/quantity/timing captured where available.
+G3 SUPPLY: qualified supplier evidence exists.
+G4 FIT: technical/commercial/geographic fit passes.
+G5 AGREEMENT: NAVARIS role and economics are agreed before commitment.
+G6 ACTION: Human Gate passed; executable action exists.
+G7 CASH: actual receipt is evidenced.
 
-No quotation, purchase commitment, representation commitment, external outreach, or commercial acceptance is authorized without the Human Gate.
+No Gate -> No Work.
+No Evidence -> No Gate.
+No Cash Path -> No GO.
 
-## Daily Cash Engine
-The single active workflow reviews:
-- verified demand and tenders;
-- supplier/OEM fit;
-- days-to-cash and expected USD cash;
-- qualification gaps;
-- agreement status;
-- one highest-value next action.
+## What counts as evidence
+Prefer:
+1. Government / buyer tender or procurement portal
+2. Official buyer/company procurement/vendor document
+3. Official OEM documentation
+4. Recognized certification/standards source
+5. Secondary source only for discovery until independently verified
 
-No email is sent automatically.
-No external commercial commitment is made automatically.
+## Commercial discipline
+- USD/USD-linked opportunities are preferred when credible.
+- Do not invent transaction value, commission, margin, probability or days-to-cash.
+- Expected Cash is a scenario, never actual cash.
+- Actual Cash = documented money received.
+- EGP-only low-value work is deferred unless it has strategic/repeatable value.
+- Supply/deal/representation opportunities take precedence over generic advisory research when evidence and cash path are stronger.
 
-## Priority
-P0/P1 opportunities with:
-- immediate or near-term cash;
-- hard-to-source supply;
-- identifiable buyer;
-- credible budget;
-- short execution path.
+## Anti-distraction protocol
+- One active priority at a time.
+- Maximum three supporting tasks.
+- Every research task must state: **Gate being advanced + source needed + commercial action unlocked**.
+- If research does not advance a Gate within the defined task, stop and mark DEFERRED.
+- No competitor benchmarking unless it directly changes NAVARIS offer, pricing, positioning or win probability.
+- No dashboard/CRM/automation expansion before cash proof.
 
-Reject or defer low-value, EGP-only, vague, or unverified opportunities.
+## Daily output
+1. CASH CRITICAL
+2. DEAL ACTION
+3. EVIDENCE GAPS
+4. HOLD/KILL
+5. ONE NEXT ACTION
+
+## Evidence trail
+FACT -> SOURCE -> CALCULATION -> ASSUMPTION -> INTERPRETATION -> RISK -> ACTION
+
+## Success test
+**Paid Result -> Cash Collected -> Evidence -> Repeatability.**
