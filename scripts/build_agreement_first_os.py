@@ -78,3 +78,5 @@ top=[["1","A1 EGPC Emergency","INTERSHIP Suez","Emergency Sourcing","Emergency s
 for i,r in enumerate(top,2):
     for j,v in enumerate(r,st):m.cell(i,j,v)
 w.save(p)
+
+# Cash-first workbook build marker
