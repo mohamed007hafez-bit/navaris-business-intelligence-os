@@ -1,7 +1,10 @@
 name: NAVARIS one-schedule migration
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [navaris-one-schedule-merge]
+    paths:
+      - '.github/workflows/_navaris_one_schedule_migration.yml'
 
 permissions:
   contents: write
