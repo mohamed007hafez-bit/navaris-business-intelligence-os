@@ -1,0 +1,20 @@
+{
+  "agent": "NAVARIS Identity & Capability Agent",
+  "version": "1.0",
+  "master_reference": "docs/NAVARIS_IDENTITY_CAPABILITY_MASTER_V1.md",
+  "canonical_identity": {
+    "name": "Dr. Mohamed Hafez",
+    "platform": "NAVARIS",
+    "positioning": "Business Operations & Development",
+    "professional_identity": "Project, Operations & Business Performance",
+    "industry_focus": ["Energy", "Oil & Gas", "Industrial", "Maritime"]
+  },
+  "academic": {
+    "DBA": "Entrepreneurship & Digital Transformation",
+    "MBA": "Project Management",
+    "BBA": "Management Information Systems (MIS)"
+  },
+  "certifications": ["PMP®", "ISO 9001 QMS Lead Auditor"],
+  "master_kpi": "CASH COLLECTED",
+  "operating_philosophy": "TARGET → CASH 1ST → FLOW"
+}
