@@ -1,0 +1,42 @@
+name: NAVARIS Daily - 3Part Agreement First
+
+on:
+  schedule:
+    - cron: '0 7 * * *'  # 9 AM Egypt (7 UTC)
+    - cron: '0 17 * * *' # 7 PM Egypt
+  workflow_dispatch:
+
+jobs:
+  update-excel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install openpyxl requests
+      - name: Run NAVARIS 3-Part updater (Agreement First)
+        run: |
+          python - << 'PY'
+          # This is where ChatGPT will search MOC 2026 + Suez agencies + Alexandria Chamber
+          # and update data/NAVARIS_3Part_AgreementFirst_OS.xlsx MASTER_3Part sheet
+          # Rule: Always fill Demand | NAVARIS Service | Supplier together in one row
+          # Rule: Keep Agreement_Status = AGREEMENT REQUIRED FIRST - no email sent without human gate
+          # For now, just verify file exists
+          import os
+          from pathlib import Path
+          p = Path("data/NAVARIS_3Part_AgreementFirst_OS.xlsx")
+          if not p.exists():
+              print("File not yet in data/ - please upload the Excel we built")
+          else:
+              print(f"Found {p} - ready for ChatGPT to update MASTER_3Part")
+          PY
+      - name: Commit if changed
+        run: |
+          git config user.name "navaris-bot"
+          git config user.email "bot@navaris.eg"
+          git add data/*.xlsx || true
+          git diff --staged --quiet || git commit -m "Auto-update: 3Part Agreement First - Demand|Service|Supplier together"
+          git push || echo "No push - free trial or no changes"
