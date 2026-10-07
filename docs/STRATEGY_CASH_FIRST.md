@@ -1,36 +1,51 @@
-# NAVARIS Cash-First Strategy
+# NAVARIS CASH-FIRST STRATEGY
 
-## Ranking
+## Operating Objective
+TARGET -> CASH 1ST -> FLOW
 
-### 🥇 Critical Spare Parts — Immediate Cash
-Convert urgent, maker-specific maintenance needs into qualified sourcing transactions without carrying inventory.
+KPI: CASH COLLECTED
 
-**Commercial path:** Demand → exact part/model → buyer → qualified OEM/supplier → quote/route → agreement → invoice → collection.
+Core function:
+FIND -> ANALYZE -> QUALIFY -> STRUCTURE -> EXECUTE -> COLLECT -> REPEAT
 
-**Revenue:** emergency sourcing fee, sourcing margin, deal-support fee.
+## Mandatory Target Gate
+A target is actionable only when:
+1. Real demand/problem is evidenced.
+2. Buyer/counterpart is identifiable.
+3. Commercial value/budget is credible; priority to USD or USD-linked cash.
+4. NAVARIS has a defined role: Sourcing, Diagnostic, Commercial Representation, Tender Readiness, Deal Support, or Turnaround.
+5. A supplier/partner is identifiable or can be qualified.
+6. Agreement-first status is preserved before any external commercial commitment.
 
-### 🥈 OEM Representation — Retainer
-Represent qualified foreign OEMs/suppliers in Egypt/Gulf where NAVARIS can create measurable market access.
+## Evidence Chain
+FACT -> SOURCE -> CALCULATION -> ASSUMPTION -> INTERPRETATION -> ACTION
 
-**Commercial path:** OEM qualification → territory/channel verification → target accounts → representation agreement → buyer introductions → RFQ/pipeline → commission/retainer.
+Never present inference as fact. Every material opportunity needs an evidence link.
 
-**Revenue:** retainer + commission.
+## Agreement-First Rule
+Default status:
+AGREEMENT REQUIRED FIRST
 
-### 🥉 Marine Emergency — Very High Margin
-Capture urgent vessel/port/marine-equipment requirements where downtime makes correct maker identification and speed commercially valuable.
+No quotation, purchase commitment, representation commitment, external outreach, or commercial acceptance is authorized without the Human Gate.
 
-**Commercial path:** Vessel/port need → maker/model → authorized/stock route → logistics → buyer confirmation → agreement → delivery → collection.
+## Daily Cash Engine
+The single active workflow reviews:
+- verified demand and tenders;
+- supplier/OEM fit;
+- days-to-cash and expected USD cash;
+- qualification gaps;
+- agreement status;
+- one highest-value next action.
 
-**Revenue:** supplier margin / sourcing margin, with coordination fees where appropriate.
+No email is sent automatically.
+No external commercial commitment is made automatically.
 
-## Operating Rule
+## Priority
+P0/P1 opportunities with:
+- immediate or near-term cash;
+- hard-to-source supply;
+- identifiable buyer;
+- credible budget;
+- short execution path.
 
-**TARGET → CASH 1ST → FLOW**
-
-**FIND → ANALYZE → QUALIFY → STRUCTURE → EXECUTE → COLLECT → REPEAT**
-
-KPI: **CASH COLLECTED**
-
-All OEM entries use **Hard-to-Source Candidate — territory verification required**. This is a sourcing hypothesis, not a claim that an OEM is unavailable in Egypt or the Gulf.
-
-All commercial commitments, tenders, purchases, contracts and binding external actions remain subject to the NAVARIS Human Gate.
+Reject or defer low-value, EGP-only, vague, or unverified opportunities.
