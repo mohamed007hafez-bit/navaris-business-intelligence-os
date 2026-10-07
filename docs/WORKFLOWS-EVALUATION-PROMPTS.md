@@ -1,44 +1,61 @@
-# NAVARIS Workflows, Evaluation and Prompt Pack
+# NAVARIS Workflows, Evaluation and Prompt Pack — STABILITY v1
 
-## WF-01 Daily Control Center
-Review open opportunities, deadlines, expected cash, days-to-cash, missing follow-ups, new intelligence and QA flags. Return Cash-critical actions, Deal actions, Intelligence actions, Operational actions and Deferred items. Do not take external action.
+## WF-00 Stability Control
+Input: current active opportunities, new demand signals and open actions.
+Output: one P0 cash priority, up to three support tasks, HOLD/KILL items, evidence gaps and one next action.
+Rule: stop non-cash research drift.
 
-## WF-02 New Opportunity
-Need -> Intake -> Validation -> Qualification -> Diagnosis -> Service Match -> Commercial Path -> Human Review.
-Required output: problem, buyer, timing, value, evidence, missing data, proposed NAVARIS role, risks, next action and cash path.
+## WF-01 Daily Cash Control Center
+Review active opportunities first. Rank only by:
+1. Gate readiness
+2. buyer/need evidence
+3. urgency
+4. credible commercial value
+5. supplier availability
+6. days-to-cash
+7. agreement readiness
+Return CASH CRITICAL, DEAL ACTION, EVIDENCE GAPS, HOLD/KILL and ONE NEXT ACTION.
 
-## WF-03 Company Diagnostic
-Documents -> Extraction -> Validation -> Financial -> Operations -> Strategy -> Risk -> QA -> Executive Report.
+## WF-02 Demand-First Procurement
+Source -> Demand validation -> Requirement normalization -> Buyer validation -> Supplier search -> Technical fit -> Commercial fit -> Agreement -> Human Gate -> RFQ/Offer -> Deal -> Cash.
 
-## WF-04 Competitor / Peer Intelligence
-NAVARIS target state -> market scope -> entity discovery -> source collection -> normalization -> factual comparison -> white space -> NAVARIS relevance -> QA.
+## WF-03 New Opportunity
+Need -> Source -> Validation -> Qualification -> Requirement -> Service Match -> Commercial Path -> Agreement -> Human Review.
+Required: buyer, need, timing, item/spec/code, source, missing data, NAVARIS role, commercial model, risk, gate, next action and cash path.
 
-## WF-05 Demand <-> NAVARIS <-> Supply
-Demand capture -> qualification -> requirement normalization -> supply search -> technical fit -> commercial fit -> partner qualification -> Human Gate.
+## WF-04 Supplier Qualification
+Only run for qualified demand or a clearly stated supply-feasibility test.
+Identity -> Manufacturer/OEM status -> Product fit -> Certification/API/ISO verification -> Manufacturing/inspection evidence -> Export/Egypt/MENA fit -> 5-stage QC -> HOLD/QUALIFIED.
 
-## WF-06 Tender / RFQ
-Discovery -> document intake -> requirements -> eligibility -> technical matrix -> commercial matrix -> gaps -> partner requirement -> Human Gate.
+## WF-05 Tender / RFQ
+Discovery -> Official document -> Requirements -> Eligibility -> Technical matrix -> Commercial matrix -> Partner requirement -> Agreement -> Human Gate.
 
-## WF-07 Opportunity to Cash
-Lead -> Qualified -> Diagnostic/Pilot -> Proposal -> Negotiation -> Contract -> Delivery -> Invoice -> Collection -> Learning.
+## WF-06 Opportunity to Cash
+Qualified -> Diagnostic/Pilot if needed -> Proposal/RFQ -> Negotiation -> Agreement/Contract -> Delivery -> Invoice -> Collection -> Learning.
+
+## WF-07 Research Stop Rule
+Every search must declare:
+- Gate being advanced
+- Exact evidence sought
+- Source hierarchy
+- Decision unlocked
+- Commercial next action
+If the search cannot advance a Gate, stop after a bounded pass and mark DEFERRED.
 
 ## Evaluation gates
-E1 Arithmetic; E2 accounting reconciliation; E3 source traceability; E4 assumption labeling; E5 sensitivity; E6 consistency; E7 completeness; E8 reproducibility.
+E1 Arithmetic; E2 reconciliation; E3 source traceability; E4 assumption labeling; E5 sensitivity; E6 consistency; E7 completeness; E8 reproducibility; E9 Gate integrity; E10 cash-path integrity.
 
 ## Error severity
-P0 material financial/control error: stop. P1 material data/source inconsistency: stop downstream decision. P2 non-material quality issue: correct before final report. P3 presentation/optimization issue: log.
+P0 material financial/control error: stop.
+P1 material source/Gate inconsistency: stop downstream decision.
+P2 non-material quality issue: correct before final output.
+P3 presentation/optimization: log.
 
 ## Universal prompt
-NAVARIS CONTROL CENTER. Analyze the request using the minimum required workflow. Separate FACTS, SOURCES, CALCULATIONS, ASSUMPTIONS, INTERPRETATION, RISKS and ACTIONS. Validate before concluding. Identify the route to CASH and the next action. Never invent missing information. Require Human Gate before any external communication, submission, contract, purchase, investment or commitment.
-
-## Competitor prompt
-NAVARIS COMPETITOR / PEER INTELLIGENCE. First lock the NAVARIS-only target state. Then map documented entities by offering, customer, geography, delivery model, commercial model, proof, partnerships, digital capability, gaps and NAVARIS relevance. Use dated evidence. Do not make unsupported superiority claims.
+NAVARIS STABILITY CONTROL. Use the minimum workflow required. Protect the user from research drift. Separate FACTS, SOURCES, CALCULATIONS, ASSUMPTIONS, INTERPRETATION, RISKS and ACTIONS. Advance the highest cash-relevant Gate only. Never invent missing information. End with GO/HOLD/KILL and one next commercial action. Require Human Gate before external commitment.
 
 ## QA prompt
-NAVARIS QA. Independently audit the previous result for arithmetic errors, unsupported claims, stale sources, inconsistent units/currencies/periods, missing assumptions, contradictions, duplicates and incomplete actions. Classify findings P0-P3 and state required corrections.
+Audit arithmetic, sources, dates, units, currencies, assumptions, contradictions, duplicates, Gate evidence and cash-path logic. If unsupported, downgrade to VERIFY/HOLD.
 
 ## Continuous improvement
-Run -> QA -> Error Log -> Root Cause -> Targeted rule/prompt/formula/schema change -> Regression Test -> Version -> Monitor.
-
-## Global prohibition
-Never fabricate clients, certifications, government relationships, exclusivity, financial results, partnerships, market facts or performance claims.
+Run -> QA -> Error Log -> Root Cause -> targeted rule/schema/formula change -> regression test -> version -> monitor.
