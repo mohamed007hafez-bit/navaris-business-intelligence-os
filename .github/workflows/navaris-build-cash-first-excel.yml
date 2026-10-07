@@ -1,0 +1,29 @@
+name: NAVARIS - Build Cash First Excel
+
+on:
+  push:
+    paths:
+      - "scripts/build_agreement_first_os.py"
+      - "data/NAVARIS_3Part_AgreementFirst_OS.xlsx"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install openpyxl
+      - run: python scripts/build_agreement_first_os.py
+      - name: Commit generated workbook
+        run: |
+          git config user.name "navaris-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/NAVARIS_3Part_AgreementFirst_OS.xlsx
+          git diff --cached --quiet || git commit -m "Add: Opportunity Map 26 + Toolkit 20 + OEM Intelligence 40 - Cash First + Hard-to-Source"
+          git push
