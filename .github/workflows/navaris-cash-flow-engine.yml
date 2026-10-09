@@ -37,6 +37,8 @@ jobs:
           wb.save(p)
           print(f"NAVARIS CASH FLOW ENGINE verified {ws.max_row-1} opportunity rows.")
           PY
+      - name: Validate NAVARIS workbook controls
+        run: python scripts/validate_navaris_workbook.py
       - name: Commit engine updates
         run: |
           git config user.name "navaris-bot"
