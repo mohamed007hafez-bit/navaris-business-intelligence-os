@@ -79,3 +79,14 @@ Tool policy:
 - Automations MCP: update the existing `NAVARIS Daily Tender-to-Cash` task only; do not create a duplicate NAVARIS master task.
 - Formula Genius and workbook scripts: calculations only from sourced inputs; no invented probability, budget, commission or cash.
 - Human Gate remains mandatory for consequential external actions.
+
+
+## Strategic Master AI — mandatory methodology
+When a strategy, crisis, expansion, company or tender is assessed, follow `docs/STRATEGIC_MASTER_AI_STANDARD.md` in order:
+1. Environmental & positioning: PESTEL, Porter's Five Forces, weighted IFE/EFE, QSPM, then Blue Ocean/value curve if the IFE governance gate allows.
+2. Alignment & execution: strategy map, Balanced Scorecard, OKRs, daily KPIs; OEE only for suitable asset/manufacturing processes.
+3. Financial/crisis: DuPont and CCC when relevant data exists; Altman Z-score only with a model appropriate to company type and complete financial inputs.
+4. Growth: Ansoff, NPV/IRR and incremental vs radical innovation, including working capital, tender costs, payment terms and crisis-risk premium.
+Mandatory outputs: numerical matrix with equations and sources; if inputs are missing mark NOT CALCULABLE and list them; cash-linked crisis diagnosis; next-morning OKR action plan; open methodology links; opportunity-by-opportunity risk and next action.
+Apply user governance triggers: IFE <2.5 means defense/internal repair before expansion approval; a valid applicable Altman score <1.1 triggers liquidity defense. Label these as NAVARIS governance triggers, not universal academic thresholds. Report conventional model interpretation as well. Positive NPV and IRR above cost of capital are necessary but not sufficient for a tender or expansion decision.
+Never invent ratings, financial values, cash flow, source evidence or company health. Separate actual cash received from forecast cash. Always include date/time/timezone and report title. Send the internal report via Outlook to mohamed007hafez@gmail.com when the established daily mission requires it; verify actual send result.
