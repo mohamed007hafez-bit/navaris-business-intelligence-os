@@ -53,3 +53,29 @@ Required before external messages, tender/RFQ submission, quotation, purchase, r
 
 ## Quality Control
 Flag missing source, unverified buyer, incomplete requirement, unclear budget/value, supplier capability gap, missing agreement, unsupported cash, stale source, conflicting evidence and duplicate opportunities.
+
+
+## AI Agent Coordinator routing (2026-10-10)
+The NOVA coordinator owns one master mission and routes only the necessary bounded specialist roles. See `docs/AI_AGENT_COORDINATOR_PLAN_2026-10-10.md` for the agent/tool/program matrix and current opportunity screen.
+
+Agent roles:
+1. Coordinator: scope, deduplication, priority, sequencing and final decision.
+2. Demand/Tender Intelligence: official open tenders and evidenced buying signals.
+3. Buyer/Decision Path: buyer, need, contact route and eligibility evidence.
+4. Supplier/OEM Qualification: technical match and supplier proof, only after demand passes G0-G2.
+5. Opportunity Match/Commercial Structuring: Demand ↔ Supplier ↔ NAVARIS role and written agreement path.
+6. Consulting/Training: specific documented business need, not generic prospecting.
+7. News-to-Signal: NEWS → SIGNAL → NEED → TARGET; news alone is not an opportunity.
+8. Cash/Risk/Feasibility: GO / VERIFY / HOLD / NO-GO using sourced inputs.
+9. Evidence/QA: source freshness, conflicts, duplicate check, calculations and assumptions.
+10. CRM/Follow-up: check Outlook history first; Zoho remains blocked until OAuth scope mismatch is resolved.
+11. Reporting/Archive: dated internal report to mohamed007hafez@gmail.com via Outlook; claim sent only after send result.
+12. Repository/Workflow Engineer: versioned changes and test evidence; never claim a workflow passed without a recorded run result.
+
+Tool policy:
+- Outlook MCP: read sent/replies and send internal reports. Do not infer Gmail inbox delivery from successful Outlook send.
+- GitHub MCP: versioned plan/skill/script changes.
+- Zoho CRM MCP: do not query/write live CRM until OAuth scope mismatch is resolved and a read-only test succeeds.
+- Automations MCP: update the existing `NAVARIS Daily Tender-to-Cash` task only; do not create a duplicate NAVARIS master task.
+- Formula Genius and workbook scripts: calculations only from sourced inputs; no invented probability, budget, commission or cash.
+- Human Gate remains mandatory for consequential external actions.
