@@ -114,3 +114,28 @@ Supporting task KPIs:
 ## Design Rule
 
 Do not build a feature merely because it is technically possible. Every task, agent, connector and screen must trace to a measurable business outcome and preserve an auditable execution trail.
+
+
+## NAVARIS Three-Party Skill / Agent Routing (user mandate, 2026-10-13)
+
+**Commercial position:** DEMAND / BUYER → NAVARIS → SUPPLIER / SERVICE PARTNER. NAVARIS remains the intermediary responsible for qualification, coordination, relationship structure and documented commercial value. The Agent Coordinator presents the full match to the user before any external action.
+
+| Stage | Skill / playbook | Specialist Agent | Exit evidence |
+|---|---|---|---|
+| 1. Demand discovery | Demand Discovery | Demand Intelligence Agent | Current official need/RFQ/tender and source URL |
+| 2. Buyer eligibility | Buyer & Eligibility | Buyer Qualification Agent | Buyer identity, decision route, deadline, eligibility and registration |
+| 3. Scope extraction | Requirement Extraction | Technical Requirement Agent | Exact specifications, quantities, certifications, location, timing and terms |
+| 4. Supply verification | Supplier Qualification | Supplier/OEM Agent | Specific supplier, exact fit, authorization, territory, certificates, availability, lead time and written terms |
+| 5. Three-party structure | Three-Party Match | NAVARIS Match Agent | Buyer ↔ NAVARIS ↔ Supplier route, lawful role and agreement path |
+| 6. Commercial feasibility | Commercial Economics | Cash/Risk Agent | Sourced fee/margin equation, payment and risk review; missing data = NOT CALCULABLE |
+| 7. Draft outreach | Outreach Preparation | Communications Agent | Buyer/contracting-office and supplier/prime drafts; never sent automatically |
+| 8. Evidence QA | Evidence & Compliance | Evidence QA Agent | Direct source links, freshness, contradiction and FACT/CLAIM/INFERENCE/UNKNOWN labels |
+| 9. Final presentation | Coordinator | Agent Coordinator | Deduplicated decision package and SEND / DO NOT SEND gate |
+
+Do not create a new database/workbook merely to represent agents. Use the existing master registry and existing automation.
+
+### Coordinator's mandatory user-facing result
+Two main sections only:
+A. ANALYSIS → EQUATION → EVALUATION.
+B. COMMERCIAL OPPORTUNITY → DECISION PACKAGE, including buyer, official demand, exact need, deadline, eligibility, supplier status, NAVARIS role, economics, risks, draft message and GO/HOLD/NO-GO.
+Finish each external-action package with PREPARED FOR USER REVIEW — SEND / DO NOT SEND. The user is not asked to design the workflow. No external send, bid, binding quote, purchase, signature or commitment without explicit approval for that specific action.
