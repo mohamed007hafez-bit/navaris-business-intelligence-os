@@ -1,0 +1,38 @@
+[
+  {
+    "deal_id": "NAV-2026-001",
+    "client": "Suez Petroleum",
+    "product_family": "API 610 Pumps",
+    "base_cost": 2100000.0,
+    "shipping_cost": 85000.0,
+    "target_quote": 2600000.0,
+    "commission_rate": 5.0,
+    "current_gate": "G5",
+    "fact": "Official inquiry received via broker",
+    "source": "Suez RFQ Document #2026-X",
+    "requirement": "API 610 standard heavy-duty pumps",
+    "priority_asset": "Refinery Complex",
+    "supplier_code": "OEM-EU-KSB-02",
+    "supply_fit_proven": true,
+    "human_approved": true,
+    "cash_collected_proof": false
+  },
+  {
+    "deal_id": "NAV-2026-002",
+    "client": "Western Desert Drillers",
+    "product_family": "LPG Hoses",
+    "base_cost": 450000.0,
+    "shipping_cost": 15000.0,
+    "target_quote": 580000.0,
+    "commission_rate": 6.5,
+    "current_gate": "G3",
+    "fact": "Urgent LPG transfer hoses replacement required",
+    "source": "Direct tender publish - Western Desert Site",
+    "requirement": "EN 1762 Certified LPG high pressure hoses",
+    "priority_asset": "Storage Tank Depot",
+    "supplier_code": "OEM-EU-TRE-01",
+    "supply_fit_proven": true,
+    "human_approved": false,
+    "cash_collected_proof": false
+  }
+]
