@@ -142,3 +142,41 @@ Every report has exactly two main parts:
 Distinguish live procurement from investment rounds, market signals and prospects. If no opportunity passes, state NO QUALIFIED LIVE OPPORTUNITY FOUND and explain the strongest candidate's failed or missing gates. A named supplier is not qualified until product fit, territory, authorization, certifications, lead time and commercial terms are evidenced.
 
 Prepare external messages and bid packs for the user's review only. SEND/DO NOT SEND is the user's decision for each specific action. No external messages, submissions, binding quotes, signatures, purchases or financial commitments without explicit action-specific approval. Silence is not approval.
+
+
+## User's mandatory three-party operating model (2026-10-13)
+NAVARIS is always the intermediary in the commercial structure:
+**DEMAND / BUYER → NAVARIS (commercial coordination, qualification and relationship) → SUPPLIER / SERVICE PARTNER**.
+Do not skip NAVARIS or treat the user as only an end customer. The Coordinator must present the whole three-party match to the user before any external action.
+
+### Stage-to-Skill / Agent routing
+At each stage, assign a named specialist Agent using the relevant existing Skill/instructions. Do not create new parallel databases/workbooks merely to represent agents.
+1. **Demand Discovery Skill → Demand Intelligence Agent:** find current official demand/RFQ/tender and exact buyer.
+2. **Buyer & Eligibility Skill → Buyer Qualification Agent:** confirm buyer, decision/contact route, deadlines, eligibility, registration and tender rules.
+3. **Requirement Extraction Skill → Technical Requirement Agent:** extract scope, specifications, quantities, certifications, delivery location, schedule, and commercial terms from official documents.
+4. **Supplier Qualification Skill → Supplier/OEM Agent:** identify a specific candidate and verify exact fit, authorization, territory, certifications, availability, lead time, references and terms.
+5. **Three-Party Match Skill → NAVARIS Match Agent:** map Buyer/Demand ↔ NAVARIS ↔ Supplier; define lawful role, value added, non-circumvention/representation path and agreement needs.
+6. **Commercial Economics Skill → Cash/Risk Agent:** calculate fee/margin only from sourced written quotations and costs; assess payment, working capital, bond, insurance, FX, claims, compliance and days-to-cash. Missing data = NOT CALCULABLE.
+7. **Outreach Preparation Skill → Communications Agent:** prepare separate tailored drafts for buyer/contracting officer and supplier/prime contractor. Include who the user is, what NAVARIS can provide, precise questions on eligibility/requirements, and no unsupported claims. Never send.
+8. **Evidence & Compliance Skill → Evidence QA Agent:** source every material claim with a direct hyperlink; mark FACT / CLAIM / INFERENCE / UNKNOWN; verify freshness and contradictions.
+9. **Coordinator Skill → Agent Coordinator:** deduplicate, stop failed gates, rank no more than three candidates, and deliver the decision package to the user.
+
+### Coordinator handoff format — required final result
+Show one compact decision sheet with:
+- Demand / official link / current status / deadline and timezone
+- Buyer and exact need
+- Eligibility and missing requirements
+- Supplier/prime candidate and evidence status
+- NAVARIS's role between demand and supply
+- Equation and economics (or NOT CALCULABLE)
+- Risks and failed gates
+- Draft message(s) ready for user review
+- Recommendation GO / HOLD / NO-GO
+- Final status: PREPARED FOR USER REVIEW — SEND / DO NOT SEND
+The user's only decision is whether to send the prepared message or proceed with the specific action. Do not ask the user for procedural instructions or missing information when research can establish it. Never send automatically.
+
+### US federal set-aside check — SCOS W31P4Q26RA002
+Official SAM.gov record: https://sam.gov/opp/c27c690939ca43b6ba07440dc9276dd6/view . Official FAR SDVOSB rules: https://www.acquisition.gov/far/subpart-19.14 and https://www.acquisition.gov/far/52.219-27 .
+This solicitation is restricted to eligible SDVOSB concerns. Do not present NAVARIS/Egypt as an eligible prime bidder without verified SBA/SAM eligibility. A teaming or subcontracting route is not automatically permitted; review the latest solicitation/amendments, limitations on subcontracting, security/CUI/export-control requirements, and obtain written contracting guidance before representing that a route is available.
+A secondary current listing reports Amendment 4 and an October 16, 2026 deadline, while the crawled official SAM page displayed an older October 2 date. Treat the deadline as a source conflict until the latest amendment is verified directly on SAM.gov. Do not recommend a bid on the stale date or imply an extension is official without confirming the amendment on the primary source.
+Prepare, but do not send, a concise inquiry asking the contracting officer to clarify whether a foreign commercial support firm may participate as a subcontractor or non-prime commercial support provider, what solicitation clauses govern that route, and what registration/compliance requirements apply. Also prepare a separate potential-prime outreach only after identifying an actual SDVOSB prime and verifying public business contact information.
