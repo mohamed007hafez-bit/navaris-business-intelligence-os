@@ -44,6 +44,14 @@ jobs:
       - name: Validate workbook structure and controls
         run: python scripts/validate_navaris_workbook.py
 
+      - name: Validate commercial evidence and approval policy
+        run: |
+          grep -Fq 'ANALYSIS → EQUATION → EVALUATION' skills/navaris-cash-engine/SKILL.md
+          grep -Fq 'COMMERCIAL OPPORTUNITY → DECISION PACKAGE' skills/navaris-cash-engine/SKILL.md
+          grep -Fq 'NOT CALCULABLE' skills/navaris-cash-engine/SKILL.md
+          grep -Fq 'NO QUALIFIED LIVE OPPORTUNITY FOUND' skills/navaris-cash-engine/SKILL.md
+          grep -Fq 'SEND/DO NOT SEND' skills/navaris-cash-engine/SKILL.md
+
       - name: Write run summary
         if: always()
         shell: bash
