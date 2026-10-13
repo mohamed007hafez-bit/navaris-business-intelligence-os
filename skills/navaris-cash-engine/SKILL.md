@@ -180,3 +180,15 @@ Official SAM.gov record: https://sam.gov/opp/c27c690939ca43b6ba07440dc9276dd6/vi
 This solicitation is restricted to eligible SDVOSB concerns. Do not present NAVARIS/Egypt as an eligible prime bidder without verified SBA/SAM eligibility. A teaming or subcontracting route is not automatically permitted; review the latest solicitation/amendments, limitations on subcontracting, security/CUI/export-control requirements, and obtain written contracting guidance before representing that a route is available.
 A secondary current listing reports Amendment 4 and an October 16, 2026 deadline, while the crawled official SAM page displayed an older October 2 date. Treat the deadline as a source conflict until the latest amendment is verified directly on SAM.gov. Do not recommend a bid on the stale date or imply an extension is official without confirming the amendment on the primary source.
 Prepare, but do not send, a concise inquiry asking the contracting officer to clarify whether a foreign commercial support firm may participate as a subcontractor or non-prime commercial support provider, what solicitation clauses govern that route, and what registration/compliance requirements apply. Also prepare a separate potential-prime outreach only after identifying an actual SDVOSB prime and verifying public business contact information.
+
+
+## User execution preference — result-first (2026-10-13)
+- Do not ask the user to perform intermediate research, browse the Business Model Library, calculate ratios, configure tools, or provide steps the system can reasonably execute.
+- Treat the user's request as the mission. Use available Skills, Agents, connected tools, source discovery, calculations, and automation to produce the result directly.
+- Deliver decision-ready output with direct source hyperlinks, formulas/equations, calculation, evaluation, assumptions, risks, and the next action.
+- If a tool, permission, dataset, or capability is unavailable, state the exact limitation and execute the best safe alternative; never claim completion without execution evidence.
+- Build a repeatable workflow: source evidence -> validate -> calculate -> evaluate -> report -> recommend action.
+- For financial ratios, retrieve/define the appropriate ratios, formulas, required inputs, interpretation bands, and company-type caveats; automate calculations where feasible and generate a reviewable report.
+- Apply a transparent rating rubric (Excellent / Very Good / Good / Acceptable / Below Acceptable) only when its thresholds are explicitly defined and evidence supports the rating. Do not invent a score or label a result Excellent without a validated rubric and inputs.
+- NAVARIS must learn from global-firm methodologies without pretending to be those firms: adapt only suitable, lawful, affordable practices to NAVARIS's asset-light, demand-first, cash-first operating model.
+- For each live opportunity, include its specific toolkit, data requirements, equation set, workflow, calculation automation, report format, evaluation method, and evidence links; do not make the user search for these materials.
