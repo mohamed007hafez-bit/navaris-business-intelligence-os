@@ -1,0 +1,36 @@
+name: NAVARIS Business Intelligence OS - Master Core Automation Pipeline
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      target_file_path:
+        description: 'Specify the exact path inside NAVARIS OS (e.g., engines/maritime_engine.py)'
+        required: true
+      file_content:
+        description: 'Paste the full source code here'
+        required: true
+
+jobs:
+  build_and_deploy_artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository Base
+        uses: actions/checkout@v4
+
+      - name: Setup Dynamic Directory Architecture
+        run: |
+          mkdir -p engines formulas templates data config app
+
+      - name: Inject and Process New Operational Code
+        if: "${{ github.event.inputs.target_file_path != '' }}"
+        run: |
+          echo "${{ github.event.inputs.file_content }}" > "${{ github.event.inputs.target_file_path }}"
+
+      - name: Commit and Push Changes Enforcing Cash First Principle
+        run: |
+          git config --local user.email "mohamed007hafez@gmail.com"
+          git config --local user.name "mohamed007hafez-bit"
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Automated artifact deployment via NAVARIS Master Pipeline Worker"
+          git push
