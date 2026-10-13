@@ -1,0 +1,30 @@
+{
+  "mcp_server": {
+    "name": "NAVARIS-MasterCore-MCP",
+    "version": "1.0.0",
+    "description": "Controlled Context MCP Server connecting Excel sheets directly to AI Agents",
+    "environment": {
+      "OS_PLATFORM": "Mobile-Automated-Environment",
+      "CASH_FIRST_PRINCIPLE": "STRICT_ENFORCED"
+    },
+    "data_connections": {
+      "primary_excel_source": "data/NAVARIS_x5f_3Part_x5f_AgreementFirst_x5f_OS.xlsx",
+      "allowed_directories": [
+        "data/",
+        "formulas/",
+        "engines/"
+      ]
+    },
+    "agent_capabilities": {
+      "read_financial_schemas": true,
+      "execute_deterministic_formulas": true,
+      "evaluate_gate_status": true,
+      "modify_source_files": false
+    },
+    "security_protocols": {
+      "human_gate_required": true,
+      "prohibit_unverified_data": true,
+      "encryption_level": "Local-Environment-Only"
+    }
+  }
+}
