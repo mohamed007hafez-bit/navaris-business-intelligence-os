@@ -1,0 +1,30 @@
+name: NAVARIS Master Core Automation Pipeline
+on:
+  workflow_dispatch:
+    inputs:
+      target_file_path:
+        description: 'Specify file path (e.g., engines/maritime_engine.py)'
+        required: true
+      file_content:
+        description: 'Paste full source code'
+        required: true
+
+jobs:
+  deploy_artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Base
+        uses: actions/checkout@v4
+
+      - name: Inject New Operational Code
+        run: |
+          mkdir -p $(dirname "${{ github.event.inputs.target_file_path }}")
+          echo "${{ github.event.inputs.file_content }}" > "${{ github.event.inputs.target_file_path }}"
+
+      - name: Commit and Push Enforcing Cash First
+        run: |
+          git config --local user.email "mohamed007hafez@gmail.com"
+          git config --local user.name "mohamed007hafez-bit"
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Automated artifact deployment via NAVARIS Master Pipeline Worker"
+          git push
