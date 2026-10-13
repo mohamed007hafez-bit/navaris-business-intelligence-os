@@ -131,3 +131,14 @@ Use official Egypt Export Portal company directory as a discovery source (https:
 - Naming/etymology control: “NAVIS” is a proposed working brand, subject to trademark/domain/name checks. Latin *navis* means ship/vessel; Latin *ars* means art/skill, so do not present “NAVIS = navigation + ars meaning guidance” as literal Latin etymology. Safer brand story: “inspired by navigation, maritime movement and guided logistics decisions.”
 - Regulatory boundary: freight forwarder, shipping agent, customs broker, carrier and port operator are different roles. Verify the exact activity and licensing with Egyptian Maritime Transport & Logistics Sector, Customs Authority, company-registration/tax counsel, port authority and insurance adviser before operating. A customs-clearance partner's license does not automatically license the new entity for shipping agency.
 - Cash gate: start asset-light using licensed counterparties; avoid vessels, trucks, containers, large office/software spend or customer-credit exposure until paid repeat demand. Price the service transparently and document gross profit, customer-money handling, liability, insurance and payment terms.
+
+## Commercial output contract (2026-10-13)
+Goal: deliver an evidence-backed commercial opportunity, not additional files. Do not ask the user for procedural steps; proceed using available evidence and label unknowns.
+
+Every report has exactly two main parts:
+1. ANALYSIS → EQUATION → EVALUATION: show the applicable equation first, then sourced inputs, calculations, limitations and decision threshold. Hyperlink every material fact, method, tender, deadline, eligibility rule, supplier claim, case study, book or reference. Missing inputs = NOT CALCULABLE; never invent money, probability, fees or days-to-cash.
+2. COMMERCIAL OPPORTUNITY → DECISION PACKAGE: official current source and checked time; exact buyer/need/deadline; eligibility; specific supplier and official capability link; supplier qualification state; lawful NAVARIS role; sourced fee/margin equation; risks; lowest-cost revenue action; complete draft message; GO/HOLD/NO-GO and reasons.
+
+Distinguish live procurement from investment rounds, market signals and prospects. If no opportunity passes, state NO QUALIFIED LIVE OPPORTUNITY FOUND and explain the strongest candidate's failed or missing gates. A named supplier is not qualified until product fit, territory, authorization, certifications, lead time and commercial terms are evidenced.
+
+Prepare external messages and bid packs for the user's review only. SEND/DO NOT SEND is the user's decision for each specific action. No external messages, submissions, binding quotes, signatures, purchases or financial commitments without explicit action-specific approval. Silence is not approval.
