@@ -1,31 +1,44 @@
-name: Run Python Project
+name: NAVARIS Python Validation
 
 on:
   push:
-    branches: [ "main" ] # سيعمل الكود تلقائياً عند دفع أي تعديل لفرع main
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
-  workflow_dispatch: # تتيح لك زر تشغيل يدوي (Run workflow) في أي وقت
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: navaris-python-validation-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  build:
+  validate:
+    name: Validate NAVARIS Python and workbook
     runs-on: ubuntu-latest
-
+    timeout-minutes: 10
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-python-version: '3.10' # يمكنك تغيير الإصدار حسب مشروعك
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Install dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --upgrade pip
+          python -m pip install openpyxl
+          if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
 
-    - name: Run Application
-      run: |
-        # استبدل main.py باسم ملف التشغيل الرئيسي لمشروعك
-        python main.py 
+      - name: Compile Python source files
+        run: python -m compileall -q scripts
+
+      - name: Build NAVARIS operating workbook
+        run: python scripts/build_agreement_first_os.py
+
+      - name: Validate NAVARIS workbook
+        run: python scripts/validate_navaris_workbook.py
