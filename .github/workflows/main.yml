@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: navaris-local-hybrid-${ github.ref }}
+  group: navaris-local-hybrid-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -68,7 +68,7 @@ jobs:
         run: |
           {
             echo "## NAVARIS Local Hybrid OS"
-            echo "- Commit: ${ github.sha }}"
+            echo "- Commit: ${{ github.sha }}"
             echo "- Mode: local-first; no cloud request is sent"
             echo "- Checks: Python compile, regression tests, Excel build, native chart validation"
             echo "- Cash collected: only actual receipt evidence may be recorded as collected"
