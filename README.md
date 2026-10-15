@@ -65,3 +65,27 @@ Sensitive client or transaction data must **never** be placed in a public reposi
 ## Current Build Rule
 
 Every single module, script, or documentation file must serve a measurable commercial purpose and trace back directly to the evidence chain. Technical functionality and coding aesthetics are strictly secondary to verified cash proof.
+
+## NAVARIS Local Hybrid OS (Fixed Skill)
+
+The supplied NAVARIS OS skill is implemented as a local-first Python engine with an editable Excel workbook and native Excel charts.
+
+### Local quick start
+
+- Windows: run `run_navaris_local.bat`.
+- macOS/Linux: run `bash run_navaris_local.sh`.
+- Manual demo: `python main.py --demo`.
+- Regression tests: `python -m unittest discover -s tests -v`.
+
+Core modules:
+- `navaris_core.py` — fixed formulas, grading bands, and Excel chart generation.
+- `scout_agent.py` — scores user-provided opportunities; examples are not live tenders.
+- `pricer_agent.py` — route economics and 30/70 model.
+- `ncnda_agent.py` — non-binding draft only, legal review required.
+- `cash_agent.py` — projection separated from actual collected cash.
+- `chatgpt_bridge.py` — local-only cloud eligibility gate; no network request is implemented.
+- `main.py` — orchestrates the local run and creates `output/NAVARIS_Agnatics_OS_FINAL.xlsx`.
+
+See `skills/navaris-os/SKILL.md` and `docs/NAVARIS-LOCAL-HYBRID-OPERATING-MANUAL.md` for the fixed methodology, setup, controls, and known limitations.
+
+**Security:** No GitHub token is required by the local engine. No cloud request, tender submission, external email, or commercial commitment is made automatically. All demo values are illustrative until verified against source evidence. Local processing does not automatically encrypt files; enable full-disk encryption and protect client data at the operating-system level.
