@@ -1,0 +1,26 @@
+{
+  "routes": [
+    {"name": "Borg -> Dekheila", "distance": 45, "toll": 200, "surcharge": 0, "selling": 1500},
+    {"name": "Borg -> Alex", "distance": 55, "toll": 250, "surcharge": 0, "selling": 1800},
+    {"name": "El Max -> Dekheila", "distance": 15, "toll": 100, "surcharge": 100, "selling": 750},
+    {"name": "Wardian -> Dekheila", "distance": 10, "toll": 80, "surcharge": 0, "selling": 450},
+    {"name": "Low-bed Alstom", "distance": 5, "toll": 0, "surcharge": 500, "selling": 3000}
+  ],
+  "tenders": [
+    {
+      "name": "Replace with a real RFQ or tender",
+      "value": 0,
+      "distance": 0,
+      "selling": 0,
+      "source_status": "UNVERIFIED — example placeholder",
+      "evidence_verified": false
+    }
+  ],
+  "monthly_data": [
+    {"Client": "Borg 20", "Trips": 20, "Price per trip": 1500, "Actual Cash Collected": 0, "Evidence Status": "ILLUSTRATIVE"},
+    {"Client": "Alex 15", "Trips": 15, "Price per trip": 1800, "Actual Cash Collected": 0, "Evidence Status": "ILLUSTRATIVE"},
+    {"Client": "Wardian 30", "Trips": 30, "Price per trip": 450, "Actual Cash Collected": 0, "Evidence Status": "ILLUSTRATIVE"},
+    {"Client": "El Max 10", "Trips": 10, "Price per trip": 750, "Actual Cash Collected": 0, "Evidence Status": "ILLUSTRATIVE"},
+    {"Client": "Low-bed 5", "Trips": 5, "Price per trip": 3000, "Actual Cash Collected": 0, "Evidence Status": "ILLUSTRATIVE"}
+  ]
+}
