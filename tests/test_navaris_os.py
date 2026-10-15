@@ -43,7 +43,7 @@ class NavarisCoreTests(unittest.TestCase):
 
     def test_scout_requires_explicit_verified_flag(self):
         result = scout_tenders([{
-            "name": "Test opportunity", "value": 1000, "distance": 1,
+            "name": "Test opportunity", "value": 1000, "distance": 1, "toll": 0,
             "selling": 100, "evidence_verified": True, "source_status": "SOURCE CHECKED"
         }])
         self.assertEqual(result.iloc[0]["Decision"], "GO")
