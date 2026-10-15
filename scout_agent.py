@@ -38,6 +38,6 @@ def scout_tenders(tenders: Iterable[Mapping[str, Any]] | None = None) -> pd.Data
             "BCG": core.get_bcg_type(margin),
             "Grade": grade,
             "Evidence Status": tender.get("source_status", "UNVERIFIED — source required"),
-            "Decision": "VERIFY" if "verified" not in str(tender.get("source_status", "")).lower() else ("GO" if margin >= 30 else "HOLD"),
+            "Decision": "GO" if bool(tender.get("evidence_verified", False)) and margin >= 30 else ("HOLD" if margin < 20 else "VERIFY"),
         })
     return pd.DataFrame(results)
