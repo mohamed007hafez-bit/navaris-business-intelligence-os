@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# NAVARIS local runtime artifacts and private data
+output/
+output/**
+*.env
+.env.*
+!.env.example
+local_data/
+private_data/
