@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NAVARIS Local Input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "client_name": {"type": "string"},
+    "routes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "distance", "selling"],
+        "additionalProperties": true,
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "distance": {"type": "number", "minimum": 0},
+          "fuel_rate": {"type": "number", "minimum": 0},
+          "toll": {"type": "number", "minimum": 0},
+          "surcharge": {"type": "number", "minimum": 0},
+          "selling": {"type": "number", "minimum": 0}
+        }
+      }
+    },
+    "tenders": {"type": "array", "items": {"type": "object"}},
+    "monthly_data": {"type": "array", "items": {"type": "object"}}
+  },
+  "required": ["routes"]
+}
