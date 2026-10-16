@@ -23,19 +23,20 @@
     {
       "id": "NAV-OPP-002",
       "company": "Altus Intervention",
-      "location": "Borg El Arab / Egypt (user-provided)",
+      "location": "Middle East & Asia Pacific HQ listed in Malaysia / UAE; Egypt/Borg El Arab presence unverified",
       "need": "Potential slickline PCE support/AOG supply; entity, location and current need not independently verified.",
       "value_usd": null,
       "value_type": "unknown",
       "urgency": "Unverified",
-      "source": "User-provided lead; no reliable primary source located in this pass",
-      "link": null,
+      "source": "Altus Intervention service/capability and official contact page; Egypt location and current need not verified",
+      "link": "https://www.a-archive.hampton.associates/contact-us",
       "source_date": null,
       "deadline": null,
       "rank": 2,
       "cash_tag": "FAST",
-      "evidence_status": "USER_PROVIDED_LEAD_UNVERIFIED",
-      "next_gate": "Verify legal entity, current job, buyer contact and procurement authority."
+      "evidence_status": "COMPANY_AND_SLICKLINE_CAPABILITY_VERIFIED_EGYPT_PRESENCE_AND_NEED_UNVERIFIED",
+      "next_gate": "Verify legal entity, current job, buyer contact and procurement authority.",
+      "supporting_link": "https://www.a-archive.hampton.associates/services-technologies/wireline"
     },
     {
       "id": "NAV-OPP-003",
@@ -62,14 +63,15 @@
       "value_usd": null,
       "value_type": "unknown",
       "urgency": "Potential recurring; no current order verified",
-      "source": "Egypt State Information Service, 16 Jun 2026",
-      "link": "https://sis.gov.eg/en/media-center/news/industry-minister-discusses-expansion-plans-with-gid-textile-egypt-targets-raising-exports-to-dlrs-500-million/",
+      "source": "Egypt State Information Service, 16 Jun 2026; Kohan Textile Journal, 19 Jun 2026",
+      "link": "https://kohantextilejournal.com/gid-textile-egypt-expansion-500-million-exports/",
       "source_date": "2026-06-16",
       "deadline": null,
       "rank": 4,
       "cash_tag": "RECURRING",
       "evidence_status": "COMPANY_CONTEXT_VERIFIED_NEED_NOT_VERIFIED",
-      "next_gate": "Qualify a specific plant logistics pain, decision-maker, volume and payment terms."
+      "next_gate": "Qualify a specific plant logistics pain, decision-maker, volume and payment terms.",
+      "supporting_link": "https://sis.gov.eg/en/media-center/news/industry-minister-discusses-expansion-plans-with-gid-textile-egypt-targets-raising-exports-to-dlrs-500-million/"
     },
     {
       "id": "NAV-OPP-005",
