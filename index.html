@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NAVARIS | Intelligent Business OS - McKinsey Level</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{background:#050507;color:#fff;font-family:Cairo;overflow-x:hidden}
+h1,h2{font-family:Syne} .hero{min-height:100vh;padding:6%;display:flex;align-items:center;background:radial-gradient(1000px at 70% 20%,rgba(56,189,248,.12),transparent),#050507}
+.badge{border:1px solid rgba(56,189,248,.25);color:#38bdf8;padding:6px 14px;border-radius:99px;font-size:11px;letter-spacing:1px}
+.hero h1{font-size:68px;line-height:.9;margin:18px 0} .hero h1 span{background:linear-gradient(90deg,#38bdf8,#a5b4fc,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.glass{background:rgba(255,255,255,.03);backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,.06);border-radius:22px;padding:26px;transform:translateY(40px);opacity:0;transition:1s cubic-bezier(.16,1,.3,1)}
+.glass.show{transform:translateY(0);opacity:1}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.section{padding:80px 6%;max-width:1440px;margin:0 auto}
+.tag{font-size:11px;color:#f97316;letter-spacing:1px;margin-bottom:8px}
+.btn{background:#fff;color:#000;padding:14px 28px;border-radius:99px;font-weight:800;border:none;cursor:pointer}
+</style></head><body>
+<div class="hero">
+<div style="max-width:800px">
+<span class="badge">NAVARIS INTELLIGENT BUSINESS OS • CASH FIRST • PRIVATE AI</span>
+<h1>CONSULTING.<br>TRAINING.<br><span>PRIVATE EQUITY.</span></h1>
+<p style="color:#a1a1aa;font-size:19px;margin:16px 0;font-weight:300">طبيب أعمال استثماري - نحلل مناقصات + قوائم مالية - نستهدف شركات على مستوى McKinsey, BlackRock, Goldman Sachs, KKR, Family Offices الخليج - Alexandria | Borg El Arab | GCC</p>
+<button class="btn">Request Diagnosis →</button>
+</div>
+</div>
+
+<div class="section">
+<span class="badge">9 ENGINES - FROM MBB TO BLACKROCK</span>
+<h2 style="font-size:44px;margin:14px 0">The Full Stack - What We Discussed</h2>
+<div class="grid">
+<div class="glass"><div class="tag">TIER 1 - MBB</div><h3>Consulting - Strategy</h3><p>McKinsey, BCG, Bain - 7S, MECE, Pyramid - تشخيص شركات + خطة تحسين</p></div>
+<div class="glass"><div class="tag">TIER 2 - OPERATIONS</div><h3>Cooperation Financial</h3><p>Oliver Wyman, Kearney - Supply Chain - مسار أبو قير → برج العرب → الدخيلة</p></div>
+<div class="glass"><div class="tag">BIG 4</div><h3>Training & Assessment</h3><p>Deloitte, EY-Parthenon, PwC - Due Diligence, Digital Maturity, 13-Week Cash Flow - تدريب تنفيذي</p></div>
+<div class="glass"><div class="tag">TURNAROUND</div><h3>Turnaround Management</h3><p>AlixPartners, A&M - إنقاذ شركة متعثرة - 90 يوم - Success Fee</p></div>
+<div class="glass"><div class="tag">BLACKROCK MODEL</div><h3>Asset Management</h3><p>BlackRock, Vanguard, Apollo, KKR - تقييم أصول ومخاطر (معدات/مخزون) - Aladdin Model</p></div>
+<div class="glass"><div class="tag">CORPORATE FINANCE</div><h3>Investment Management</h3><p>JPMorgan, Goldman, Lazard - M&A, Teaser, LBO, Restructuring - دراسة مالية + ربط بمستثمر</p></div>
+<div class="glass"><div class="tag">PRIVATE EQUITY</div><h3>Private Equity / Independent Sponsor</h3><p>Search Funds - نكتشف شركة للبيع → نجيب مستثمر → ناخد 10-20% Operating Partner</p></div>
+<div class="glass"><div class="tag">FAMILY OFFICE</div><h3>Family Office - GCC</h3><p>مكاتب عائلية خليج - Joint Venture - تمثيل تجاري لشركة أجنبية في مصر + عمولة</p></div>
+<div class="glass"><div class="tag">BOUTIQUE</div><h3>Fractional Executive</h3><p>Toptal, BTG - DBA بالساعة - 3 خدمات: تشخيص 25K + خطة 90 يوم + تنفيذ</p></div>
+</div>
+</div>
+
+<div class="section">
+<div class="glass" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;align-items:center">
+<div><h2 style="font-size:32px">OS Flow: DISCOVER → ANALYZE → QUALIFY → STRUCTURE → EXECUTE → CASH</h2><p style="color:#a1a1aa">نفس الجدول اللي جمعناه - نظام تشغيل واحد يغطي الـ 9 قطاعات - بدون رأس مال - Private AI No Tokens</p></div>
+<button class="btn" onclick="window.open('https://wa.me/201000000000')">Start With Diagnosis 25K</button>
+</div>
+</div>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.12});
+document.querySelectorAll('.glass').forEach(g=>io.observe(g));
+</script>
+</body></html>
