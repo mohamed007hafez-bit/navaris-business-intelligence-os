@@ -37,29 +37,37 @@ jobs:
 
       - name: Compile NAVARIS Python modules
         run: |
-          python -m py_compile navaris_core.py scout_agent.py pricer_agent.py ncnda_agent.py cash_agent.py chatgpt_bridge.py main.py
+          python -m py_compile navaris_core.py scout_agent.py pricer_agent.py ncnda_agent.py cash_agent.py chatgpt_bridge.py main.py suco_quote_workbook.py
           python -m compileall -q tests
 
       - name: Run NAVARIS regression tests
         run: python -m unittest discover -s tests -p "test_navaris_os.py" -v
 
       - name: Build demo workbook (illustrative data only)
-        run: python main.py --demo --output output/NAVARIS_Agnatics_OS_FINAL.xlsx
+        run: python main.py --demo --output output/navaris-quote-demo.xlsx
 
-      - name: Verify workbook artifact exists
+      - name: Build blank AOG quote workbook template
+        run: python suco_quote_workbook.py --output output/navaris-quote-suco-aog-500kg.xlsx
+
+      - name: Verify workbook artifacts
         run: |
           python - <<'PY'
           from pathlib import Path
           from openpyxl import load_workbook
-          path = Path("output/NAVARIS_Agnatics_OS_FINAL.xlsx")
-          assert path.exists() and path.stat().st_size > 0, "NAVARIS workbook missing or empty"
-          wb = load_workbook(path, read_only=False, data_only=False)
+          demo = Path("output/navaris-quote-demo.xlsx")
+          quote = Path("output/navaris-quote-suco-aog-500kg.xlsx")
+          assert demo.exists() and demo.stat().st_size > 0, "Demo workbook missing or empty"
+          assert quote.exists() and quote.stat().st_size > 0, "AOG quote template missing or empty"
+          wb = load_workbook(demo, read_only=False, data_only=False)
           required = {"Pricing_Grading", "Monthly_30pct", "Tenders_BCG"}
-          assert required.issubset(set(wb.sheetnames)), f"Missing sheets: {required - set(wb.sheetnames)}"
+          assert required.issubset(set(wb.sheetnames)), f"Missing demo sheets: {required - set(wb.sheetnames)}"
           assert len(wb["Pricing_Grading"]._charts) >= 1, "Expected native Excel charts"
-          print("PASS: workbook and required sheets exist.")
-          print("PASS: native editable Excel chart exists.")
-          print("NOTICE: demo figures are illustrative; not live tenders or collected cash.")
+          qw = load_workbook(quote, data_only=False)
+          assert "AOG Quote" in qw.sheetnames
+          assert str(qw["AOG Quote"]["B16"].value).startswith("=IF("), "Expected evidence-gated quote formula"
+          print("PASS: demo workbook, required sheets and native chart verified.")
+          print("PASS: blank AOG quote workbook and formulas verified.")
+          print("NOTICE: quote is unpriced until buyer and supplier inputs are evidenced.")
           PY
 
       - name: Write run summary
@@ -70,16 +78,16 @@ jobs:
             echo "## NAVARIS Local Hybrid OS"
             echo "- Commit: ${{ github.sha }}"
             echo "- Mode: local-first; no cloud request is sent"
-            echo "- Checks: Python compile, regression tests, Excel build, native chart validation"
+            echo "- Checks: Python compile, regression tests, demo workbook, AOG quote-template build"
             echo "- Cash collected: only actual receipt evidence may be recorded as collected"
-            echo "- Demo input: illustrative, not a verified tender or customer"
+            echo "- Demo data are illustrative; AOG price remains blank until evidence is supplied"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Archive workbook
+      - name: Archive workbooks
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: navaris-local-hybrid-workbook
-          path: output/NAVARIS_Agnatics_OS_FINAL.xlsx
+          name: navaris-quote-workbooks
+          path: output/navaris-quote-*.xlsx
           if-no-files-found: error
           retention-days: 14
