@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "as_of": "2026-10-16",
+  "ranking_method": "Outreach sequence based on proximity, potential urgency and cycle length; not a verified probability of payment. No lead has a verified active RFQ or cash commitment.",
+  "cash_collected_usd": 0,
+  "ranked_opportunities": [
+    {
+      "rank": 1,
+      "id": "NAV-OPP-001",
+      "company": "SUCO / GUPCO Ras Shukeir",
+      "cash_tag": "FAST",
+      "cash_within_72h": "UNPROVEN",
+      "why": "Founder reports prior IOD offshore experience/network; prioritize only if buyer confirms a live AOG need.",
+      "next_action": "Manual WhatsApp discovery; ask whether an actual PCE/AOG requirement exists."
+    },
+    {
+      "rank": 2,
+      "id": "NAV-OPP-002",
+      "company": "Altus Intervention",
+      "cash_tag": "FAST",
+      "cash_within_72h": "UNPROVEN",
+      "why": "Potential niche fit, but entity/contact/need require verification.",
+      "next_action": "Verify entity and current job before outreach."
+    },
+    {
+      "rank": 3,
+      "id": "NAV-OPP-003",
+      "company": "Linglong Tire Egypt",
+      "cash_tag": "LARGE",
+      "cash_within_72h": "LOW_EVIDENCE_LONG_CYCLE",
+      "why": "Project capex is verified; addressable revenue and open contract are not.",
+      "next_action": "Find one live procurement package only."
+    },
+    {
+      "rank": 4,
+      "id": "NAV-OPP-004",
+      "company": "GID Textile Egypt",
+      "cash_tag": "RECURRING",
+      "cash_within_72h": "UNPROVEN",
+      "why": "Operating group and expansion context verified; recurring volume and current need unknown.",
+      "next_action": "Qualify one recurring logistics problem."
+    },
+    {
+      "rank": 5,
+      "id": "NAV-OPP-005",
+      "company": "EGPC / EUG bid round",
+      "cash_tag": "FUTURE",
+      "cash_within_72h": "NOT_A_72H_CASH_LEAD",
+      "why": "Official deadline is 11 Nov 2026; not a direct AOG order.",
+      "next_action": "Check official tender documents and stop if no addressable package."
+    },
+    {
+      "rank": 6,
+      "id": "NAV-OPP-009",
+      "company": "Proxima Ship Service",
+      "cash_tag": "FAST",
+      "cash_within_72h": "UNPROVEN",
+      "why": "Official contacts across Alexandria and Dubai; partner route plausible, not confirmed.",
+      "next_action": "Discuss one live AOG shipment and written partner terms."
+    },
+    {
+      "rank": 7,
+      "id": "NAV-OPP-008",
+      "company": "PLS",
+      "cash_tag": "RECURRING",
+      "cash_within_72h": "UNPROVEN",
+      "why": "Local contact and petrochemical logistics activities are visible; current need unknown.",
+      "next_action": "Ask for vendor/partner qualification route."
+    },
+    {
+      "rank": 8,
+      "id": "NAV-OPP-006",
+      "company": "El Max Port terminal project",
+      "cash_tag": "LARGE",
+      "cash_within_72h": "NOT_A_72H_CASH_LEAD",
+      "why": "MoU verified; procurement and contract awards not verified.",
+      "next_action": "Monitor official procurement route."
+    },
+    {
+      "rank": 9,
+      "id": "NAV-OPP-007",
+      "company": "Amreya Dry Port",
+      "cash_tag": "FUTURE",
+      "cash_within_72h": "UNPROVEN",
+      "why": "Facility inauguration verified; vendor needs and procurement unknown.",
+      "next_action": "Identify operator and a specific service gap."
+    },
+    {
+      "rank": 10,
+      "id": "NAV-OPP-010",
+      "company": "SLB / Baker Hughes",
+      "cash_tag": "FUTURE",
+      "cash_within_72h": "UNPROVEN",
+      "why": "Strategic target only; retainer hypothesis not verified.",
+      "next_action": "Identify a real service gap before proposing a retainer."
+    }
+  ],
+  "proof_rule": "Only record payment after funds are received and evidenced. A reply, quotation, invoice, forecast or verbal promise is not cash collected."
+}
