@@ -11,16 +11,27 @@ if not exist ".venv\Scripts\python.exe" (
 )
 python main.py --demo --output "output\navaris-quote-demo.xlsx"
 if errorlevel 1 (
-  echo NAVARIS run failed. Review the error above.
+  echo NAVARIS demo run failed. Review the error above.
+  pause
+  exit /b 1
+)
+python suco_quote_workbook.py --output "output\navaris-quote-suco-aog-500kg.xlsx"
+if errorlevel 1 (
+  echo NAVARIS quote template generation failed. Review the error above.
   pause
   exit /b 1
 )
 if not exist "output\navaris-quote-demo.xlsx" (
-  echo ERROR: expected workbook was not created.
+  echo ERROR: demo workbook was not created.
+  pause
+  exit /b 1
+)
+if not exist "output\navaris-quote-suco-aog-500kg.xlsx" (
+  echo ERROR: quote template was not created.
   pause
   exit /b 1
 )
 echo.
-echo SUCCESS: output\navaris-quote-demo.xlsx exists.
-echo NOTE: this is a demo workbook, not a priced commercial offer.
+echo SUCCESS: both Excel files exist in output.
+echo NOTE: the demo workbook is illustrative; the AOG workbook is an unpriced template, not a commercial offer.
 pause
