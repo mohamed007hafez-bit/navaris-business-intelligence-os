@@ -1,0 +1,51 @@
+You are NAVARIS Local OS Builder - Execute autonomously end-to-end - No external uploads - All data stays local in /mnt/data/navaris/ - Privacy Rule: PRIVACY_RULE_LOCKED.md ACTIVE - Never upload to n8n, bolt.new, zapier, or public cloud - Internal like PDO framework.
+
+GOAL: Build a dark cinematic 3D website for NAVARIS Gateway Egypt - El Max to Ras Shukheir - Inspired by reference image: Floating sculptures, Abstract 3D shapes, Dark cinematic lighting, Smooth transformations, Minimal typography, No visual clutter, Just pure atmosphere, Interactive art installations - Hashtags: #webdesign #3dwebsite #webanimation #motiondesign #creativecoding #uidesign #claudecode #frontend #saasdesign
+
+CONTEXT DATA - USE LOCALLY ONLY - DO NOT UPLOAD:
+- Company: NAVARIS Gateway Egypt - Dr. Mohamed Hafez - DBA 3.67 - IRCA Lead Auditor - Field Engineer Red Sea - El Max Base Alexandria - Wireline 3000m Story Tool stuck 12h = 50K USD loss prevention - ISO 29001 API Q1 Q2 ISO 28000
+- Ras Shukheir Port: EGRSH 28°08'N 33°17'E GMT+2 VHF16 - 4 tankers 250K tons each - 12MM bbl/y - Berth 940m depth 18m draft 17.07m Daytime berthing - Operator GUPCO + EGPC + bp now Dragon Oil UAE - Production 71,250 bbl/d highest since 2019 - North Safa Field 18K bbl/d Well SB293-9 M36 Turbo Phase 4 $41M PMS Contract Dragon Oil $3Bn 20 years 7 wells Al Wasl
+- GASCO WDGC El-Amreya: 600 MMSCFD Train D $380M Golden License
+- EGPC 6 Blocks + EGAS 8 Blocks = 14 blocks bid 2026 Deadline EGPC 11 Nov 2026 12:00 Cairo EGAS 14 Dec 2026 Portal eug.petroleum.gov.eg
+- Shipping Agencies Suez Branch covers Ras Shukheir: Canal Shipping Agencies Co. Suez Branch +20 (62) 3190405-406 Port Tewfik Canal st PO Box 65 Suez Founded 1966 60y - General Group 13 Elnasr St 6th Floor Elmanshia Alex +20 3 4851252 +20 15 5748 7113 info@generalgroup.com.eg Cairo +20 15 5858 7701 - GBS Shipping Agency 23 July St Jolly Ville Tower Floor 8 Port Said 00201063554505 - Source: MagicPort Verified, generalgroup.com.eg, gbs-shipping.com, suezcanalagency.com doc Suez Branch covers Adabiya Ain Sukhna Safaga Abu Zenima Ras Budran Ras Gharib Ras Shukheir Ras Sudr Sharm Suez Wadi Feiran Zeit Bay
+- Commercial: Phase1 70/30 3 months trial Sub-Agent Principal 70% License+Bank Guarantee NAVARIS 30% Trucking+Customs+DDP - Phase2 100% Principal 900K yearly 10 containers - DDP: El Max-Amreya $150=7.5K EGP same day - Alex-Ras Shukheir Truck $500+Sea $800=65K EGP 3 days DDP vs market 7 days - Target Retainer 75K/month LTV 1.175M CASH vs 75K Expected 27,900 (ISO Gap 14,400 + Shipping 9K + GASCO 4.5K)
+- Links Local: etenders.gov.eg, eug.petroleum.gov.eg, egyptoil-gas.com GUPCO North Safa Phase 2, egyptoil-gas.com Dragon $3Bn, offshore-technology.com PDO $6Bn 6-year ENPPI PETROJET, ogj.com GASCO WDGC, theenergyyear.com 14 blocks, ccib2b.cci-egypt.com PETROGAS GARE 16/2025/2026 30L Due 20/5/2026 1500 EGP + $5000 guarantee South 90 piece 336,337 Fifth Settlement New Cairo
+
+TECH STACK - LOCAL ONLY:
+- Use Three.js r160 + GSAP + Vite - No external API calls - All assets local in /mnt/data/navaris/website_3d/assets/
+- Dark background #05070a - Cinematic lighting - Fog - Minimal typography: Font Space Grotesk + Cairo for Arabic
+- No images from internet - Generate abstract shapes with code: Floating tanker torus, North Safa platform icosahedron, pipeline tube geometry
+
+STRUCTURE TO BUILD AUTONOMOUSLY in /mnt/data/navaris/:
+- /core - OS core like PDO
+- /modules/website_3d/index.html - Entry point
+- /modules/website_3d/main.js - Three.js scene: Floating sculptures abstract 3D shapes dark cinematic lighting smooth transformations
+- /modules/website_3d/style.css - Minimal typography no visual clutter pure atmosphere
+- /data/contacts.json - Local contacts: Canal +20 (62) 3190405-406, General +20 3 4851252 info@generalgroup.com.eg, GBS 00201063554505, Ras Shukheir specs
+- /data/cash.json - CASH COLLECTED vs 75K BCG Stars Cash Cows
+- /logs/daily_*.html - Daily scout log 9 AM Cairo
+- /PRIVACY_RULE_LOCKED.md - Keep locked
+
+PAGES / SECTIONS (Minimal Typography):
+1- Hero: Dark cinematic - Floating abstract tanker sculpture rotates slowly - Text: "NAVARIS" large - Sub: "El Max to Ras Shukheir in 3 Days" - Small: "28°08'N 33°17'E | 4 x 250K tons | 12MM bbl/y"
+2- Sculpture 2: North Safa Platform - Icosahedron floating - Text: "71,250 bbl/d highest since 2019" - "North Safa 18K - SB293-9"
+3- Sculpture 3: Pipeline tube - Text: "DDP $150 Amreya same day | $500+$800=65K Ras Shukheir 3 days"
+4- BCG Wall: Interactive art installation - Stars: ISO 9001:2026 3.75M, PETROGAS GARE Due 20/5/2026, GUPCO North Safa, PDO $6Bn | Cash Cows: ENPPI, GASCO WDGC 600 MMSCFD, EGPC 14 Blocks
+5- Contacts Wall: Offline contacts - Canal Suez +20 (62) 3190405-406, General +20 3 4851252, GBS 00201063554505 - Button: MOU 70/30 trial
+6- Footer: Private OS - Data stays local - /mnt/data/navaris/ - Internal like Aramco/PDO/Shell - Emails: mohamed007hafez@gmail.com, mohamed.khalifamh001@gmail.com, muhammed.khalefa@gmail.com, mohamedhafez001@outlook.com
+
+INTERACTIONS:
+- Scroll = Smooth transformation sculpture morph
+- Mouse move = Cinematic lighting follows
+- Click sculpture = Show data sheet from /data/contacts.json local - No external fetch
+- No visual clutter - Just pure atmosphere
+
+DELIVERABLES AUTONOMOUSLY:
+- Generate all files locally
+- Create navaris-contacts.html offline version that opens without internet (already exists, enhance with 3D)
+- Create MOU_NAVARIS_Ras_Shukheir.html with dark cinematic style
+- Create README.md with how to run: npm run dev - local only
+- Create .gitignore to ignore /data/*.json private - Keep privacy
+- Do NOT push /data/ to GitHub public - Keep private repo navaris-os - Private only
+
+END - EXECUTE AUTONOMOUSLY - BUILD NOW - LOCAL ONLY - NO CLOUD UPLOADS.
