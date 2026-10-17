@@ -9,8 +9,8 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--navy);color:#fff;font-family:'Segoe UI',Tahoma,sans-serif;overflow-x:hidden}
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px;background:radial-gradient(ellipse at center,#112240 0%,#0a1931 70%);overflow:hidden}
-.compass-wrap{position:absolute;width:600px;height:600px;opacity:0.15}
-@keyframes rotateCompass{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.compass-wrap{position:absolute;width:600px;height:600px;opacity:0.15;animation:compassGlow 4s ease-in-out infinite}
+@keyframes compassGlow{0%,100%{opacity:.12;filter:drop-shadow(0 0 8px rgba(212,175,55,.25))}50%{opacity:.24;filter:drop-shadow(0 0 28px rgba(212,175,55,.8))}}
 .compass{width:100%;height:100%;border:3px solid var(--gold);border-radius:50%;position:relative}
 .compass::before{content:'N';position:absolute;top:-40px;left:50%;transform:translateX(-50%);color:var(--gold);font-size:48px;font-weight:900}
 .compass-arrow{position:absolute;top:50%;left:50%;width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-bottom:260px solid var(--gold);transform:translate(-50%,-100%);filter:drop-shadow(0 0 20px var(--gold))}
