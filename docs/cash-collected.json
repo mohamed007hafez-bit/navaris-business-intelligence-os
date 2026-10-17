@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-10-17",
+  "currency": "Deal currency; specify per record",
+  "records": [],
+  "rule": "Record cash as collected only when supported by payment/bank evidence. Prospective commissions are not collected cash."
+}
