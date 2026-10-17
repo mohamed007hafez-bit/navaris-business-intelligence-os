@@ -1,108 +1,54 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NAVARIS By Dr. Mohamed Hafez Khalifa | Gateway Egypt - Consulting & Business Intelligence</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NAVARIS | Dr Mohamed Hafez - Business Intelligence OS 3D</title>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a1931;color:#fff;line-height:1.8}
-  .hero{position:relative;width:100%;background:#0a1931}
-  .hero img{width:100%;height:auto;display:block;max-height:88vh;object-fit:cover}
-  .hero-overlay{position:absolute;bottom:0;width:100%;background:linear-gradient(transparent,rgba(10,25,49,0.95));padding:30px 20px;text-align:center}
-  .hero-overlay h1{color:#d4af37;font-size:38px;margin-bottom:8px}
-  .hero-overlay h2{color:#f0d27a;font-size:16px;letter-spacing:2px;font-weight:400}
-  .compass{position:absolute;top:20px;left:25px;width:85px;height:85px;border:2px solid #d4af37;border-radius:50%;background:radial-gradient(#112240,#0a1931);display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(212,175,55,0.7)}
-  .compass span{color:#d4af37;font-size:30px;font-weight:900}
-  section{padding:60px 20px;max-width:1100px;margin:0 auto}
-  .dark{background:#112240}
-  .gold{color:#d4af37}
-  .light{color:#a8b2d1}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;margin-top:30px}
-  .card{background:rgba(255,255,255,0.05);border:1px solid rgba(212,175,55,0.2);border-radius:12px;padding:30px;transition:0.3s}
-  .card:hover{border-color:#d4af37;transform:translateY(-5px)}
-  .card h3{color:#d4af37;margin-bottom:15px;font-size:20px}
-  h2.section-title{font-size:32px;color:#d4af37;text-align:center;margin-bottom:20px}
-  .quote{text-align:center;font-size:18px;color:#f0d27a;margin:30px 0;padding:20px;border:1px dashed rgba(212,175,55,0.3);border-radius:8px;background:rgba(212,175,55,0.05)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050a18;color:#fff;font-family:system-ui;overflow-x:hidden;perspective:1200px}
+.hero{height:100vh;position:relative;overflow:hidden}
+.hero img{width:100%;height:100%;object-fit:cover;transform:translateZ(-50px) scale(1.2)}
+.glass{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,10,24,0.1),rgba(5,10,24,0.95))}
+.floating{position:absolute;backdrop-filter:blur(12px);background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.3);border-radius:16px;padding:18px;box-shadow:0 15px 40px rgba(0,0,0,0.6);transform-style:preserve-3d;animation:float 6s infinite ease-in-out}
+@keyframes float{0%,100%{transform:translateY(0) rotateX(5deg) rotateY(-5deg)}50%{transform:translateY(-15px) rotateX(-5deg) rotateY(5deg)}}
+.f1{top:15%;right:5%;width:260px}.f2{top:45%;left:4%;width:220px}.f3{bottom:15%;right:12%;width:240px}
+.center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) translateZ(80px);text-align:center}
+.center h1{font-size:52px;color:#d4af37;text-shadow:0 0 30px rgba(212,175,55,0.8)}
+.center h2{letter-spacing:4px;color:#a8c0ff;margin-top:12px}
+.compass{width:110px;height:110px;border-radius:50%;border:2px solid #d4af37;display:flex;align-items:center;justify-content:center;margin:20px auto;background:radial-gradient(#112240,#050a18);box-shadow:0 0 40px rgba(212,175,55,0.9);animation:spin 12s linear infinite}
+.compass span{font-size:42px;color:#d4af37;font-weight:900}
+section{padding:90px 20px;max-width:1200px;margin:0 auto;transform-style:preserve-3d}
+.card3d{background:linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(212,175,55,0.2);border-radius:20px;padding:30px;transform:rotateY(-8deg);transition:0.6s}
+.card3d:hover{transform:rotateY(0deg) translateZ(30px);border-color:#d4af37}
 </style>
 </head>
 <body>
-
 <div class="hero">
-  <div class="compass"><span>N</span></div>
-  <img src="hero.jpg" alt="Dr Mohamed Hafez Khalifa DBA - NAVARIS Gateway Egypt - Maritime Strategist">
-  <div class="hero-overlay">
-    <h1>NAVARIS By Dr. Mohamed Hafez Khalifa</h1>
-    <h2>GATEWAY EGYPT | PETROLEUM & OILFIELD SERVICES | BUSINESS INTELLIGENCE OS</h2>
-  </div>
+<img src="hero.jpg" alt="Dr Mohamed Hafez Khalifa 3D">
+<div class="glass"></div>
+<div class="floating f1">ALEXANDRIA PORT LIVE<br><small style="color:#a8b2d1">Containers: 12,486 | Vessels: 27 Active</small></div>
+<div class="floating f2">BALANCE SHEET 2024<br><small style="color:#a8b2d1">تحليل قوائم مالية رسمية</small></div>
+<div class="floating f3">NORTH 36.2° • PORT NAV<br><small style="color:#d4af37">البوصلة تشير للشمال</small></div>
+<div class="center">
+<div class="compass"><span>N</span></div>
+<h1>NAVARIS</h1>
+<h2>Business Intelligence OS - 3D</h2>
+<p style="margin-top:15px;color:#a8b2d1">Dr. Mohamed Hafez Khalifa | DBA</p>
 </div>
-
+</div>
 <section>
-  <h2 class="section-title">الرؤية - NAVARIS & ARES</h2>
-  <p style="text-align:center;max-width:900px;margin:0 auto" class="light">
-    <b class="gold">NAVARIS</b> = تحليل الاستثمار والمخاطر والجودة <b>قبل الإبحار حتى لا نغرق</b><br>
-    <b class="gold">ARES</b> = التوجه للاتجاه الصحيح <b>بعد التأكد - البوصلة تشير للشمال دائما</b><br><br>
-    10 سنوات خبرة Gateway مصر - برج العرب - المكس - الدخيلة - البترول والطاقة
-  </p>
-  <div class="quote">قال لا تخافا إنني معكما أسمع وأرى - صدق الله العظيم</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px">
+<div class="card3d"><h3 style="color:#d4af37">تحليل مالي رسمي</h3><p style="color:#a8b2d1;margin-top:10px">نحلل الشركات من خلال القوائم المالية المنشورة في الجريدة الرسمية، مواقع الشركات، البورصة المصرية والعالمية، ووزارة المالية - مصر أو خارجها. مصدر رسمي موثق فقط.</p></div>
+<div class="card3d"><h3 style="color:#d4af37">تشخيص الأرقام</h3><p style="color:#a8b2d1;margin-top:10px">الأرقام هي البوصلة الحقيقية. نحدد الإدارات القوية والضعيفة ومكامن الهدر من الميزانية وقائمة الدخل والتدفقات.</p></div>
+<div class="card3d"><h3 style="color:#d4af37">Gateway Egypt</h3><p style="color:#a8b2d1;margin-top:10px">10 سنوات خبرة - برج العرب - المكس - الدخيلة - بترول وطاقة وخدمات حقول</p></div>
+</div>
 </section>
-
-<section class="dark">
-  <h2 class="section-title">خدماتنا الاستشارية المتكاملة</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>1. الاستشارات الإدارية والتشغيلية</h3>
-      <p class="light">استشارات استراتيجية لقطاع الملاحة والبترول والخدمات البترولية. نحلل العمليات التشغيلية ونحدد مسارات التوفير والنمو.</p>
-    </div>
-    <div class="card">
-      <h3>2. التدريب المتخصص</h3>
-      <p class="light">برامج تدريبية عملية في إدارة الموانئ، سلاسل الإمداد البترولي، Business Intelligence، وتحليل المخاطر - مبنية على خبرة ميدانية 10 سنوات.</p>
-    </div>
-    <div class="card">
-      <h3>3. تحليل الشركات وإعادة الهيكلة</h3>
-      <p class="light">نقوم بتحليل عميق للشركات وتشخيص دقيق للمشكلات الهيكلية، ثم نضع خطة إعادة هيكلة شاملة - مالية وإدارية وتشغيلية.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">منهجية التحليل المالي - الأرقام لا تكذب</h2>
-  <p style="text-align:center;max-width:950px;margin:0 auto 30px" class="light">
-    نعتمد في تحليلاتنا على <b class="gold">القوائم المالية المعلنة والرسمية فقط</b>، لضمان الشفافية والدقة والالتزام القانوني. مصادرنا:
-  </p>
-  <div class="grid">
-    <div class="card">
-      <h3>📊 البورصة المصرية</h3>
-      <p class="light">القوائم المالية المنشورة للشركات المقيدة، تقارير مجلس الإدارة، والإفصاحات الدورية.</p>
-    </div>
-    <div class="card">
-      <h3>🏛️ وزارة المالية - مصلحة الضرائب</h3>
-      <p class="light">البيانات الضريبية والإقرارات المعلنة التي تعكس الأداء الحقيقي للشركة.</p>
-    </div>
-    <div class="card">
-      <h3>🌐 المواقع الرسمية للشركات</h3>
-      <p class="light">التقارير السنوية، تقارير الاستدامة، والعروض التقديمية للمستثمرين.</p>
-    </div>
-  </div>
-  <div style="margin-top:40px;background:rgba(212,175,55,0.08);border-right:4px solid #d4af37;padding:25px;border-radius:8px">
-    <p class="light" style="font-size:17px">
-      <b class="gold">ماذا نفعل بالأرقام؟</b><br>
-      نقوم بتحليل جميع القوائم المالية - قائمة الدخل، الميزانية، التدفقات النقدية، ونسب التحليل المالي الكامل (سيولة، ربحية، مديونية، كفاءة تشغيل).<br><br>
-      <b class="gold">لماذا؟ لأن الأرقام داخل الإدارة المالية هي البوصلة الحقيقية</b> التي تحدد:
-      <br>✅ الإدارات القوية التي يجب دعمها
-      <br>✅ الإدارات الضعيفة التي تحتاج تدخل
-      <br>✅ المشكلات الخفية والهدر المالي قبل أن تتفاقم
-      <br><br>
-      من خلال هذا التحليل، نستطيع أن نشخص المرض الحقيقي للشركة وليس الأعراض فقط.
-    </p>
-  </div>
-</section>
-
-<section class="dark" style="text-align:center">
-  <h2 class="section-title">DBA - Dr. Mohamed Hafez Khalifa</h2>
-  <p class="light">Doctor of Business Administration | Maritime & Energy Operations Strategist<br>متخصص ذكاء أعمال بترولي - Gateway Egypt</p>
-  <p style="margin-top:20px" class="gold">للتواصل: NAVARIS - Gateway Egypt - الإسكندرية - برج العرب</p>
-</section>
-
+<script>
+document.addEventListener('mousemove',e=>{
+ const x=(e.clientX/window.innerWidth-0.5)*20;
+ const y=(e.clientY/window.innerHeight-0.5)*20;
+ document.querySelector('.center').style.transform=`translate(-50%,-50%) rotateY(${x}deg) rotateX(${-y}deg) translateZ(80px)`;
+});
+</script>
 </body>
 </html>
