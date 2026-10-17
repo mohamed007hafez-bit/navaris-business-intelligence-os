@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-10-17",
+  "qualification_rule": "qualified = all 5 gates true",
+  "notice": "Candidate leads are not endorsements. Verify every record and all five gates independently. No supplier is qualified by default.",
+  "suppliers": [
+    {
+      "id": "WFS-US",
+      "name": "World Fuel Services, Inc.",
+      "country": "United States",
+      "cage_uei": "CAGE 01JJ0; UEI TXMSB8V6AV93 — verify in SAM.gov",
+      "contact": "Government sales routing required; governmentsales@wfscorp.com is a public group contact associated with WFS Europe",
+      "product_capacity": "Fuel supplier lead; exact route/scope capacity unconfirmed",
+      "evidence_url": "https://www.wfscorp.com/",
+      "gates": {
+        "identity": false,
+        "track_record": false,
+        "capacity": false,
+        "eligibility": false,
+        "terms": false
+      },
+      "qualified": false,
+      "status": "PENDING_VERIFICATION",
+      "notes": "Preliminary historical DLA award lead; verify current SAM, legal entity, route capacity and eligibility."
+    },
+    {
+      "id": "CROWLEY-US",
+      "name": "Crowley Government Services, Inc.",
+      "country": "United States",
+      "cage_uei": "CAGE 5ABY0; UEI VMEFT5X61JT9 — verify",
+      "contact": "CrowleyCarriers@crowley.com; Procurement@crowley.com — verify team/contact",
+      "product_capacity": "Government fuel/logistics lead; exact route and capacity unconfirmed",
+      "evidence_url": "https://www.crowley.com/solutions/energy/",
+      "gates": {
+        "identity": false,
+        "track_record": false,
+        "capacity": false,
+        "eligibility": false,
+        "terms": false
+      },
+      "qualified": false,
+      "status": "PENDING_VERIFICATION",
+      "notes": "Preliminary DLA award history; not route-qualified or commission-approved."
+    },
+    {
+      "id": "WFS-EU",
+      "name": "World Fuel Services Europe, Ltd.",
+      "country": "United Kingdom",
+      "cage_uei": "NCAGE U06T0; UEI FJPVPZL4U5Y3 — verify",
+      "contact": "governmentsales@wfscorp.com — verify",
+      "product_capacity": "Historical DLA fuel/bunker award lead; current route capacity unconfirmed",
+      "evidence_url": "https://sam.gov/opp/a32068e41ade1f948484f80a275acb4e/view",
+      "gates": {
+        "identity": false,
+        "track_record": false,
+        "capacity": false,
+        "eligibility": false,
+        "terms": false
+      },
+      "qualified": false,
+      "status": "PENDING_VERIFICATION",
+      "notes": "Same corporate group as World Fuel Services Inc.; not an independent third corporate group."
+    },
+    {
+      "id": "TRANSFRONTIER-LEAD",
+      "name": "Transfrontier Logistics LLC",
+      "country": "US / Mexico cross-border lead",
+      "cage_uei": "Not verified",
+      "contact": "transfrontierlogisticsllc@gmail.com — independently verify",
+      "product_capacity": "Cross-border transport lead; tanker/hazmat permits, capacity and DLA history unverified",
+      "evidence_url": "https://www.transfrontierlogistics.com/contact-us",
+      "gates": {
+        "identity": false,
+        "track_record": false,
+        "capacity": false,
+        "eligibility": false,
+        "terms": false
+      },
+      "qualified": false,
+      "status": "PENDING_VERIFICATION",
+      "notes": "Lead only; no verified active CAGE or DLA Energy supply history established."
+    },
+    {
+      "id": "MEXICO-CANDIDATE-05",
+      "name": "",
+      "country": "Mexico",
+      "cage_uei": "",
+      "contact": "",
+      "product_capacity": "Unidentified candidate; fill only after sourcing a real entity",
+      "evidence_url": "",
+      "gates": {
+        "identity": false,
+        "track_record": false,
+        "capacity": false,
+        "eligibility": false,
+        "terms": false
+      },
+      "qualified": false,
+      "status": "PENDING_VERIFICATION",
+      "notes": "Blank placeholder: no qualifying entity verified yet."
+    },
+    {
+      "id": "KOREA-CANDIDATE-06",
+      "name": "",
+      "country": "South Korea",
+      "cage_uei": "",
+      "contact": "",
+      "product_capacity": "Unidentified candidate; fill only after sourcing a real entity",
+      "evidence_url": "",
+      "gates": {
+        "identity": false,
+        "track_record": false,
+        "capacity": false,
+        "eligibility": false,
+        "terms": false
+      },
+      "qualified": false,
+      "status": "PENDING_VERIFICATION",
+      "notes": "Blank placeholder: no qualifying entity verified yet."
+    }
+  ]
+}
