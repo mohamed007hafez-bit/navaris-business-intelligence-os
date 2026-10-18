@@ -1,0 +1,47 @@
+name: NAVARIS Cross-Platform CI
+
+on:
+  push:
+    paths:
+      - "cross-platform/**"
+      - ".github/workflows/cross-platform-ci.yml"
+  pull_request:
+    paths:
+      - "cross-platform/**"
+      - ".github/workflows/cross-platform-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: navaris-cross-platform-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web-core:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cross-platform
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: cross-platform/package-lock.json
+      - name: Install dependencies
+        run: npm install
+      - name: Type-check
+        run: npm run typecheck
+      - name: Unit tests
+        run: npm test
+      - name: Production web build
+        run: npm run build
+      - name: Upload web artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: navaris-web-dist
+          path: cross-platform/dist/
+          if-no-files-found: error
