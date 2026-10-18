@@ -1,0 +1,11 @@
+{
+  "name": "NAVARIS Business Intelligence OS",
+  "short_name": "NAVARIS OS",
+  "description": "NAVARIS Business Operations & Development platform",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "icons": []
+}
