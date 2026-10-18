@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+android/.gradle/
+android/app/build/
+ios/Pods/
+src-tauri/target/
+src-tauri/gen/
+.DS_Store
