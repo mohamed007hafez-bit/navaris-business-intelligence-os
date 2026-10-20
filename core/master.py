@@ -28,9 +28,10 @@ def health():
     with _connect() as c: count=c.execute("SELECT COUNT(*) FROM tasks").fetchone()[0]
     return {"service":"NAVARIS","company_count":1,"base":"Alexandria, Egypt","master":"Dr. Mohamed Hafez Khalifa","database":"ok","registered_agents":13,"tasks_total":count,"status":"healthy"}
 def main():
-    p=argparse.ArgumentParser(); s=p.add_subparsers(dest="cmd")
+    p=argparse.ArgumentParser(); p.add_argument("--health",action="store_true",help="Run health check")
+    s=p.add_subparsers(dest="cmd")
     s.add_parser("health"); a=s.add_parser("assign"); a.add_argument("--agent",required=True,choices=AGENT_IDS); a.add_argument("--task",required=True)
     x=p.parse_args()
-    if x.cmd in (None,"health"): print(json.dumps(health(),indent=2)); return 0
+    if x.health or x.cmd in (None,"health"): print(json.dumps(health(),indent=2)); return 0
     print(json.dumps(assign_task(x.agent,x.task,MASTER_KEY),indent=2)); return 0
 if __name__=="__main__": raise SystemExit(main())
