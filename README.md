@@ -36,3 +36,19 @@ HTTP `POST /tasks` and `POST /reports` require the `X-Navaris-Master-Key` header
 - The orchestrator does not download or modify code automatically.
 - This GitHub commit adds source files; it does not install dependencies or start a server on your device.
 - Clients and subcontractors remain relationships of NAVARIS, not separate companies.
+
+
+## Automations and workflows
+
+All repository workflows are in [`.github/workflows/`](.github/workflows/).
+
+| Workflow | Trigger | What it actually does | Boundary |
+|---|---|---|---|
+| [NAVARIS Website and OS Quality Gate](.github/workflows/navaris-quality-gate.yml) | Push, pull request, manual, daily 00:15 Cairo | Validates the canonical website title/assets, compiles Python/API, runs all tests including API security regressions, builds and checks an Excel workbook. | Does not source live tenders or send outreach. |
+| [NAVARIS Local Hybrid OS — Tests and Workbook](.github/workflows/main.yml) | Push, pull request, manual | Runs core regression tests and builds illustrative/demo and AOG quote workbooks. | AOG quote remains unpriced without verified buyer/supplier evidence. |
+| [NAVARIS Cash-First Integrity Engine](.github/workflows/navaris-cash-flow-engine.yml) | Daily, manual, selected pushes | Validates cash-first policy, tests the core, and builds the Excel workbook. | Not a live tender scraper and does not verify commercial opportunities. |
+| [NAVARIS Daily Petroleum Tender Intelligence](.github/workflows/navaris-daily-report.yml) | Daily 18:00 UTC, manual | Checks public HTML links on GASCO and ENPPI pages, deduplicates candidates, writes a Markdown report, and attempts SMTP email delivery. | Only keyword-based candidate discovery; cannot verify logged-in portals, JavaScript-only pages, PDFs, tender eligibility, or freight demand. Requires the six `MAIL_*` / `REPORT_EMAIL` repository secrets for email delivery. |
+
+### API secret setup
+
+The local API now reads `NAVARIS_MASTER_KEY` from the server process environment. Both `POST /tasks` and `POST /reports` require `X-Navaris-Master-Key`; the API returns HTTP 503 when the secret is not configured. The previous hardcoded example key is compromised and must not be reused. Configure a new, long random key on the machine that runs the API; this is separate from the email secrets above.
