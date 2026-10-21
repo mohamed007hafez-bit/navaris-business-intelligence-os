@@ -1,0 +1,41 @@
+name: NAVARIS Windows Desktop Build
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'desktop/**'
+      - 'index.html'
+      - '.github/workflows/build-desktop.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: desktop/package.json
+      - name: Install dependencies
+        working-directory: desktop
+        run: npm install
+      - name: Build Windows installer and portable EXE
+        working-directory: desktop
+        run: npm run dist:win
+      - name: Upload EXE artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: NAVARIS-Windows-Desktop
+          path: |
+            desktop/dist/*.exe
+            desktop/dist/*.yml
+            desktop/dist/*.blockmap
+          if-no-files-found: error
+          retention-days: 14
