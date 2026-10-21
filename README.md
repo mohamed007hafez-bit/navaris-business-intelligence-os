@@ -29,7 +29,7 @@ python core/master.py health
 python core/master.py --health
 python core/master.py assign --agent 06 --task "Describe the task"
 ```
-HTTP task assignment requires header `X-Navaris-Master-Key: NAVARIS-MASTER-2026` on local `POST /tasks`. Do not expose this key to public networks.
+HTTP `POST /tasks` and `POST /reports` require the `X-Navaris-Master-Key` header. Set `NAVARIS_MASTER_KEY` in the server process environment before starting the API. The server fails closed with HTTP 503 if the key is not configured. Never put the key in source code, documentation, browser code, or Git history. The old example key was exposed and must not be reused.
 
 ## Safety and limits
 - Retry logic is bounded to 10 attempts.
