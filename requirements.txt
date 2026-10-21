@@ -1,2 +1,4 @@
 fastapi
 uvicorn
+pandas>=2.2
+openpyxl>=3.1
