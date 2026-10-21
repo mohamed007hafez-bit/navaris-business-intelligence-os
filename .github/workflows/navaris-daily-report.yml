@@ -1,0 +1,65 @@
+name: NAVARIS Daily Petroleum Tender Intelligence
+on:
+  schedule:
+    # 18:00 UTC = 21:00 Cairo while Cairo is UTC+3; use 19:00 UTC during UTC+2.
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: navaris-daily-tender-report
+  cancel-in-progress: false
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Collect and email report
+        env:
+          MAIL_SERVER: ${{ secrets.MAIL_SERVER }}
+          MAIL_PORT: ${{ secrets.MAIL_PORT }}
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          REPORT_EMAIL: ${{ secrets.REPORT_EMAIL }}
+        run: python navaris_report.py
+      - name: Upload report and state
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: navaris-report-${{ github.run_number }}
+          path: |
+            navaris_daily_report.md
+            data/seen_tenders.json
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Commit deduplication state
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/seen_tenders.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update tender monitoring state [skip ci]"
+            git push origin HEAD:main
+          fi
+      - name: Email failure alert
+        if: failure()
+        env:
+          MAIL_SERVER: ${{ secrets.MAIL_SERVER }}
+          MAIL_PORT: ${{ secrets.MAIL_PORT }}
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          REPORT_EMAIL: ${{ secrets.REPORT_EMAIL }}
+          NAVARIS_FAILURE_DETAIL: "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: python navaris_report.py --send-failure-alert
