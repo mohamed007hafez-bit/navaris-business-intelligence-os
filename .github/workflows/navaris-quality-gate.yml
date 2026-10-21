@@ -1,0 +1,107 @@
+name: NAVARIS Website and OS Quality Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # Daily at 00:15 Egypt time (UTC+3).
+    - cron: "15 21 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: navaris-quality-gate-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  quality:
+    name: Website, security, tests, and workbook
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Validate website entry point and canonical title
+        run: |
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import html
+
+          source = Path("index.html").read_text(encoding="utf-8")
+          class TitleParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.in_title = False
+                  self.title = ""
+              def handle_starttag(self, tag, attrs):
+                  if tag.lower() == "title":
+                      self.in_title = True
+              def handle_endtag(self, tag):
+                  if tag.lower() == "title":
+                      self.in_title = False
+              def handle_data(self, data):
+                  if self.in_title:
+                      self.title += data
+          parser = TitleParser()
+          parser.feed(source)
+          expected = "NAVARIS By Dr. Mohamed Hafez Khalifa - Gateway Egypt | Petroleum & Oilfield Services | Business Intelligence OS"
+          assert html.unescape(parser.title).strip() == expected, f"Unexpected title: {parser.title!r}"
+          for required in ("manifest.json", "sw.js", "NAVARIS", "Gateway Egypt"):
+              assert required in source, f"Missing website marker: {required}"
+          assert Path("manifest.json").is_file() and Path("sw.js").is_file()
+          print("PASS: canonical website title, manifest, and service worker verified.")
+          PY
+
+      - name: Compile application and API
+        run: |
+          python -m py_compile navaris_core.py scout_agent.py pricer_agent.py ncnda_agent.py cash_agent.py chatgpt_bridge.py main.py core/master.py mcp-server/server.py
+          python -m compileall -q tests
+
+      - name: Run all regression and security tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Build illustrative workbook
+        run: python main.py --demo --output output/NAVARIS_Quality_Gate.xlsx
+
+      - name: Verify workbook outputs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from openpyxl import load_workbook
+          path = Path("output/NAVARIS_Quality_Gate.xlsx")
+          assert path.exists() and path.stat().st_size > 0, "Workbook missing or empty"
+          wb = load_workbook(path)
+          required = {"Pricing_Grading", "Monthly_30pct", "Tenders_BCG"}
+          assert required.issubset(set(wb.sheetnames)), f"Missing sheets: {required - set(wb.sheetnames)}"
+          assert len(wb["Pricing_Grading"]._charts) >= 1, "Pricing chart missing"
+          print("PASS: workbook sheets and chart verified. Demo values remain illustrative.")
+          PY
+
+      - name: Summarize run boundaries
+        if: always()
+        run: |
+          {
+            echo "## NAVARIS Quality Gate"
+            echo "- Commit: ${{ github.sha }}"
+            echo "- Checked: website title/assets, Python compile, regression/security tests, Excel build."
+            echo "- This workflow does not discover live tenders, verify commercial counterparties, send outreach, or submit bids."
+            echo "- Cash collected remains zero unless documentary receipt evidence exists."
+          } >> "$GITHUB_STEP_SUMMARY"
