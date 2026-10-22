@@ -18,21 +18,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: desktop/package-lock.json
-      - name: Stage offline website into desktop bundle
-        shell: pwsh
-        run: Copy-Item index.html desktop/index.html -Force
-      - name: Install dependencies
+      - name: Install desktop dependencies
         working-directory: desktop
         run: npm install
-      - name: Build Windows installer
+      - name: Build Windows installer and portable EXE
         working-directory: desktop
-        run: npm run dist
-      - name: Upload installer artifact
+        run: npm run dist:win
+      - name: Upload installer artifacts
         uses: actions/upload-artifact@v4
         with:
           name: NAVARIS-BI-OS-v0.3.0-Windows-x64
-          path: desktop/dist/*.exe
+          path: |
+            desktop/dist/*.exe
           if-no-files-found: error
           retention-days: 30
