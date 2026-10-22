@@ -1,0 +1,38 @@
+name: NAVARIS Desktop Build
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'desktop/**'
+      - 'index.html'
+      - '.github/workflows/navaris-desktop-build.yml'
+permissions:
+  contents: read
+jobs:
+  windows-exe:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: desktop/package-lock.json
+      - name: Stage offline website into desktop bundle
+        shell: pwsh
+        run: Copy-Item index.html desktop/index.html -Force
+      - name: Install dependencies
+        working-directory: desktop
+        run: npm install
+      - name: Build Windows installer
+        working-directory: desktop
+        run: npm run dist
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NAVARIS-BI-OS-v0.3.0-Windows-x64
+          path: desktop/dist/*.exe
+          if-no-files-found: error
+          retention-days: 30
