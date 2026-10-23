@@ -9,7 +9,7 @@
     "prepare:web": "node scripts/copy-web.js",
     "start": "npm run prepare:web && electron .",
     "dist:win": "npm run prepare:web && electron-builder --win --publish never",
-    "build": "electron-builder --win --publish never"
+    "build": "electron-builder --win --x64 --publish never"
   },
   "devDependencies": {
     "electron": "^28.2.0",
