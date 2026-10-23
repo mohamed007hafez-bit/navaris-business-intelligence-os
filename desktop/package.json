@@ -9,11 +9,11 @@
     "prepare:web": "node scripts/copy-web.js",
     "start": "npm run prepare:web && electron .",
     "dist:win": "npm run prepare:web && electron-builder --win --publish never",
-    "build": "electron-builder --win"
+    "build": "electron-builder --win --publish never"
   },
   "devDependencies": {
-    "electron": "^28.3.3",
-    "electron-builder": "^24.13.3"
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1"
   },
   "build": {
     "appId": "com.navaris.bi.desktop",
