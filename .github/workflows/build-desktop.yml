@@ -7,6 +7,7 @@ on:
       - 'desktop/**'
       - 'index.html'
       - 'founder.jpg'
+      - 'images/**'
       - '.github/workflows/build-desktop.yml'
 permissions:
   contents: read
@@ -17,7 +18,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '18.x'
+          cache: false
       - name: Install dependencies
         working-directory: ./desktop
         run: npm install --no-audit --no-fund
@@ -27,7 +29,7 @@ jobs:
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: NAVARIS-v0.3.0-Windows
+          name: NAVARIS-v0.3.1-Windows
           path: |
             desktop/dist/*.exe
             desktop/dist/**/*.exe
