@@ -19,7 +19,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-          cache: false
       - name: Install dependencies
         working-directory: ./desktop
         run: npm install --no-audit --no-fund
