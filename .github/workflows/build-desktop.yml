@@ -23,7 +23,7 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Build Windows EXE
         working-directory: ./desktop
-        run: npm run build -- --x64
+        run: npm run build
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4
         with:
