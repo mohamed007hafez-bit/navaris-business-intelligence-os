@@ -18,18 +18,15 @@ jobs:
         with:
           node-version: '18'
       - name: Install dependencies
-        working-directory: desktop
-        run: npm install
-      - name: Package NSIS installer and portable EXE
-        working-directory: desktop
-        run: npm run dist:win
+        working-directory: ./desktop
+        run: npm install --no-audit --no-fund
+      - name: Build Windows EXE
+        working-directory: ./desktop
+        run: npx electron-builder --win --publish never
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4
         with:
           name: NAVARIS-v0.3.0-Windows
-          path: |
-            desktop/dist/*.exe
-            desktop/dist/*.yml
-            desktop/dist/*.blockmap
+          path: desktop/dist/*.exe
           if-no-files-found: error
           retention-days: 30
