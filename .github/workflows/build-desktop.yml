@@ -22,11 +22,13 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Build Windows EXE
         working-directory: ./desktop
-        run: npx electron-builder --win --publish never
+        run: npx electron-builder --win --publish never --config.extraMetadata.main=main.js
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4
         with:
           name: NAVARIS-v0.3.0-Windows
-          path: desktop/dist/*.exe
+          path: |
+            desktop/dist/*.exe
+            desktop/dist/**/*.exe
           if-no-files-found: error
           retention-days: 30
