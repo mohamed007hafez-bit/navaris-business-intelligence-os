@@ -23,6 +23,7 @@
 #navaris-os .os-watermark-note{font:10px Arial,sans-serif;color:#867c64;margin-top:6px}
 
 </style>
+<link rel="manifest" href="manifest.json">
 </head>
 <body>
 <div class="topline"></div>
@@ -372,4 +373,5 @@ let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);
 })();
 </script>
 
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script>
 </body></html>
