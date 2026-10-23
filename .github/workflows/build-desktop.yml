@@ -14,14 +14,12 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: '22'
-          cache: npm
-          cache-dependency-path: desktop/package-lock.json
-      - name: Install locked dependencies
+          node-version: '18'
+      - name: Install dependencies
         working-directory: desktop
-        run: npm ci
+        run: npm install
       - name: Package NSIS installer and portable EXE
         working-directory: desktop
         run: npm run dist:win
