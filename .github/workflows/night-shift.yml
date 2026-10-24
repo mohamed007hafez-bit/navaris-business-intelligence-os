@@ -57,9 +57,9 @@ jobs:
           WHATSAPP_PHONE_NUMBER_ID: ${{ secrets.WHATSAPP_PHONE_NUMBER_ID }}
           WHATSAPP_TO: ${{ secrets.WHATSAPP_TO }}
         run: |
-          python3 automation/notify-whatsapp.py "NAVARIS Night Shift: PDF report generation completed. Download reports from the private GitHub Actions artifact."
-          status=$?
-          if [ "$status" -ne 0 ]; then echo "WhatsApp not sent; see reports/whatsapp-log.txt and configure repository secrets."; fi
+          if ! python3 automation/notify-whatsapp.py "NAVARIS Night Shift: PDF report generation completed. Download reports from the private GitHub Actions artifact."; then
+            echo "WhatsApp not sent; see reports/whatsapp-log.txt and configure repository secrets."
+          fi
       - name: Upload WhatsApp log if present
         if: always()
         uses: actions/upload-artifact@v4
