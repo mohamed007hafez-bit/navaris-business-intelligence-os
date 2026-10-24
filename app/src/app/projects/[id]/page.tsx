@@ -1,0 +1,1 @@
+export default function Project({params}:{params:{id:string}}){return <main className="shell"><h1>Project workspace</h1><p>Project reference: {params.id}</p><p>Implement tenant-scoped authorization before exposing project data.</p></main>}
