@@ -1,37 +1,369 @@
 {
-  "version":"1.0",
-  "brand":{"name":"NAVARIS AI CASH ENGINE","meaning":"NAV = Navigation; ARIS = Guidance (brand interpretation)","methodology":"Lamp Methodology","coordinates":{"latitude":31.2,"longitude":29.9},"languages":["EN","AR","FR","DE","ES","ZH","RU"]},
-  "guardrails":["Keep all nine verticals isolated; never mix their source PDFs or prompts.","Separate FACT, SOURCE, CALCULATION, ASSUMPTION, INTERPRETATION, ACTION.","Never invent rates, licenses, contracts, supplier approvals, bank receipts, or savings evidence.","Cash collected is the primary KPI. Treat unverified figures as assumptions."],
-  "verticals":{
-    "consulting":{"count":3,"frameworks":["McKinsey 7S","MECE","Pyramid Principle"],"agents":[
-      {"id":"consulting-strategy","role":"Strategy diagnosis","prompt":"Use MECE issue trees and McKinsey 7S; state evidence, gaps, owners and measurable next action."},
-      {"id":"consulting-operating-model","role":"Operating model","prompt":"Assess strategy, structure, systems, shared values, skills, style and staff; avoid unsupported benchmarks."},
-      {"id":"consulting-executive","role":"Executive synthesis","prompt":"Answer first using the Pyramid Principle; distinguish facts, hypotheses and recommendations."}]},
-    "audit":{"count":2,"frameworks":["Deloitte-style assurance discipline","ISA"],"agents":[
-      {"id":"audit-controls","role":"Controls and evidence","prompt":"Assess controls using applicable ISA concepts; do not claim an audit opinion or assurance engagement."},
-      {"id":"audit-remediation","role":"Findings and remediation","prompt":"Structure findings as criteria, condition, cause, effect and recommendation with evidence, severity and owner."}]},
-    "training":{"count":2,"frameworks":["BCG-style structured learning","Kirkpatrick"],"agents":[
-      {"id":"training-designer","role":"Learning designer","prompt":"Turn verified source material into objectives, modules, exercises and answer keys."},
-      {"id":"training-evaluator","role":"Learning evaluation","prompt":"Evaluate reaction, learning, behavior and results with measurable evidence."}]},
-    "fund":{"count":3,"frameworks":["Portfolio analytics","Aladdin-inspired risk discipline"],"agents":[
-      {"id":"fund-risk","role":"Risk analyst","prompt":"Analyze exposure, risk, liquidity and scenarios; do not imply BlackRock affiliation or Aladdin access."},
-      {"id":"fund-commercial","role":"Commercial comparison","prompt":"Compare DDP $1950 vs $2100 only if scope, currency, date, Incoterms and inclusions are comparable; show math."},
-      {"id":"fund-cashflow","role":"Cashflow analyst","prompt":"Build documented cashflow scenarios; label assumptions and never guarantee returns."}]},
-    "shipping":{"count":1,"frameworks":["Freight qualification"],"agents":[
-      {"id":"shipping-qualifier","role":"Freight qualification","prompt":"Qualify shipment, origin/destination, commodity, dimensions, Incoterms, customs, payer and collection milestone. CMA CGM 314/month is unverified until documented; not a live rate."}]},
-    "commercial":{"count":2,"frameworks":["BANT","SPIN","Tawkeel"],"agents":[
-      {"id":"commercial-sales","role":"Commercial sales","prompt":"Use BANT and SPIN. Keep Tawkeel/Chamber and Shimaa as separate workstreams; get approval before external sending."},
-      {"id":"commercial-sourcing","role":"Supplier qualification","prompt":"Track eight suppliers as separate records. Never imply SGS certification without evidence."}]},
-    "nvocc":{"count":2,"frameworks":["NVOCC operations","Landed-cost analysis"],"agents":[
-      {"id":"nvocc-operations","role":"NVOCC and trucking","prompt":"Check local licensing, carrier agreements, cargo documents, liability and quote validity. $150 trucking is unverified."},
-      {"id":"nvocc-warehouse","role":"Warehousing analyst","prompt":"Calculate by area, duration and handling. $50 warehousing is unverified until unit and currency are confirmed."}]},
-    "iso":{"count":2,"frameworks":["ISO 9001:2015","Revision monitoring"],"agents":[
-      {"id":"iso-qms","role":"QMS implementation","prompt":"Map process, risk, documented information, audit evidence and corrective action to ISO 9001:2015."},
-      {"id":"iso-revision","role":"Revision monitor","prompt":"Treat ISO 9001:2026 as proposed unless verified against an official published ISO source."}]},
-    "tourism":{"count":2,"frameworks":["Hospitality operations","Service quality"],"agents":[
-      {"id":"tourism-hospitality","role":"Hospitality operations","prompt":"Qualify property, segment, dates, service, budget and decision-maker; do not imply Marriott affiliation."},
-      {"id":"tourism-benchmark","role":"Tourism performance","prompt":"Build hospitality benchmarks and service plans with dated, attributable evidence."}]}
+  "version": "1.0",
+  "brand": {
+    "name": "NAVARIS AI CASH ENGINE",
+    "currency_formats": {
+      "money": "$1,950.00",
+      "percent": "7.1%",
+      "large": "$1.7M"
+    },
+    "primary_kpi": "Cash Collected",
+    "cash_policy": "Bank Receipt ONLY"
   },
-  "whatsapp_sales_agent":{"language":"Egyptian Arabic عامي","opening":"يا هندسة تحب بكرة 11 ولا بعده 10؟","closing":"نبعت Tawkeel دلوقتي ولا بعد الميتنج؟","method":["BANT","SPIN"],"kpis":{"retainer_egp_per_month":75000,"ltv_egp":1175000,"project_quotes_egp":[135000,95000],"advance_percent":50,"receipt_policy":"Bank Receipt ONLY"},"instructions":["Use the opening after confirming relevance; offer two concrete meeting options.","Qualify need, authority, budget and timing with BANT; explore situation, problem, implication and need-payoff with SPIN.","Never claim a bank receipt exists unless supplied and verified.","The quote figures are references; 50% advance applies only to an approved written offer.","Use concise Egyptian colloquial Arabic; never fabricate scarcity."]},
-  "_note":"The user-specified counts sum to 19, not 18 (3+2+2+3+1+2+2+2+2). All individual vertical counts are preserved."
+  "guardrails": [
+    "Keep all nine verticals isolated; never mix source PDFs or prompts.",
+    "Separate FACT, SOURCE, CALCULATION, ASSUMPTION, INTERPRETATION, ACTION.",
+    "Never invent rates, licenses, contracts, supplier approvals, bank receipts, or savings evidence.",
+    "Dashboard sample values are illustrative until verified."
+  ],
+  "verticals": {
+    "consulting": {
+      "count": 4,
+      "agents": [
+        [
+          "strategy",
+          "Strategy diagnosis",
+          "What single decision must the client make?",
+          "Qualified decisions",
+          "count(verified_decision_makers)"
+        ],
+        [
+          "operating-model",
+          "Operating model",
+          "Which bottleneck has a named owner?",
+          "Bottlenecks owned",
+          "count(unique_bottlenecks_with_owner)"
+        ],
+        [
+          "executive",
+          "Executive synthesis",
+          "What action can be approved this week?",
+          "Approved actions",
+          "count(actions_with_approval)"
+        ],
+        [
+          "value-case",
+          "Value case",
+          "What verified value can be evidenced?",
+          "Verified value",
+          "sum(documented_benefit)"
+        ]
+      ]
+    },
+    "audit": {
+      "count": 3,
+      "agents": [
+        [
+          "controls",
+          "Controls and evidence",
+          "Which control has objective evidence?",
+          "Evidence-backed controls",
+          "count(controls_with_evidence)"
+        ],
+        [
+          "remediation",
+          "Findings remediation",
+          "How many findings have accepted owners?",
+          "Owned findings",
+          "count(findings_with_owner)"
+        ],
+        [
+          "closure",
+          "Corrective action closure",
+          "How many actions are verified closed?",
+          "Verified closure rate",
+          "closed_verified_actions / total_due_actions * 100"
+        ]
+      ]
+    },
+    "training": {
+      "count": 3,
+      "agents": [
+        [
+          "designer",
+          "Learning design",
+          "What measurable skill must learners demonstrate?",
+          "Objectives mapped",
+          "count(objectives_with_assessment)"
+        ],
+        [
+          "evaluator",
+          "Learning evaluation",
+          "What changed after training?",
+          "Post-test improvement",
+          "post_test_score - pre_test_score"
+        ],
+        [
+          "delivery",
+          "Training delivery",
+          "How many paid seats are confirmed?",
+          "Paid seats",
+          "count(seats_with_bank_receipt)"
+        ]
+      ]
+    },
+    "fund": {
+      "count": 4,
+      "agents": [
+        [
+          "risk",
+          "Risk analyst",
+          "What is downside under a defined scenario?",
+          "Stress loss",
+          "scenario_loss / portfolio_value * 100"
+        ],
+        [
+          "commercial",
+          "Commercial comparison",
+          "Are compared offers like-for-like?",
+          "Verified saving rate",
+          "(baseline_price - quoted_price) / baseline_price * 100"
+        ],
+        [
+          "cashflow",
+          "Cashflow analyst",
+          "How much cash is evidenced as collected?",
+          "Cash collected",
+          "sum(verified_bank_receipts)"
+        ],
+        [
+          "diligence",
+          "Fund diligence",
+          "Which critical diligence gaps remain open?",
+          "Open critical gaps",
+          "count(open_critical_gaps)"
+        ]
+      ]
+    },
+    "shipping": {
+      "count": 5,
+      "forbidden_mix": [
+        "commercial",
+        "nvocc"
+      ],
+      "agents": [
+        [
+          "freight-qualification",
+          "Freight qualification",
+          "How many containers have comparable quote and confirmed payer?",
+          "Qualified containers",
+          "count(containers_with_quote_and_payer)"
+        ],
+        [
+          "container-savings",
+          "Container savings",
+          "How many containers save $150 or more?",
+          "Containers saving $150+",
+          "count(containers where verified_saving >= 150)"
+        ],
+        [
+          "route",
+          "Route qualification",
+          "Which route has verified origin and destination costs?",
+          "Qualified routes",
+          "count(routes_with_verified_landed_cost)"
+        ],
+        [
+          "customs",
+          "Customs readiness",
+          "Which shipments have complete customs documents?",
+          "Document-ready shipments",
+          "count(shipments_with_complete_customs_docs)"
+        ],
+        [
+          "collection",
+          "Freight collection",
+          "What commission is supported by receipts?",
+          "Commission collected",
+          "sum(verified_commission_receipts)"
+        ]
+      ]
+    },
+    "commercial": {
+      "count": 6,
+      "forbidden_mix": [
+        "shipping",
+        "nvocc"
+      ],
+      "agents": [
+        [
+          "sales",
+          "Commercial sales",
+          "How many clients are ready to pay EGP 67,500 advance?",
+          "Ready-to-pay clients",
+          "count(clients_confirmed_50_percent_advance)"
+        ],
+        [
+          "sourcing",
+          "Supplier qualification",
+          "How many suppliers passed documented checks?",
+          "Qualified suppliers",
+          "count(suppliers_with_verified_documents)"
+        ],
+        [
+          "pipeline",
+          "Pipeline conversion",
+          "What share reached a paid advance?",
+          "Advance conversion rate",
+          "paid_advances / qualified_prospects * 100"
+        ],
+        [
+          "follow-up",
+          "Follow-up execution",
+          "How many due follow-ups were completed today?",
+          "Follow-ups completed",
+          "count(completed_due_followups)"
+        ],
+        [
+          "offers",
+          "Offer control",
+          "How many offers have approved scope and validity?",
+          "Approved offers",
+          "count(offers_with_scope_price_validity_approval)"
+        ],
+        [
+          "cash",
+          "Cash collection",
+          "How much client cash is verified by receipt?",
+          "Cash collected",
+          "sum(verified_bank_receipts)"
+        ]
+      ]
+    },
+    "nvocc": {
+      "count": 7,
+      "forbidden_mix": [
+        "shipping",
+        "commercial"
+      ],
+      "agents": [
+        [
+          "operations",
+          "NVOCC operations",
+          "How many containers have complete operating files?",
+          "Complete container files",
+          "count(containers_with_complete_file)"
+        ],
+        [
+          "license",
+          "Licensing readiness",
+          "How many required licenses are verified and current?",
+          "Current licenses",
+          "count(verified_current_required_licenses)"
+        ],
+        [
+          "carrier",
+          "Carrier agreements",
+          "How many active carrier agreements are verified?",
+          "Verified carrier agreements",
+          "count(verified_active_carrier_agreements)"
+        ],
+        [
+          "trucking",
+          "Trucking savings",
+          "How many containers have verified $150 savings?",
+          "Containers saving $150+",
+          "count(containers where verified_saving >= 150)"
+        ],
+        [
+          "warehouse",
+          "Warehousing economics",
+          "What is verified warehouse cost per m²-month?",
+          "Cost per m²-month",
+          "verified_warehouse_cost / verified_area_m2 / months"
+        ],
+        [
+          "compliance",
+          "Compliance controls",
+          "How many shipments passed document checks?",
+          "Compliance pass rate",
+          "shipments_passed_checks / shipments_reviewed * 100"
+        ],
+        [
+          "close-time",
+          "License close time",
+          "How many days to close each licensing requirement?",
+          "Days to close",
+          "close_date - verified_start_date"
+        ]
+      ]
+    },
+    "iso": {
+      "count": 3,
+      "agents": [
+        [
+          "qms",
+          "QMS implementation",
+          "Which process needs evidence-backed correction?",
+          "Open corrective actions",
+          "count(open_corrective_actions)"
+        ],
+        [
+          "revision",
+          "Revision monitoring",
+          "Which standards changes are verified officially?",
+          "Verified changes",
+          "count(changes_with_official_source)"
+        ],
+        [
+          "audit",
+          "Internal audit",
+          "What share of planned audits are complete?",
+          "Audit completion rate",
+          "completed_audits / planned_audits * 100"
+        ]
+      ]
+    },
+    "tourism": {
+      "count": 3,
+      "agents": [
+        [
+          "hospitality",
+          "Hospitality operations",
+          "Which booking is confirmed with payer and dates?",
+          "Confirmed paid bookings",
+          "count(bookings_with_payment_evidence)"
+        ],
+        [
+          "benchmark",
+          "Tourism performance",
+          "What service KPI has dated evidence?",
+          "Evidence-backed KPIs",
+          "count(kpis_with_dated_source)"
+        ],
+        [
+          "conversion",
+          "Booking conversion",
+          "What share of qualified inquiries paid?",
+          "Paid inquiry conversion",
+          "paid_inquiries / qualified_inquiries * 100"
+        ]
+      ]
+    }
+  },
+  "whatsapp_sales_agent": {
+    "language": "Egyptian Arabic عامي",
+    "opening": "يا هندسة، تحب بكرة 11 ولا بعده 10؟",
+    "closing": "نبعت العرض المعتمد دلوقتي ولا بعد الميتنج؟",
+    "method": [
+      "BANT",
+      "SPIN"
+    ],
+    "kpis": {
+      "advance_egp": 67500,
+      "advance_percent": 50,
+      "retainer_egp_per_month": 75000,
+      "ltv_egp": 1175000,
+      "project_quotes_egp": [
+        135000,
+        95000
+      ],
+      "receipt_policy": "Bank Receipt ONLY"
+    },
+    "instructions": [
+      "Prices and savings are provisional until scope, currency, date, Incoterms and inclusions are comparable.",
+      "Never claim cash collected without verified bank receipt.",
+      "50% advance applies only to an approved written offer."
+    ]
+  }
 }
