@@ -3,32 +3,68 @@ on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 jobs:
   night-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
         with:
-          node-version: '20'
-      - uses: actions/setup-python@v4
+          ref: main
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install deps
+      - name: Install real report dependencies
+        run: python -m pip install --upgrade pip pdfplumber reportlab requests matplotlib python-dateutil
+      - name: Prepare input and output directories
         run: |
-          pip install pdfplumber || true
-          npm install -g electron-builder || true
-      - name: Update metrics
+          mkdir -p reports data
+          printf 'supplier_name,technical_score,commercial_score,compliance_score,country,iso_cert\nTest Supplier,85,78,90,Egypt,ISO9001\n' > data/suppliers.csv
+          printf '{"origin":"Alexandria","destination":"Jeddah","container_type":"20GP","weight":18000}\n' > data/freight.json
+      - name: Generate financial report (synthetic demo, explicitly labelled)
+        run: python3 automation/financial-tool.py
+      - name: Generate supplier assessment PDF
+        run: python3 automation/supplier-tool.py data/suppliers.csv reports/suppliers-real.pdf
+      - name: Generate freight scenario PDF
+        run: python3 automation/demand-tool.py data/freight.json reports/quotes-real.pdf
+      - name: Validate PDF outputs
         run: |
-          mkdir -p automation data reports
-          python3 automation/update-metrics.py || echo "metrics updated"
-      - name: Build toolkit reports
-        run: |
-          python3 automation/financial-tool.py data/sample.pdf reports/financial.pdf || echo "financial done"
-          python3 automation/supplier-tool.py data/suppliers.csv reports/suppliers.pdf || echo "supplier done"
-          python3 automation/demand-tool.py data/freight.json reports/quotes.pdf || echo "demand done"
-      - name: Deploy to Pages
-        uses: peaceiris/actions-gh-pages@v3
+          python3 - <<'PY'
+          from pathlib import Path
+          import pdfplumber
+          files = [Path('reports/financial-real.pdf'), Path('reports/suppliers-real.pdf'), Path('reports/quotes-real.pdf')]
+          for p in files:
+              if not p.is_file() or p.stat().st_size < 1000:
+                  raise SystemExit(f'PDF missing or too small: {p}')
+              with pdfplumber.open(p) as pdf:
+                  if len(pdf.pages) < 1:
+                      raise SystemExit(f'PDF has no pages: {p}')
+                  print(f'VALID PDF: {p} | pages={len(pdf.pages)} | bytes={p.stat().st_size}')
+          PY
+      - name: Upload generated reports as workflow artifact
+        uses: actions/upload-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+          name: navaris-real-reports
+          path: reports/*.pdf
+          if-no-files-found: error
+          retention-days: 14
+      - name: Optional WhatsApp notification
+        env:
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
+          WHATSAPP_PHONE_NUMBER_ID: ${{ secrets.WHATSAPP_PHONE_NUMBER_ID }}
+          WHATSAPP_TO: ${{ secrets.WHATSAPP_TO }}
+        run: |
+          python3 automation/notify-whatsapp.py "NAVARIS Night Shift: PDF report generation completed. Download reports from the private GitHub Actions artifact."
+          status=$?
+          if [ "$status" -ne 0 ]; then echo "WhatsApp not sent; see reports/whatsapp-log.txt and configure repository secrets."; fi
+      - name: Upload WhatsApp log if present
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: navaris-whatsapp-log
+          path: reports/whatsapp-log.txt
+          if-no-files-found: ignore
+          retention-days: 14
