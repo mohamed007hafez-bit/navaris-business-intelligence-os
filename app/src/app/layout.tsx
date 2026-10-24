@@ -1,0 +1,1 @@
+import './globals.css';import type {Metadata} from 'next';export const metadata:Metadata={title:'NAVARIS Client Portal',description:'Secure client collaboration workspace'};export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body><header className="nav"><b>NAVARIS · CLIENT PORTAL</b></header>{children}</body></html>}
