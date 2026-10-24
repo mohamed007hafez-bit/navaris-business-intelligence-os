@@ -1,0 +1,1 @@
+export default function Login(){return <main className="shell"><h1>Client login</h1><p>Supabase auth integration point. Configure credentials and server-side session validation before use.</p><label>Email<input type="email" placeholder="client@company.com"/></label><button className="btn" onClick={()=>alert('Configure Supabase auth first')}>Continue</button></main>}
