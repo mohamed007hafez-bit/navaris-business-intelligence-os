@@ -19,6 +19,8 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 </style>
 <script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#C9A86A">
 </head>
 <body>
 <header class="nav-shell fixed top-0 left-0 right-0 z-50">
@@ -127,5 +129,6 @@ nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classLi
  }catch(err){console.warn('Three.js unavailable; CSS compass fallback enabled.',err);canvas.style.display='none';fallback.hidden=false}
 })();
 </script>
+  <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(err=>console.warn("Service worker registration failed",err)));}</script>
 </body>
 </html>
