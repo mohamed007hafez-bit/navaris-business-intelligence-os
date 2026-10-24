@@ -1,0 +1,1 @@
+const {contextBridge}=require('electron');contextBridge.exposeInMainWorld('navaris',{version:'2.0.0',platform:process.platform,offline:true});
