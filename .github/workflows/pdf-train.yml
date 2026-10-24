@@ -1,0 +1,53 @@
+name: NAVARIS PDF Agent Training
+on:
+  push:
+    paths:
+      - 'agents/*/latest.pdf'
+      - 'agents.json'
+      - 'scripts/train_agents.py'
+      - '.github/workflows/pdf-train.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: navaris-pdf-train
+  cancel-in-progress: false
+jobs:
+  train:
+    # Ollama is local to this trusted self-hosted runner; never run untrusted PR code here.
+    runs-on: [self-hosted, linux, navaris-ollama]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install PDF parser
+        run: python -m pip install --upgrade pypdf
+      - name: Verify local Ollama
+        env:
+          OLLAMA_HOST: ${{ vars.OLLAMA_HOST }}
+          OLLAMA_EMBED_MODEL: ${{ vars.OLLAMA_EMBED_MODEL }}
+        run: |
+          set -e
+          export OLLAMA_HOST="${OLLAMA_HOST:-http://127.0.0.1:11434}"
+          export OLLAMA_EMBED_MODEL="${OLLAMA_EMBED_MODEL:-nomic-embed-text}"
+          curl --fail --silent --show-error "$OLLAMA_HOST/api/tags" >/dev/null
+          ollama pull "$OLLAMA_EMBED_MODEL"
+      - name: Vectorize PDF and update isolated vertical prompts
+        env:
+          OLLAMA_HOST: ${{ vars.OLLAMA_HOST }}
+          OLLAMA_EMBED_MODEL: ${{ vars.OLLAMA_EMBED_MODEL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_EMBED_MODEL: ${{ vars.OPENAI_EMBED_MODEL }}
+        run: python scripts/train_agents.py
+      - name: Commit generated prompt, vectors and website FAQ
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add agents/*/system-prompt.md agents/_training/*.jsonl index.html
+          if git diff --cached --quiet; then echo "No generated changes"; exit 0; fi
+          git commit -m "chore: retrain NAVARIS vertical agents from PDF sources"
+          git push origin HEAD:main
