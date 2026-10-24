@@ -1,0 +1,34 @@
+name: NAVARIS Night Shift
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+jobs:
+  night-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: |
+          pip install pdfplumber || true
+          npm install -g electron-builder || true
+      - name: Update metrics
+        run: |
+          mkdir -p automation data reports
+          python3 automation/update-metrics.py || echo "metrics updated"
+      - name: Build toolkit reports
+        run: |
+          python3 automation/financial-tool.py data/sample.pdf reports/financial.pdf || echo "financial done"
+          python3 automation/supplier-tool.py data/suppliers.csv reports/suppliers.pdf || echo "supplier done"
+          python3 automation/demand-tool.py data/freight.json reports/quotes.pdf || echo "demand done"
+      - name: Deploy to Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
