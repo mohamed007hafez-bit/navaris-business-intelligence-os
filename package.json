@@ -1,0 +1,51 @@
+{
+  "name": "navaris-business-intelligence-os",
+  "version": "0.3.1",
+  "description": "NAVARIS Gateway Egypt Business Intelligence OS",
+  "main": "desktop/main.cjs",
+  "author": "NAVARIS",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis x64"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.navaris.gatewayegypt",
+    "productName": "NAVARIS Business Intelligence OS",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "index.html",
+      "manifest.json",
+      "founder.jpg",
+      "founder.png",
+      "desktop/**/*",
+      "agents.json",
+      "agents/**/*"
+    ],
+    "asar": true,
+    "compression": "maximum",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "NAVARIS-OS-${version}-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
