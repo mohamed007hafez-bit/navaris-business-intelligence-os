@@ -14,8 +14,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   train:
-    # Ollama is local to this trusted self-hosted runner; never run untrusted PR code here.
-    runs-on: [self-hosted, linux, navaris-ollama]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,28 +25,16 @@ jobs:
           python-version: '3.11'
       - name: Install PDF parser
         run: python -m pip install --upgrade pypdf
-      - name: Verify local Ollama
+      - name: Process real PDFs only; OpenAI if configured, otherwise mock embeddings
         env:
-          OLLAMA_HOST: ${{ vars.OLLAMA_HOST }}
-          OLLAMA_EMBED_MODEL: ${{ vars.OLLAMA_EMBED_MODEL }}
-        run: |
-          set -e
-          export OLLAMA_HOST="${OLLAMA_HOST:-http://127.0.0.1:11434}"
-          export OLLAMA_EMBED_MODEL="${OLLAMA_EMBED_MODEL:-nomic-embed-text}"
-          curl --fail --silent --show-error "$OLLAMA_HOST/api/tags" >/dev/null
-          ollama pull "$OLLAMA_EMBED_MODEL"
-      - name: Vectorize PDF and update isolated vertical prompts
-        env:
-          OLLAMA_HOST: ${{ vars.OLLAMA_HOST }}
-          OLLAMA_EMBED_MODEL: ${{ vars.OLLAMA_EMBED_MODEL }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_EMBED_MODEL: ${{ vars.OPENAI_EMBED_MODEL }}
         run: python scripts/train_agents.py
-      - name: Commit generated prompt, vectors and website FAQ
+      - name: Commit generated artifacts if any
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add agents/*/system-prompt.md agents/_training/*.jsonl index.html
-          if git diff --cached --quiet; then echo "No generated changes"; exit 0; fi
-          git commit -m "chore: retrain NAVARIS vertical agents from PDF sources"
+          git add agents/*/system-prompt.md agents/_training/*.jsonl
+          if git diff --cached --quiet; then echo "No generated artifacts; no real PDFs were supplied."; exit 0; fi
+          git commit -m "chore: train isolated NAVARIS agents from supplied PDFs"
           git push origin HEAD:main
