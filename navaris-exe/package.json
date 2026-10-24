@@ -1,0 +1,38 @@
+{
+  "name": "navaris-os",
+  "version": "2.0.0",
+  "description": "NAVARIS Intelligence OS offline desktop shell",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win --x64",
+    "build:mac": "electron-builder --mac --x64 --arm64",
+    "build:all": "electron-builder --win --mac"
+  },
+  "build": {
+    "appId": "com.navaris.os",
+    "productName": "NAVARIS Intelligence OS",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg"
+    }
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.1.1"
+  },
+  "devDependencies": {
+    "electron": "^28.3.0",
+    "electron-builder": "^24.9.1"
+  }
+}
