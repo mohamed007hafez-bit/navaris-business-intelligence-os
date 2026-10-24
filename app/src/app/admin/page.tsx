@@ -1,0 +1,1 @@
+export default function Admin(){return <main className="shell"><h1>Administration</h1><p>Placeholder route. Enforce server-side role checks before production.</p></main>}
