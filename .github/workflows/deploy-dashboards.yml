@@ -1,0 +1,33 @@
+name: NAVARIS Dashboards Pages Deploy
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'dashboards/**'
+      - '.github/workflows/deploy-dashboards.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: navaris-dashboards-pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Verify dashboard entry points
+        run: |
+          set -e
+          test -f dashboards/index.html
+          test -f dashboards/05-shipping-agent/index.html
+          test -f dashboards/06-commercial-rep/index.html
+          test -f dashboards/07-nvocc/index.html
+      - name: Publish dashboards to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: dashboards
+          force_orphan: true
