@@ -1,0 +1,1 @@
+export default function Dashboard(){return <main className="shell"><h1>Client Dashboard</h1><div className="grid">{['Client Portal','Live Collaboration','Payment','Methodology Analyzer','Audit Trail'].map(x=><article className="card" key={x}><h2>{x}</h2><p>Foundation module; backend integration required.</p></article>)}</div></main>}
