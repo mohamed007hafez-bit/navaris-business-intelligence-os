@@ -1,369 +1,930 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "brand": {
     "name": "NAVARIS AI CASH ENGINE",
-    "currency_formats": {
-      "money": "$1,950.00",
-      "percent": "7.1%",
-      "large": "$1.7M"
+    "meaning": "NAV = Navigation; ARIS = Guidance (brand interpretation)",
+    "methodology": "Lamp Methodology",
+    "coordinates": {
+      "latitude": 31.2,
+      "longitude": 29.9
     },
-    "primary_kpi": "Cash Collected",
-    "cash_policy": "Bank Receipt ONLY"
+    "languages": [
+      "EN",
+      "AR",
+      "FR",
+      "DE",
+      "ES",
+      "ZH",
+      "RU"
+    ]
   },
+  "agent_count": 38,
   "guardrails": [
-    "Keep all nine verticals isolated; never mix source PDFs or prompts.",
-    "Separate FACT, SOURCE, CALCULATION, ASSUMPTION, INTERPRETATION, ACTION.",
+    "38 agents total; each agent owns one KPI card and one purpose question.",
+    "Keep all nine verticals isolated; never mix their source PDFs, prompts, KPI data or customer records.",
+    "Shipping Agent, Commercial Rep and NVOCC are separate verticals with forbidden_mix rules.",
     "Never invent rates, licenses, contracts, supplier approvals, bank receipts, or savings evidence.",
-    "Dashboard sample values are illustrative until verified."
+    "Cash Collected is primary KPI. Cash = 0 until receipt evidence is verified."
   ],
+  "formats": {
+    "currency": "$1,950.00",
+    "percent": "7.1%",
+    "large_number": "$1.7M",
+    "cash_rule": "Bank Receipt ONLY"
+  },
   "verticals": {
     "consulting": {
       "count": 4,
+      "frameworks": [
+        "MECE",
+        "McKinsey 7S"
+      ],
+      "forbidden_mix": [
+        "other vertical source PDFs and customer records"
+      ],
       "agents": [
-        [
-          "strategy",
-          "Strategy diagnosis",
-          "What single decision must the client make?",
-          "Qualified decisions",
-          "count(verified_decision_makers)"
-        ],
-        [
-          "operating-model",
-          "Operating model",
-          "Which bottleneck has a named owner?",
-          "Bottlenecks owned",
-          "count(unique_bottlenecks_with_owner)"
-        ],
-        [
-          "executive",
-          "Executive synthesis",
-          "What action can be approved this week?",
-          "Approved actions",
-          "count(actions_with_approval)"
-        ],
-        [
-          "value-case",
-          "Value case",
-          "What verified value can be evidenced?",
-          "Verified value",
-          "sum(documented_benefit)"
-        ]
+        {
+          "id": "consulting-01",
+          "vertical": "consulting",
+          "role": "Strategy diagnosis",
+          "one_purpose_question": "Which decision creates measurable client value?",
+          "kpi_name": "Strategy diagnosis",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "consulting-02",
+          "vertical": "consulting",
+          "role": "Operating model",
+          "one_purpose_question": "Which process constraint blocks value?",
+          "kpi_name": "Operating model",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "consulting-03",
+          "vertical": "consulting",
+          "role": "Executive synthesis",
+          "one_purpose_question": "What evidence supports the recommendation?",
+          "kpi_name": "Executive synthesis",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "consulting-04",
+          "vertical": "consulting",
+          "role": "Value realization",
+          "one_purpose_question": "What measurable outcome will be delivered?",
+          "kpi_name": "Value realization",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        }
       ]
     },
     "audit": {
       "count": 3,
+      "frameworks": [
+        "Evidence-based controls"
+      ],
+      "forbidden_mix": [
+        "other vertical source PDFs and customer records"
+      ],
       "agents": [
-        [
-          "controls",
-          "Controls and evidence",
-          "Which control has objective evidence?",
-          "Evidence-backed controls",
-          "count(controls_with_evidence)"
-        ],
-        [
-          "remediation",
-          "Findings remediation",
-          "How many findings have accepted owners?",
-          "Owned findings",
-          "count(findings_with_owner)"
-        ],
-        [
-          "closure",
-          "Corrective action closure",
-          "How many actions are verified closed?",
-          "Verified closure rate",
-          "closed_verified_actions / total_due_actions * 100"
-        ]
+        {
+          "id": "audit-01",
+          "vertical": "audit",
+          "role": "Controls and evidence",
+          "one_purpose_question": "Which control gap is evidenced?",
+          "kpi_name": "Controls and evidence",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "audit-02",
+          "vertical": "audit",
+          "role": "Findings and remediation",
+          "one_purpose_question": "What corrective action closes the finding?",
+          "kpi_name": "Findings and remediation",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "audit-03",
+          "vertical": "audit",
+          "role": "Corrective action",
+          "one_purpose_question": "Who owns closure and by when?",
+          "kpi_name": "Corrective action",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        }
       ]
     },
     "training": {
       "count": 3,
+      "frameworks": [
+        "Kirkpatrick"
+      ],
+      "forbidden_mix": [
+        "other vertical source PDFs and customer records"
+      ],
       "agents": [
-        [
-          "designer",
-          "Learning design",
-          "What measurable skill must learners demonstrate?",
-          "Objectives mapped",
-          "count(objectives_with_assessment)"
-        ],
-        [
-          "evaluator",
-          "Learning evaluation",
-          "What changed after training?",
-          "Post-test improvement",
-          "post_test_score - pre_test_score"
-        ],
-        [
-          "delivery",
-          "Training delivery",
-          "How many paid seats are confirmed?",
-          "Paid seats",
-          "count(seats_with_bank_receipt)"
-        ]
+        {
+          "id": "training-01",
+          "vertical": "training",
+          "role": "Learning designer",
+          "one_purpose_question": "Which verified skill gap must be closed?",
+          "kpi_name": "Learning designer",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "training-02",
+          "vertical": "training",
+          "role": "Learning evaluator",
+          "one_purpose_question": "What evidence proves learning transfer?",
+          "kpi_name": "Learning evaluator",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "training-03",
+          "vertical": "training",
+          "role": "Training ROI",
+          "one_purpose_question": "What is the measured training ROI?",
+          "kpi_name": "Training ROI",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        }
       ]
     },
     "fund": {
       "count": 4,
+      "frameworks": [
+        "Portfolio analytics"
+      ],
+      "forbidden_mix": [
+        "other vertical source PDFs and customer records"
+      ],
       "agents": [
-        [
-          "risk",
-          "Risk analyst",
-          "What is downside under a defined scenario?",
-          "Stress loss",
-          "scenario_loss / portfolio_value * 100"
-        ],
-        [
-          "commercial",
-          "Commercial comparison",
-          "Are compared offers like-for-like?",
-          "Verified saving rate",
-          "(baseline_price - quoted_price) / baseline_price * 100"
-        ],
-        [
-          "cashflow",
-          "Cashflow analyst",
-          "How much cash is evidenced as collected?",
-          "Cash collected",
-          "sum(verified_bank_receipts)"
-        ],
-        [
-          "diligence",
-          "Fund diligence",
-          "Which critical diligence gaps remain open?",
-          "Open critical gaps",
-          "count(open_critical_gaps)"
-        ]
+        {
+          "id": "fund-01",
+          "vertical": "fund",
+          "role": "Risk analyst",
+          "one_purpose_question": "What is the documented risk exposure?",
+          "kpi_name": "Risk analyst",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "fund-02",
+          "vertical": "fund",
+          "role": "Commercial comparison",
+          "one_purpose_question": "Are quote scope and currency comparable?",
+          "kpi_name": "Commercial comparison",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "fund-03",
+          "vertical": "fund",
+          "role": "Cashflow analyst",
+          "one_purpose_question": "What cash arrives and when?",
+          "kpi_name": "Cashflow analyst",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "fund-04",
+          "vertical": "fund",
+          "role": "Portfolio scenarios",
+          "one_purpose_question": "What scenario changes the decision?",
+          "kpi_name": "Portfolio scenarios",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        }
+      ]
+    },
+    "iso": {
+      "count": 3,
+      "frameworks": [
+        "ISO 9001:2015"
+      ],
+      "forbidden_mix": [
+        "other vertical source PDFs and customer records"
+      ],
+      "agents": [
+        {
+          "id": "iso-01",
+          "vertical": "iso",
+          "role": "QMS implementation",
+          "one_purpose_question": "Which process requirement lacks evidence?",
+          "kpi_name": "QMS implementation",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "iso-02",
+          "vertical": "iso",
+          "role": "Revision monitor",
+          "one_purpose_question": "What is the official revision status?",
+          "kpi_name": "Revision monitor",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "iso-03",
+          "vertical": "iso",
+          "role": "Corrective action",
+          "one_purpose_question": "How will corrective action effectiveness be verified?",
+          "kpi_name": "Corrective action",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        }
+      ]
+    },
+    "tourism": {
+      "count": 3,
+      "frameworks": [
+        "Hospitality operations"
+      ],
+      "forbidden_mix": [
+        "other vertical source PDFs and customer records"
+      ],
+      "agents": [
+        {
+          "id": "tourism-01",
+          "vertical": "tourism",
+          "role": "Hospitality operations",
+          "one_purpose_question": "Which booking need is ready to convert?",
+          "kpi_name": "Hospitality operations",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "tourism-02",
+          "vertical": "tourism",
+          "role": "Tourism performance",
+          "one_purpose_question": "Which KPI reflects service performance?",
+          "kpi_name": "Tourism performance",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "tourism-03",
+          "vertical": "tourism",
+          "role": "Guest conversion",
+          "one_purpose_question": "What action improves qualified bookings?",
+          "kpi_name": "Guest conversion",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "cross-vertical source PDFs, prompts and customer records"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        }
       ]
     },
     "shipping": {
       "count": 5,
+      "frameworks": [
+        "Freight qualification"
+      ],
       "forbidden_mix": [
         "commercial",
         "nvocc"
       ],
       "agents": [
-        [
-          "freight-qualification",
-          "Freight qualification",
-          "How many containers have comparable quote and confirmed payer?",
-          "Qualified containers",
-          "count(containers_with_quote_and_payer)"
-        ],
-        [
-          "container-savings",
-          "Container savings",
-          "How many containers save $150 or more?",
-          "Containers saving $150+",
-          "count(containers where verified_saving >= 150)"
-        ],
-        [
-          "route",
-          "Route qualification",
-          "Which route has verified origin and destination costs?",
-          "Qualified routes",
-          "count(routes_with_verified_landed_cost)"
-        ],
-        [
-          "customs",
-          "Customs readiness",
-          "Which shipments have complete customs documents?",
-          "Document-ready shipments",
-          "count(shipments_with_complete_customs_docs)"
-        ],
-        [
-          "collection",
-          "Freight collection",
-          "What commission is supported by receipts?",
-          "Commission collected",
-          "sum(verified_commission_receipts)"
-        ]
+        {
+          "id": "shipping-01",
+          "vertical": "shipping",
+          "role": "Freight qualification",
+          "one_purpose_question": "How many containers have verified $150 savings?",
+          "kpi_name": "Containers Saving $150",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "commercial",
+            "nvocc"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "shipping-02",
+          "vertical": "shipping",
+          "role": "Container savings",
+          "one_purpose_question": "Which shipment details determine a valid quote?",
+          "kpi_name": "Quote Completeness",
+          "formula": "Numerator / denominator × 100, using verified records",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "commercial",
+            "nvocc"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "shipping-03",
+          "vertical": "shipping",
+          "role": "Route comparison",
+          "one_purpose_question": "Which route offers documented cost advantage?",
+          "kpi_name": "Verified Route Savings",
+          "formula": "(Comparable baseline − current quote) / comparable baseline × 100",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "commercial",
+            "nvocc"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "shipping-04",
+          "vertical": "shipping",
+          "role": "Shipment readiness",
+          "one_purpose_question": "Which shipments are operationally ready?",
+          "kpi_name": "Shipment Readiness",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "commercial",
+            "nvocc"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "shipping-05",
+          "vertical": "shipping",
+          "role": "Freight collection",
+          "one_purpose_question": "How much freight cash is confirmed by receipt?",
+          "kpi_name": "Freight Cash Collected",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "commercial",
+            "nvocc"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        }
       ]
     },
     "commercial": {
       "count": 6,
+      "frameworks": [
+        "BANT",
+        "SPIN"
+      ],
       "forbidden_mix": [
         "shipping",
         "nvocc"
       ],
       "agents": [
-        [
-          "sales",
-          "Commercial sales",
-          "How many clients are ready to pay EGP 67,500 advance?",
-          "Ready-to-pay clients",
-          "count(clients_confirmed_50_percent_advance)"
-        ],
-        [
-          "sourcing",
-          "Supplier qualification",
-          "How many suppliers passed documented checks?",
-          "Qualified suppliers",
-          "count(suppliers_with_verified_documents)"
-        ],
-        [
-          "pipeline",
-          "Pipeline conversion",
-          "What share reached a paid advance?",
-          "Advance conversion rate",
-          "paid_advances / qualified_prospects * 100"
-        ],
-        [
-          "follow-up",
-          "Follow-up execution",
-          "How many due follow-ups were completed today?",
-          "Follow-ups completed",
-          "count(completed_due_followups)"
-        ],
-        [
-          "offers",
-          "Offer control",
-          "How many offers have approved scope and validity?",
-          "Approved offers",
-          "count(offers_with_scope_price_validity_approval)"
-        ],
-        [
-          "cash",
-          "Cash collection",
-          "How much client cash is verified by receipt?",
-          "Cash collected",
-          "sum(verified_bank_receipts)"
-        ]
+        {
+          "id": "commercial-01",
+          "vertical": "commercial",
+          "role": "Commercial sales",
+          "one_purpose_question": "How many clients are ready to pay the EGP 67,500 advance?",
+          "kpi_name": "Ready-to-Pay Clients",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "shipping",
+            "nvocc"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "commercial-02",
+          "vertical": "commercial",
+          "role": "Supplier qualification",
+          "one_purpose_question": "Which supplier is qualified against documented requirements?",
+          "kpi_name": "Qualified Suppliers",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "shipping",
+            "nvocc"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "commercial-03",
+          "vertical": "commercial",
+          "role": "Advance collection",
+          "one_purpose_question": "How much advance cash is evidenced by bank receipt?",
+          "kpi_name": "Advance Cash Collected",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "shipping",
+            "nvocc"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "commercial-04",
+          "vertical": "commercial",
+          "role": "Lead qualification",
+          "one_purpose_question": "Which lead meets BANT qualification?",
+          "kpi_name": "BANT Qualification Rate",
+          "formula": "Numerator / denominator × 100, using verified records",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "shipping",
+            "nvocc"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "commercial-05",
+          "vertical": "commercial",
+          "role": "Follow-up conversion",
+          "one_purpose_question": "Which follow-up moves a qualified buyer to payment?",
+          "kpi_name": "Follow-up Conversion",
+          "formula": "Numerator / denominator × 100, using verified records",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "shipping",
+            "nvocc"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "commercial-06",
+          "vertical": "commercial",
+          "role": "Commercial pipeline",
+          "one_purpose_question": "What is the value of the verified commercial pipeline?",
+          "kpi_name": "Verified Pipeline Value",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "shipping",
+            "nvocc"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        }
       ]
     },
     "nvocc": {
       "count": 7,
+      "frameworks": [
+        "NVOCC operations",
+        "Landed-cost analysis"
+      ],
       "forbidden_mix": [
         "shipping",
         "commercial"
       ],
       "agents": [
-        [
-          "operations",
-          "NVOCC operations",
-          "How many containers have complete operating files?",
-          "Complete container files",
-          "count(containers_with_complete_file)"
-        ],
-        [
-          "license",
-          "Licensing readiness",
-          "How many required licenses are verified and current?",
-          "Current licenses",
-          "count(verified_current_required_licenses)"
-        ],
-        [
-          "carrier",
-          "Carrier agreements",
-          "How many active carrier agreements are verified?",
-          "Verified carrier agreements",
-          "count(verified_active_carrier_agreements)"
-        ],
-        [
-          "trucking",
-          "Trucking savings",
-          "How many containers have verified $150 savings?",
-          "Containers saving $150+",
-          "count(containers where verified_saving >= 150)"
-        ],
-        [
-          "warehouse",
-          "Warehousing economics",
-          "What is verified warehouse cost per m²-month?",
-          "Cost per m²-month",
-          "verified_warehouse_cost / verified_area_m2 / months"
-        ],
-        [
-          "compliance",
-          "Compliance controls",
-          "How many shipments passed document checks?",
-          "Compliance pass rate",
-          "shipments_passed_checks / shipments_reviewed * 100"
-        ],
-        [
-          "close-time",
-          "License close time",
-          "How many days to close each licensing requirement?",
-          "Days to close",
-          "close_date - verified_start_date"
-        ]
-      ]
-    },
-    "iso": {
-      "count": 3,
-      "agents": [
-        [
-          "qms",
-          "QMS implementation",
-          "Which process needs evidence-backed correction?",
-          "Open corrective actions",
-          "count(open_corrective_actions)"
-        ],
-        [
-          "revision",
-          "Revision monitoring",
-          "Which standards changes are verified officially?",
-          "Verified changes",
-          "count(changes_with_official_source)"
-        ],
-        [
-          "audit",
-          "Internal audit",
-          "What share of planned audits are complete?",
-          "Audit completion rate",
-          "completed_audits / planned_audits * 100"
-        ]
-      ]
-    },
-    "tourism": {
-      "count": 3,
-      "agents": [
-        [
-          "hospitality",
-          "Hospitality operations",
-          "Which booking is confirmed with payer and dates?",
-          "Confirmed paid bookings",
-          "count(bookings_with_payment_evidence)"
-        ],
-        [
-          "benchmark",
-          "Tourism performance",
-          "What service KPI has dated evidence?",
-          "Evidence-backed KPIs",
-          "count(kpis_with_dated_source)"
-        ],
-        [
-          "conversion",
-          "Booking conversion",
-          "What share of qualified inquiries paid?",
-          "Paid inquiry conversion",
-          "paid_inquiries / qualified_inquiries * 100"
-        ]
+        {
+          "id": "nvocc-01",
+          "vertical": "nvocc",
+          "role": "NVOCC operations",
+          "one_purpose_question": "How many NVOCC shipments are operationally ready?",
+          "kpi_name": "Operational Readiness",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "shipping",
+            "commercial"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "nvocc-02",
+          "vertical": "nvocc",
+          "role": "Landed-cost analysis",
+          "one_purpose_question": "What is the documented landed cost per shipment?",
+          "kpi_name": "Landed Cost",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "shipping",
+            "commercial"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "nvocc-03",
+          "vertical": "nvocc",
+          "role": "License readiness",
+          "one_purpose_question": "How many licenses can close within X days?",
+          "kpi_name": "License Close Time",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "shipping",
+            "commercial"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "nvocc-04",
+          "vertical": "nvocc",
+          "role": "Carrier agreement",
+          "one_purpose_question": "Which carrier agreement is active and evidenced?",
+          "kpi_name": "Active Carrier Agreements",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "shipping",
+            "commercial"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "nvocc-05",
+          "vertical": "nvocc",
+          "role": "Container margin",
+          "one_purpose_question": "What is the margin per container after confirmed costs?",
+          "kpi_name": "Container Contribution Margin",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "shipping",
+            "commercial"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "nvocc-06",
+          "vertical": "nvocc",
+          "role": "Documentation control",
+          "one_purpose_question": "Are required shipping documents complete?",
+          "kpi_name": "Document Completeness",
+          "formula": "Numerator / denominator × 100, using verified records",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "shipping",
+            "commercial"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        },
+        {
+          "id": "nvocc-07",
+          "vertical": "nvocc",
+          "role": "NVOCC collection",
+          "one_purpose_question": "How much NVOCC cash is confirmed by bank receipt?",
+          "kpi_name": "NVOCC Cash Collected",
+          "formula": "Count or sum of records meeting the documented KPI definition",
+          "currency_format": "$1,950.00",
+          "percent_format": "7.1%",
+          "filter_earn_space": [
+            "Source",
+            "Region",
+            "CustomerType",
+            "Product"
+          ],
+          "forbidden_mix": [
+            "shipping",
+            "commercial"
+          ],
+          "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
+        }
       ]
     }
   },
   "whatsapp_sales_agent": {
     "language": "Egyptian Arabic عامي",
-    "opening": "يا هندسة، تحب بكرة 11 ولا بعده 10؟",
-    "closing": "نبعت العرض المعتمد دلوقتي ولا بعد الميتنج؟",
+    "opening": "يا هندسة، تحب نراجع عرض التوفير بكرة 11 ولا بعده 10؟",
+    "closing": "لو الأرقام والنطاق مناسبين، نثبت الخطوة التالية بعد موافقتك؟",
     "method": [
       "BANT",
       "SPIN"
     ],
-    "kpis": {
-      "advance_egp": 67500,
-      "advance_percent": 50,
-      "retainer_egp_per_month": 75000,
-      "ltv_egp": 1175000,
-      "project_quotes_egp": [
-        135000,
-        95000
-      ],
-      "receipt_policy": "Bank Receipt ONLY"
-    },
-    "instructions": [
-      "Prices and savings are provisional until scope, currency, date, Incoterms and inclusions are comparable.",
-      "Never claim cash collected without verified bank receipt.",
-      "50% advance applies only to an approved written offer."
-    ]
+    "cash_rule": "لا يُسجل أي مبلغ كمتحصل إلا بإثبات بنكي."
   }
 }
