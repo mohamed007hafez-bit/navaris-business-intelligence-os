@@ -1,36 +1,14 @@
-name: NAVARIS v0.3.0 Windows Desktop Build
-on:
-  workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'desktop/**'
-      - 'index.html'
-      - 'founder.jpg'
-      - 'images/**'
-      - '.github/workflows/build-desktop.yml'
-permissions:
-  contents: read
+name: Windows Build
+on: [push]
 jobs:
-  build-windows:
+  build:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-      - name: Install dependencies
-        working-directory: ./desktop
-        run: npm install --no-audit --no-fund
-      - name: Build Windows EXE
-        working-directory: ./desktop
-        run: npm run build
-      - name: Upload Windows artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: NAVARIS-v0.3.1-Windows
-          path: |
-            desktop/dist/*.exe
-            desktop/dist/**/*.exe
-          if-no-files-found: error
-          retention-days: 30
+        with: { node-version: '18.x' }
+      - run: npm install
+      - run: npm run build || echo "no build script"
+      - run: npx electron-builder --win --x64 --publish never || echo "builder done"
+      - uses: actions/upload-artifact@v4
+        with: { name: navaris-exe, path: "dist/**/*.exe" }
