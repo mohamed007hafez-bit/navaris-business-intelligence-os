@@ -1,11 +1,7 @@
 name: NAVARIS PDF Agent Training
 on:
   push:
-    paths:
-      - 'agents/*/latest.pdf'
-      - 'agents.json'
-      - 'scripts/train_agents.py'
-      - '.github/workflows/pdf-train.yml'
+    paths: ['agents/*/latest.pdf','agents.json','scripts/train_agents.py','.github/workflows/pdf-train.yml']
   workflow_dispatch:
 permissions:
   contents: write
@@ -25,16 +21,30 @@ jobs:
           python-version: '3.11'
       - name: Install PDF parser
         run: python -m pip install --upgrade pypdf
-      - name: Process real PDFs only; OpenAI if configured, otherwise mock embeddings
+      - name: Validate configuration and embedding mode
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python - <<'PY'
+          import json, pathlib, os
+          c=json.loads(pathlib.Path("agents.json").read_text())
+          a=[x for v in c["verticals"].values() for x in v["agents"]]
+          assert len(a)==38 and len({x["id"] for x in a})==38
+          assert [c["verticals"][v]["count"] for v in ("shipping","commercial","nvocc")]==[5,6,7]
+          print("Agent configuration valid:",len(a))
+          print("Embedding mode:", "OpenAI API" if os.getenv("OPENAI_API_KEY") else "deterministic mock embeddings")
+          print("Real PDFs:",len(list(pathlib.Path("agents").glob("*/latest.pdf"))))
+          PY
+      - name: Extract and embed only real PDFs
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_EMBED_MODEL: ${{ vars.OPENAI_EMBED_MODEL }}
         run: python scripts/train_agents.py
-      - name: Commit generated artifacts if any
+      - name: Commit generated outputs if any
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add agents/*/system-prompt.md agents/_training/*.jsonl
-          if git diff --cached --quiet; then echo "No generated artifacts; no real PDFs were supplied."; exit 0; fi
-          git commit -m "chore: train isolated NAVARIS agents from supplied PDFs"
+          git add agents/*/system-prompt.md agents/_training/*.jsonl index.html || true
+          if git diff --cached --quiet; then echo "No PDF-derived output; no real PDFs were supplied."; exit 0; fi
+          git commit -m "chore: train NAVARIS agents from real PDF sources"
           git push origin HEAD:main
