@@ -1,3 +1,3 @@
 # CONSULTING source folder
 
-Upload the approved real source document as `latest.pdf`. This README is only a folder marker, not a substitute PDF.
+Upload the approved real source PDF as `latest.pdf`. This README is a folder marker, not a substitute PDF.
