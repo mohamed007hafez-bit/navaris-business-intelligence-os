@@ -59,7 +59,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -79,7 +79,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -99,7 +99,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -119,7 +119,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         }
@@ -150,7 +150,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -170,7 +170,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -190,7 +190,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         }
@@ -221,7 +221,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -241,7 +241,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -261,7 +261,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         }
@@ -292,7 +292,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -312,7 +312,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -332,7 +332,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -352,7 +352,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         }
@@ -383,7 +383,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -403,7 +403,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -423,7 +423,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         }
@@ -454,7 +454,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -474,7 +474,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         },
@@ -494,7 +494,7 @@
             "Product"
           ],
           "forbidden_mix": [
-            "cross-vertical source PDFs, prompts and customer records"
+            "other vertical source PDFs and customer records"
           ],
           "evidence_rule": "FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → ACTION; cash = 0 unless bank receipt is verified."
         }
@@ -926,5 +926,6 @@
       "SPIN"
     ],
     "cash_rule": "لا يُسجل أي مبلغ كمتحصل إلا بإثبات بنكي."
-  }
+  },
+  "total_agents": 38
 }
