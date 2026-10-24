@@ -1,0 +1,43 @@
+{
+  "title": "NAVARIS Business Methodology Toolkit",
+  "currency": "USD",
+  "pricingNote": "Draft prices only; approve before quoting.",
+  "toolkits": [
+    {
+      "id": "financial-diagnosis",
+      "price": 350
+    },
+    {
+      "id": "business-diagnosis",
+      "price": 350
+    },
+    {
+      "id": "restructuring",
+      "price": 750
+    },
+    {
+      "id": "operations",
+      "price": 500
+    },
+    {
+      "id": "digital",
+      "price": 500
+    },
+    {
+      "id": "investment",
+      "price": 750
+    },
+    {
+      "id": "energy",
+      "price": 500
+    },
+    {
+      "id": "freight",
+      "price": 350
+    },
+    {
+      "id": "supplier-qualification",
+      "price": 250
+    }
+  ]
+}
