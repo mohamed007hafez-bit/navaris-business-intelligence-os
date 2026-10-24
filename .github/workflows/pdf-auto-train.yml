@@ -1,0 +1,46 @@
+name: PDF Auto Train 18 Agents
+on:
+  push:
+    branches: [main]
+    paths: ['agents/**/latest.pdf','agents/**/README.md','agents.json']
+  workflow_dispatch:
+jobs:
+  validate-and-index:
+    runs-on: ubuntu-latest
+    permissions: {contents: write}
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Validate catalogue and PDF signatures
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          d=json.loads(pathlib.Path('agents.json').read_text())
+          assert d['verticals']==9 and len(d['agents'])==9
+          assert sum(a['count'] for a in d['agents'])==d['total_agents'], 'Agent total mismatch'
+          for a in d['agents']:
+            p=pathlib.Path(a['pdf'].lstrip('/'))
+            assert p.exists() and p.read_bytes().startswith(b'%PDF-'), f'Invalid PDF: {p}'
+          print('Validated PDF signatures; placeholders are not training evidence.')
+          PY
+      - name: Generate source inventory (not model training)
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          d=json.loads(pathlib.Path('agents.json').read_text())
+          lines=['# Agent PDF Source Inventory','','Inventory only; no embeddings or prompts are modified automatically.','']
+          for a in d['agents']:
+            p=pathlib.Path(a['pdf'].lstrip('/'))
+            lines += [f"## {a['id']} — {a['vertical']}",f"- Path: {p}",f"- Bytes: {p.stat().st_size}",f"- Placeholder: {'PLACEHOLDER' in p.read_bytes().decode('latin1')}",'']
+          pathlib.Path('agents/PDF-SOURCE-INVENTORY.md').write_text('\n'.join(lines)+'\n')
+          PY
+      - name: Commit inventory
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add agents/PDF-SOURCE-INVENTORY.md
+          if ! git diff --cached --quiet; then git commit -m 'chore: refresh agent PDF source inventory'; git push; fi
+      - name: Pages deployment note
+        run: echo 'Inventory commit will trigger Pages only if a Pages workflow is configured for main.'
