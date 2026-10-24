@@ -1,0 +1,1 @@
+export default function Billing(){return <main className="shell"><h1>Billing</h1><p>Stripe and Paymob placeholders only. No payment processing enabled until credentials and verified webhooks are configured.</p></main>}
