@@ -1,0 +1,16 @@
+name: NAVARIS Quality Gate
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: test -f index.html && grep -F '<title>NAVARIS GATEWAY EGYPT</title>' index.html && test -f manifest.json && test -f service-worker.js && test -f navaris-exe/package.json && test -f app/package.json && test -f toolkit/index.json
+      - run: node -e "for(const f of ['manifest.json','navaris-exe/package.json','app/package.json','toolkit/index.json']) JSON.parse(require('fs').readFileSync(f,'utf8')); console.log('JSON validation passed')"
