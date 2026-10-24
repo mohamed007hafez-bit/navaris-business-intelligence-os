@@ -1,0 +1,1 @@
+export default function Library(){return <main className="shell"><h1>Methodology Library</h1><div className="grid">{['Financial diagnosis','Business diagnosis','Restructuring','Operations','Digital','Investment','Energy','Freight','Supplier qualification'].map(x=><article className="card" key={x}>{x}</article>)}</div></main>}
