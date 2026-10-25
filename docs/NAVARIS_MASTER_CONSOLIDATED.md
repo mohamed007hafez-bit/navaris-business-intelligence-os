@@ -19,3 +19,21 @@
 - Cash is recognized only against a bank receipt.
 - Keep public information free of client names and pricing; keep private operating information in the private repository.
 - Do not claim the requested design, automation cadence, build, or deployment is complete without verifiable evidence.
+
+
+## V2 closure update — 2026-10-25
+
+### New draft artifacts
+- `docs/NAVARIS_TOOLKIT_87.md` — 87 control checkpoints; none is presumed passed without evidence.
+- `docs/NAVARIS_ISO_PROFILE.md` — service positioning and certification boundaries.
+- `docs/NAVARIS_CONSULTING_PRICING.md` — owner-provided planning figures, explicitly draft.
+- `docs/NAVARIS_CASH_DIAGNOSIS.md` — five cash-conversion hypotheses and 48-hour recovery sequence.
+
+### Release and deployment evidence
+The presence of source files is not evidence of a successful deployment. Record the exact commit SHA, successful Actions run, live HTTP status, and release URL only after each has been checked. The final approved pure-HTML attachment was not available in the active conversation context during this closure attempt; therefore the current root `index.html` has not been represented as a newly approved design.
+
+### Cash diagnosis controls
+- Collected cash remains zero until documentary receipt evidence is available.
+- USD 500/day and EGP 25,000/day are owner-provided opportunity-cost assumptions, not proven realized losses.
+- The implied EGP 50/USD conversion is a scenario assumption, not a current FX quote.
+- Break-even calculations must normalize contribution and fixed costs to the same currency and period.
