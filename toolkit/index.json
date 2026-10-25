@@ -20,16 +20,19 @@
     "fund-representation"
   ],
   "architecture": "Toolkit = What we know | OS = How we execute and sell",
-  "tested": [],
+  "tested": [
+    "financial-diagnosis",
+    "freight-forwarding"
+  ],
   "proposed": [
     "business-diagnosis",
-    "financial-diagnosis",
     "restructuring",
-    "freight-forwarding",
     "iso-audit",
-    "hotel-energy",
     "fund-representation"
   ],
-  "version": "3.0 Final Single Source",
-  "last_change": "2026-10-25: 7 toolkits, 7 skills, institutional landing page, proposed-vs-tested documentation"
+  "partial": [
+    "hotel-energy"
+  ],
+  "version": "3.1 Quality Gate Fix",
+  "last_change": "2026-10-25: 3.1 adds minimal gateway.html, fund representation calculator and PDF workflow, hotel rate calculator and lead report; hotel lead details remain user-supplied and independently unverified."
 }
