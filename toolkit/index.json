@@ -1,38 +1,40 @@
 {
   "product_1": "NAVARIS Toolkit - Knowledge Methodologies Tools",
   "product_2": "NAVARIS Business Intelligence OS - Environment uses Toolkit to produce billable analytics",
-  "toolkits": [
-    "business-diagnosis",
-    "financial-diagnosis",
-    "restructuring",
-    "freight-forwarding",
-    "iso-audit",
-    "hotel-energy",
-    "fund-representation"
-  ],
-  "skills": [
-    "financial-dd",
-    "business-diagnosis",
-    "freight-pricing",
-    "iso-audit",
-    "hotel-energy",
-    "supplier-qual",
-    "fund-representation"
-  ],
-  "architecture": "Toolkit = What we know | OS = How we execute and sell",
-  "tested": [
-    "financial-diagnosis",
-    "freight-forwarding"
-  ],
-  "proposed": [
-    "business-diagnosis",
-    "restructuring",
-    "iso-audit",
-    "fund-representation"
-  ],
-  "partial": [
-    "hotel-energy"
-  ],
-  "version": "3.1 Quality Gate Fix",
-  "last_change": "2026-10-25: 3.1 adds minimal gateway.html, fund representation calculator and PDF workflow, hotel rate calculator and lead report; hotel lead details remain user-supplied and independently unverified."
+  "version": "PYRAMID FAST 3.2.1",
+  "execution_mode": "Master alone; sequential phases",
+  "phase_1": ["hotel-energy", "freight-forwarding", "financial-diagnosis"],
+  "phase_2": ["iso-audit", "fund-representation", "restructuring", "business-diagnosis"],
+  "status_definitions": {
+    "TESTED_CALCULATION": "Formula/code test only; does not validate business lead, rate, quote, customs treatment or credit outcome.",
+    "PARTIAL": "Code exists but external evidence or full workflow remains unverified.",
+    "PROPOSED": "Methodology/workflow available; not yet independently validated for a live engagement."
+  },
+  "agents": {
+    "hotel-energy": {
+      "status": "PARTIAL",
+      "formula": "corporate_rate = BAR * (1 - discount) * longstay_factor; commission scenario = (BAR - corporate_rate) + BAR * 0.10",
+      "sources": ["STR/CoStar hospitality benchmarking (licensed; current source page not verified)", "Egyptian Hotel Association (publication/date to verify)", "ISO 31030:2021 travel risk management"],
+      "lead_evidence": "Fouad Hotel, 15 El Shohadaa St, Raml Station, Alexandria; EGP 290-1,000/night and Miramar association are user-supplied, not independently confirmed. Aelat Adaa, Raml Station, is user-reported local lead; address, identity, rates and availability unverified.",
+      "validity": "Scenario planning only until property identity, rate, taxes, availability, terms and affiliation are confirmed in writing."
+    },
+    "freight-forwarding": {
+      "status": "TESTED_CALCULATION",
+      "formula": "landed cost = FOB + freight + insurance + origin/destination charges + duties/taxes + other evidenced fees; scenario sell price = landed cost * (1 + margin)",
+      "sources": ["ICC Incoterms 2020 (official rules; specific rule and contract must be checked)", "Egyptian Customs Authority tariff/classification and applicable tax rules (verify for shipment date)", "Carrier/forwarder written quotes required"],
+      "commercial_model": "ELAFLEX 70/30 is a proposed split only; written party roles, collection trigger, costs, tax, liability and commission agreement required.",
+      "validity": "Calculation code only. No freight rate, customs duty, tax, supplier relationship or 70/30 agreement is verified by this status."
+    },
+    "financial-diagnosis": {
+      "status": "TESTED_CALCULATION",
+      "formula": "Altman original Z = 1.2X1 + 1.4X2 + 3.3X3 + 0.6X4 + 1.0X5",
+      "sources": ["Altman, Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy (1968); original model definitions and population must be matched"],
+      "page_reference": "User requests p.589; edition and page not independently verified, so no page-specific citation is asserted.",
+      "validity": "Original model is not universal; use only with matching variable definitions and original public-manufacturing domain. Screening, not a lending decision."
+    }
+  },
+  "phase_2_status": "NOT STARTED — execute only after Phase 1 commit and CI review",
+  "excel": "Existing NAVARIS workbook assets are present in repository; per-agent Template_Library workbook placement still requires tree-level verification.",
+  "pdf": "Report generators require reportlab installed; output files are generated at runtime and are not claimed as committed PDFs.",
+  "last_change": "2026-10-25: Phase 1 fast-cash scope; separate code-test status from external evidence and lead verification."
 }
