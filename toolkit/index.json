@@ -1,43 +1,35 @@
 {
-  "title": "NAVARIS Business Methodology Toolkit",
-  "currency": "USD",
-  "pricingNote": "Draft prices only; approve before quoting.",
+  "product_1": "NAVARIS Toolkit - Knowledge Methodologies Tools",
+  "product_2": "NAVARIS Business Intelligence OS - Environment uses Toolkit to produce billable analytics",
   "toolkits": [
-    {
-      "id": "financial-diagnosis",
-      "price": 350
-    },
-    {
-      "id": "business-diagnosis",
-      "price": 350
-    },
-    {
-      "id": "restructuring",
-      "price": 750
-    },
-    {
-      "id": "operations",
-      "price": 500
-    },
-    {
-      "id": "digital",
-      "price": 500
-    },
-    {
-      "id": "investment",
-      "price": 750
-    },
-    {
-      "id": "energy",
-      "price": 500
-    },
-    {
-      "id": "freight",
-      "price": 350
-    },
-    {
-      "id": "supplier-qualification",
-      "price": 250
-    }
-  ]
+    "business-diagnosis",
+    "financial-diagnosis",
+    "restructuring",
+    "freight-forwarding",
+    "iso-audit",
+    "hotel-energy",
+    "fund-representation"
+  ],
+  "skills": [
+    "financial-dd",
+    "business-diagnosis",
+    "freight-pricing",
+    "iso-audit",
+    "hotel-energy",
+    "supplier-qual",
+    "fund-representation"
+  ],
+  "architecture": "Toolkit = What we know | OS = How we execute and sell",
+  "tested": [],
+  "proposed": [
+    "business-diagnosis",
+    "financial-diagnosis",
+    "restructuring",
+    "freight-forwarding",
+    "iso-audit",
+    "hotel-energy",
+    "fund-representation"
+  ],
+  "version": "3.0 Final Single Source",
+  "last_change": "2026-10-25: 7 toolkits, 7 skills, institutional landing page, proposed-vs-tested documentation"
 }
