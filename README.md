@@ -52,3 +52,9 @@ All repository workflows are in [`.github/workflows/`](.github/workflows/).
 ### API secret setup
 
 The local API now reads `NAVARIS_MASTER_KEY` from the server process environment. Both `POST /tasks` and `POST /reports` require `X-Navaris-Master-Key`; the API returns HTTP 503 when the secret is not configured. The previous hardcoded example key is compromised and must not be reused. Configure a new, long random key on the machine that runs the API; this is separate from the email secrets above.
+
+
+## NAVARIS V2 closure notes (2026-10-25)
+- Public DNS troubleshooting: on the affected local network only, test DNS resolvers 8.8.8.8 and 1.1.1.1. The reported local address 192.168.1.10 is not a public GitHub Pages DNS target. Do not add it to public DNS records.
+- Internal draft documents: [87-checkpoint toolkit](docs/NAVARIS_TOOLKIT_87.md), [ISO profile](docs/NAVARIS_ISO_PROFILE.md), [consulting pricing](docs/NAVARIS_CONSULTING_PRICING.md), and [cash diagnosis](docs/NAVARIS_CASH_DIAGNOSIS.md).
+- All pricing is draft until approved; cash remains zero absent documentary receipt evidence.
