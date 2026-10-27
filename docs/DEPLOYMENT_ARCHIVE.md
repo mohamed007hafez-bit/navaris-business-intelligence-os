@@ -11,9 +11,12 @@
 - The website is a responsive, static, single-page profile with English/Arabic toggle.
 - Tailwind CSS is loaded from the official CDN; custom CSS covers brand styling and layout.
 - Lead calls-to-action open a pre-populated email to mohamed007hafez@gmail.com.
-- A push to main should trigger the repository's configured Pages/CI workflows. GitHub Pages settings and the live render must still be verified in GitHub after deployment.
+- Deployment workflow completed successfully on 2026-10-27. Run: https://github.com/mohamed007hafez-bit/navaris-business-intelligence-os/actions/runs/40574708507
+- The workflow prepared the public site artifact, configured Pages, uploaded the artifact, and completed the deployment job successfully. A direct visual/browser rendering check could not be completed by the available web fetcher, so final appearance should still be opened in a browser.
 
 ## Evidence and caveats
+- Deployment commit: https://github.com/mohamed007hafez-bit/navaris-business-intelligence-os/commit/bf44af144b68cf4735c7c24cb08e290ce781b635
+- GitHub Actions deployment evidence (success): https://github.com/mohamed007hafez-bit/navaris-business-intelligence-os/actions/runs/40574708507
 - GitHub Actions history: https://github.com/mohamed007hafez-bit/navaris-business-intelligence-os/actions
 - Source history: https://github.com/mohamed007hafez-bit/navaris-business-intelligence-os/commits/main
 - Releases: https://github.com/mohamed007hafez-bit/navaris-business-intelligence-os/releases
