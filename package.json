@@ -17,6 +17,7 @@
     "appId": "com.navaris.gatewayegypt",
     "productName": "NAVARIS Business Intelligence OS",
     "directories": {
+      "app": ".",
       "output": "release"
     },
     "files": [
@@ -24,6 +25,8 @@
       "manifest.json",
       "founder.jpg",
       "founder.png",
+      "images/**/*",
+      "public/images/**/*",
       "desktop/**/*",
       "agents.json",
       "agents/**/*"
