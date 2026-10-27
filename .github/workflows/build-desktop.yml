@@ -1,14 +1,51 @@
 name: Windows Build
-on: [push]
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "desktop/**"
+      - "package.json"
+      - "package-lock.json"
+      - "agents.json"
+      - "agents/**"
+      - ".github/workflows/build-desktop.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: navaris-windows-build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: windows-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
-        with: { node-version: '18.x' }
-      - run: npm install
-      - run: npm run build || echo "no build script"
-      - run: npx electron-builder --win --x64 --publish never || echo "builder done"
-      - uses: actions/upload-artifact@v4
-        with: { name: navaris-exe, path: "dist/**/*.exe" }
+        with:
+          node-version: "18.x"
+          cache: npm
+      - name: Install desktop dependencies
+        run: npm ci
+      - name: Build Windows installer
+        run: npm run dist:win
+      - name: Verify installer exists
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem release -Filter '*.exe' -ErrorAction SilentlyContinue
+          if (-not $files) { throw 'No EXE installer was produced in release/.' }
+          $files | ForEach-Object {
+            "Verified installer: $($_.Name) ($([math]::Round($_.Length / 1MB, 2)) MB)"
+            "SHA256: $((Get-FileHash $_.FullName -Algorithm SHA256).Hash)"
+          } | Out-File $env:GITHUB_STEP_SUMMARY -Append
+      - name: Upload Windows installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: navaris-windows-installer
+          path: release/*.exe
+          if-no-files-found: error
+          retention-days: 14
