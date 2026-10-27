@@ -1,7 +1,8 @@
 name: Windows Build
 on:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - "index.html"
       - "desktop/**"
@@ -27,7 +28,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "18.x"
-          cache: npm
       - name: Install desktop dependencies
         run: npm install
       - name: Build Windows installer
