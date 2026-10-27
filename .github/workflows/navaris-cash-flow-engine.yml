@@ -51,11 +51,10 @@ jobs:
 
       - name: Validate cash-first policy and workbook
         run: |
-          grep -Fq 'ANALYSIS → EQUATION → EVALUATION' skills/navaris-cash-engine/SKILL.md
-          grep -Fq 'COMMERCIAL OPPORTUNITY → DECISION PACKAGE' skills/navaris-cash-engine/SKILL.md
-          grep -Fq 'NOT CALCULABLE' skills/navaris-cash-engine/SKILL.md
-          grep -Fq 'NO QUALIFIED LIVE OPPORTUNITY FOUND' skills/navaris-cash-engine/SKILL.md
-          grep -Fq 'SEND/DO NOT SEND' skills/navaris-cash-engine/SKILL.md
+          grep -Fq 'Cash collected is tracked separately' docs/NAVARIS_CASH_DIAGNOSIS.md
+          grep -Fq 'Prepare a small paid diagnostic' docs/NAVARIS_CASH_DIAGNOSIS.md
+          grep -Fq 'Obtain founder approval before sending' docs/NAVARIS_CASH_DIAGNOSIS.md
+          grep -Fq 'CASH COLLECTED' docs/workflows/NAVARIS_MASTER_WORKFLOW.md
           python - <<'PY'
           from pathlib import Path
           from openpyxl import load_workbook
