@@ -18,6 +18,8 @@ jobs:
   test-and-build:
     name: Test NAVARIS local engine
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: .
     timeout-minutes: 10
     steps:
       - name: Checkout repository

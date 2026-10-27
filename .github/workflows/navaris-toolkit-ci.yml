@@ -1,0 +1,51 @@
+name: NAVARIS Business Toolkits CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "navaris_agents/**"
+      - "tests/test_navaris_agents.py"
+      - "requirements.txt"
+      - ".github/workflows/navaris-toolkit-ci.yml"
+      - ".github/workflows/main.yml"
+  pull_request:
+    paths:
+      - "navaris_agents/**"
+      - "tests/test_navaris_agents.py"
+      - "requirements.txt"
+      - ".github/workflows/navaris-toolkit-ci.yml"
+      - ".github/workflows/main.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: navaris-toolkit-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python-toolkit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: .
+      NAVARIS_ALLOW_CLOUD: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install approved dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --upgrade pip
+          python -m pip install -r requirements.txt
+      - name: Compile agent modules
+        run: python -m compileall -q navaris_agents tests
+      - name: Run toolkit tests
+        run: python -m unittest discover -s tests -p "test_navaris_agents.py" -v
+      - name: Import API application
+        run: python -c "from navaris_agents.api import app; assert app.title == 'NAVARIS Business Toolkits API'; print('API import OK')"
