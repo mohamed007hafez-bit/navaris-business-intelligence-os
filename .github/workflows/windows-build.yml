@@ -9,9 +9,9 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '18.x'
       - run: npm install
       - run: npm run dist:win
       - name: Verify EXE and report size
