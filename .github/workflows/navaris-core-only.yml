@@ -8,6 +8,7 @@ permissions:
 jobs:
   core-tests-and-build:
     runs-on: windows-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,7 +22,7 @@ jobs:
       - name: Run core-only agent tests
         run: python -m pytest -q tests/test_core.py
       - name: Install Electron dependencies
-        run: npm install
+        run: npm install --no-audit --no-fund --fetch-retries=2 --fetch-timeout=120000
       - name: Build Windows x64 installer
         run: npm run dist
       - name: Verify installer exists and report size
