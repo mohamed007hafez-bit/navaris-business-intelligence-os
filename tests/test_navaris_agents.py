@@ -62,6 +62,17 @@ class FinancialAgentTests(unittest.TestCase):
         self.assertEqual(result["net_cashflow"], 235)
         self.assertEqual(result["cash_collected"], 125)
 
+    def test_mixed_currency_receipts_are_not_added_into_one_total(self):
+        common = {"direction": "in", "evidence_type": "BANK_RECEIPT",
+                  "evidence_reference_redacted": "RCPT-REDACTED", "opportunity_id": "NAV-OPP-002",
+                  "received_date": "2026-10-27T10:00:00+03:00", "verified_by": "reviewer-id",
+                  "verified_at": "2026-10-27T10:05:00+03:00"}
+        rows = [dict(common, amount=100, currency="EGP"),
+                dict(common, amount=20, currency="USD", evidence_reference_redacted="RCPT-REDACTED-2")]
+        result = financial.summarize_cashflow(rows)
+        self.assertIsNone(result["cash_collected"])
+        self.assertEqual(result["cash_collected_by_currency"], {"EGP": 100.0, "USD": 20.0})
+
     def test_profitability(self):
         result = financial.profitability(revenue=1000, direct_costs=600, operating_costs=100)
         self.assertEqual(result["gross_profit"], 400)
