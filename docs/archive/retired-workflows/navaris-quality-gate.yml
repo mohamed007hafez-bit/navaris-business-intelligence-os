@@ -1,0 +1,15 @@
+<!-- Archived from .github/workflows/navaris-quality-gate.yml on 2026-10-28. Original blob SHA: cec70a8b4d47e8ef1c369c329c3aff6e81863849. Reason: legacy gate requires founder image and masks build failure; incompatible with core-only scope. Retained for audit, not active CI. -->
+
+name: NAVARIS GATEWAY EGYPT Quality Gate
+on: [push]
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with: { node-version: '18.x' }
+      - run: |
+          echo "Checking founder"
+          if [ -f ./founder.jpg ] || [ -f ./images/founder.jpg ]; then echo "Founder OK 386KB"; ls -lh founder.jpg images/founder.jpg || true; else echo "Missing"; exit 1; fi
+          if [ -f package.json ]; then npm install; npm run build || echo "build done"; fi
