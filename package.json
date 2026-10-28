@@ -1,10 +1,58 @@
 {
- "name":"navaris-business-intelligence-os-core","version":"0.1.0","description":"NAVARIS core desktop shell and local Python agent modules",
- "main":"main.js","author":"NAVARIS","license":"UNLICENSED",
- "scripts":{"start":"electron .","dist":"electron-builder --win --x64 --publish never","dist:win":"electron-builder --win --x64 --publish never","test:python":"python -m pytest -q"},
- "devDependencies":{"electron":"33.2.1","electron-builder":"25.1.8"},
- "build":{"appId":"com.navaris.gatewayegypt.core","productName":"NAVARIS Business Intelligence OS","directories":{"output":"release"},
- "files":["index.html","main.js","package.json","README.md","requirements.txt","requirements-dev.txt","agents/**/*.py","!tests/**","!data/**","!release/**","!dist/**"],
- "asar":true,"compression":"maximum","win":{"target":[{"target":"nsis","arch":["x64"]}],"artifactName":"NAVARIS-Core-Setup-${version}-${arch}.${ext}"},
- "nsis":{"oneClick":false,"allowToChangeInstallationDirectory":true,"createDesktopShortcut":true,"createStartMenuShortcut":true}}
+  "name": "navaris-business-intelligence-os-core",
+  "version": "0.1.0",
+  "description": "NAVARIS core desktop shell and local Python agent modules",
+  "main": "main.js",
+  "author": "NAVARIS",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win --x64 --publish never",
+    "dist:win": "electron-builder --win --x64 --publish never",
+    "test:python": "python -m pytest -q"
+  },
+  "devDependencies": {
+    "electron": "33.2.1",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "com.navaris.gatewayegypt.core",
+    "productName": "NAVARIS Business Intelligence OS",
+    "directories": {
+      "output": "release",
+      "app": "."
+    },
+    "files": [
+      "index.html",
+      "main.js",
+      "package.json",
+      "README.md",
+      "requirements.txt",
+      "requirements-dev.txt",
+      "agents/**/*.py",
+      "!tests/**",
+      "!data/**",
+      "!release/**",
+      "!dist/**"
+    ],
+    "asar": true,
+    "compression": "maximum",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "NAVARIS-Core-Setup-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
 }
