@@ -1,22 +1,26 @@
 """Evidence gates for NAVARIS operations.
 
-These validators enforce required fields and state transitions; they do NOT
-authenticate bank documents, counterparties, signatures, or supplier evidence.
-Those facts must be verified by an authorized human or trusted integration.
+These functions validate record completeness and declared status; they cannot
+authenticate a bank document or independently verify counterparties. CASH_COLLECTED
+requires an explicit reconciliation record from an authorized finance reviewer.
 """
 from decimal import Decimal, InvalidOperation
+
 
 def _nonempty(record, keys):
     return [key for key in keys if not str(record.get(key, "")).strip()]
 
+
 def classify_cash_status(record):
-    """Return CASH_COLLECTED only for a complete finance-reviewed bank-credit record."""
+    """Classify cash only after bank-credit evidence is marked reconciled."""
+    record = record or {}
     required = (
         "invoice_id", "bank_transaction_reference", "bank_posted_date",
         "payer_legal_name", "amount", "currency", "evidence_sha256",
         "finance_reviewer_id", "verified_at", "verification_status",
+        "reconciliation_reference", "reconciliation_status",
     )
-    missing = _nonempty(record or {}, required)
+    missing = _nonempty(record, required)
     if missing:
         return {"status": "PAYMENT_PENDING", "missing_evidence": missing}
     try:
@@ -27,6 +31,8 @@ def classify_cash_status(record):
         return {"status": "PAYMENT_PENDING", "missing_evidence": ["positive_amount"]}
     if str(record["verification_status"]).upper() != "VERIFIED_BY_FINANCE":
         return {"status": "PAYMENT_PENDING", "missing_evidence": ["finance_verification_status"]}
+    if str(record["reconciliation_status"]).upper() != "RECONCILED":
+        return {"status": "PAYMENT_PENDING", "missing_evidence": ["bank_reconciliation_status"]}
     if len(str(record["evidence_sha256"]).strip()) != 64:
         return {"status": "PAYMENT_PENDING", "missing_evidence": ["evidence_sha256_must_be_64_chars"]}
     return {
@@ -37,15 +43,19 @@ def classify_cash_status(record):
         "bank_transaction_reference": str(record["bank_transaction_reference"]),
         "verified_by": str(record["finance_reviewer_id"]),
         "verified_at": str(record["verified_at"]),
-        "note": "Schema-complete only; the evidence and bank posting must be independently authenticated.",
+        "reconciliation_reference": str(record["reconciliation_reference"]),
+        "note": "Record is marked reconciled; underlying bank evidence and reviewer authority must be authenticated by the operating system or authorized finance process.",
     }
 
+
 def verify_demand_supply_match(demand, supply):
-    """Require independently evidenced buyer demand and supplier capability."""
+    """Require evidenced demand/supply records; return a review status, never execute."""
+    demand = demand or {}
+    supply = supply or {}
     demand_required = ("demand_id", "buyer_evidence_ref", "specification", "quantity", "location", "required_date")
     supply_required = ("supplier_id", "supplier_evidence_ref", "specification", "available_quantity", "location", "available_from")
-    missing = [f"demand.{k}" for k in _nonempty(demand or {}, demand_required)]
-    missing += [f"supply.{k}" for k in _nonempty(supply or {}, supply_required)]
+    missing = [f"demand.{k}" for k in _nonempty(demand, demand_required)]
+    missing += [f"supply.{k}" for k in _nonempty(supply, supply_required)]
     if missing:
         return {"status": "NEEDS_EVIDENCE", "missing_evidence": missing}
     if str(demand["specification"]).strip().casefold() != str(supply["specification"]).strip().casefold():
@@ -57,24 +67,26 @@ def verify_demand_supply_match(demand, supply):
         available = Decimal(str(supply["available_quantity"]))
     except (InvalidOperation, ValueError, TypeError):
         return {"status": "NEEDS_EVIDENCE", "missing_evidence": ["valid_quantity_values"]}
-    if qty <= 0 or available < qty:
-        return {"status": "NO_MATCH", "reason": "insufficient_quantity"}
+    if not qty.is_finite() or not available.is_finite() or qty <= 0 or available < qty:
+        return {"status": "NO_MATCH", "reason": "insufficient_or_invalid_quantity"}
     return {
         "status": "MATCH_READY_FOR_HUMAN_VERIFICATION",
         "demand_id": str(demand["demand_id"]),
         "supplier_id": str(supply["supplier_id"]),
-        "note": "Date, certificates, permits, terms, and evidence authenticity still require review.",
+        "note": "Date, certificates, permits, commercial terms and evidence authenticity still require review; this is not execution approval.",
     }
 
+
 def activate_sla(record):
-    """Activate SLA monitoring only after written scope and measurable clock rules exist."""
+    """Activate SLA monitoring readiness only when written scope and clock rules exist."""
+    record = record or {}
     required = (
         "signed_scope_ref", "accountable_provider", "availability_evidence_ref",
         "clock_start", "clock_stop", "target_minutes", "timezone",
         "exclusions", "evidence_capture_method", "escalation_owner",
         "acceptance_criteria",
     )
-    missing = _nonempty(record or {}, required)
+    missing = _nonempty(record, required)
     if missing:
         return {"status": "SLA_NOT_ACTIVE", "missing_requirements": missing}
     try:
@@ -86,5 +98,5 @@ def activate_sla(record):
     return {
         "status": "SLA_MONITORING_READY",
         "target_minutes": target,
-        "note": "Readiness gate only; it is not a guarantee that service will be delivered within target.",
+        "note": "Readiness gate only; not a service guarantee. Activate contractual monitoring only after authorized acceptance is verified.",
     }
