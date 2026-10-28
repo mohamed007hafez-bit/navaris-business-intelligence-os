@@ -44,7 +44,7 @@ jobs:
       - name: Package source ZIP
         shell: pwsh
         run: |
-          $items = @("agents/__init__.py", "agents/config.py", "agents/database.py", "agents/shipping.py", "agents/oilfield.py", "agents/financial.py", "agents/router.py", "tests/test_core.py", "index.html", "main.js", "package.json", "requirements.txt", "requirements-dev.txt", "README.md")
+          $items = @("agents/__init__.py", "agents/config.py", "agents/controls.py", "agents/database.py", "agents/shipping.py", "agents/oilfield.py", "agents/financial.py", "agents/router.py", "tests/test_core.py", "index.html", "main.js", "package.json", "requirements.txt", "requirements-dev.txt", "README.md")
           Compress-Archive -Path $items -DestinationPath NAVARIS_CORE_ONLY.zip -Force
       - name: Upload core source ZIP
         uses: actions/upload-artifact@v4
