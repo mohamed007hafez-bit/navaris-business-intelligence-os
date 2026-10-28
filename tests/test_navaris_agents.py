@@ -47,16 +47,20 @@ class OilfieldAgentTests(unittest.TestCase):
 
 
 class FinancialAgentTests(unittest.TestCase):
-    def test_cash_collected_requires_verified_receipt(self):
+    def test_cash_collected_requires_full_bank_receipt_evidence(self):
         result = financial.summarize_cashflow([
             {"amount": 100, "direction": "in", "receipt_verified": True},
             {"amount": 50, "direction": "in", "receipt_verified": False},
             {"amount": 40, "direction": "out"},
+            {"amount": 125, "direction": "in", "evidence_type": "BANK_RECEIPT",
+             "evidence_reference_redacted": "RCPT-REDACTED-001", "opportunity_id": "NAV-OPP-001",
+             "currency": "EGP", "received_date": "2026-10-27T10:00:00+03:00",
+             "verified_by": "reviewer-id", "verified_at": "2026-10-27T10:05:00+03:00"},
         ])
-        self.assertEqual(result["cash_in"], 150)
+        self.assertEqual(result["cash_in"], 275)
         self.assertEqual(result["cash_out"], 40)
-        self.assertEqual(result["net_cashflow"], 110)
-        self.assertEqual(result["cash_collected"], 100)
+        self.assertEqual(result["net_cashflow"], 235)
+        self.assertEqual(result["cash_collected"], 125)
 
     def test_profitability(self):
         result = financial.profitability(revenue=1000, direct_costs=600, operating_costs=100)
