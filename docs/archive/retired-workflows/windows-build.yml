@@ -1,0 +1,25 @@
+<!-- Archived from .github/workflows/windows-build.yml on 2026-10-28. Original blob SHA: e12a67ef9815854a6bdf5d35191a92a998b3b0bc. Reason: Duplicates the root Windows installer workflow build-desktop.yml; the latter includes SHA-256 reporting. Preserved here for rollback and audit. -->
+
+name: Windows Desktop Build
+on:
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - run: npm install
+      - run: npm run dist:win
+      - name: Verify EXE and report size
+        shell: pwsh
+        run: |
+          $f = Get-ChildItem release -Filter '*.exe' | Select-Object -First 1
+          if (-not $f) { throw 'No EXE installer produced' }
+          "Installer $($f.Name): $([math]::Round($f.Length / 1MB, 2)) MB" | Out-File $env:GITHUB_STEP_SUMMARY -Append
+          if ($f.Length -lt 50MB) { Write-Warning 'Below approximate 180MB target; actual size depends on assets/runtime.' }
+      - uses: actions/upload-artifact@v4
+        with: {name: navaris-windows-installer, path: release/*.exe, if-no-files-found: error, retention-days: 14}
