@@ -21,14 +21,20 @@ def summarize_cashflow(rows: list[dict[str, Any]]) -> dict[str, Any]:
     if (~direction.isin({"in","out"})).any(): raise ValueError("direction must be 'in' or 'out'")
     cash_in=float(frame.loc[direction=="in","amount"].sum())
     cash_out=float(frame.loc[direction=="out","amount"].sum())
-    collected=0.0
+    collected_by_currency: dict[str, float] = {}
     for row in rows:
-        if str(row.get("direction","")).lower()=="in":
-            verified=verify_bank_receipt(row)
-            if verified["status"]=="RECEIVED_VERIFIED": collected+=verified["cash_collected"]
-    return {"status":"CALCULATED_FROM_INPUT","cash_in":round(cash_in,2),"cash_out":round(cash_out,2),
-            "net_cashflow":round(cash_in-cash_out,2),"cash_collected":round(collected,2),"row_count":len(rows),
-            "warning":"Collected cash requires BANK_RECEIPT evidence, redacted reference, amount, currency, received date, verifier and verification timestamp."}
+        if str(row.get("direction", "")).lower() == "in":
+            verified = verify_bank_receipt(row)
+            if verified["status"] == "RECEIVED_VERIFIED":
+                currency = verified["currency"]
+                collected_by_currency[currency] = collected_by_currency.get(currency, 0.0) + verified["cash_collected"]
+    # A single scalar is meaningful only when the verified receipts share one currency.
+    cash_collected = round(next(iter(collected_by_currency.values())), 2) if len(collected_by_currency) == 1 else (0.0 if not collected_by_currency else None)
+    return {"status": "CALCULATED_FROM_INPUT", "cash_in": round(cash_in, 2), "cash_out": round(cash_out, 2),
+            "net_cashflow": round(cash_in - cash_out, 2), "cash_collected": cash_collected,
+            "cash_collected_by_currency": {k: round(v, 2) for k, v in collected_by_currency.items()},
+            "row_count": len(rows),
+            "warning": "Collected cash requires BANK_RECEIPT evidence, redacted reference, amount, currency, received date, verifier and verification timestamp. Mixed currencies are never summed into one scalar."}
 
 
 def profitability(*, revenue: float, direct_costs: float, operating_costs: float = 0.0) -> dict[str, float]:
