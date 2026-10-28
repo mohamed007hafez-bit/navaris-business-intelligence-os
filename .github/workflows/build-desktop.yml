@@ -1,15 +1,5 @@
 name: Windows Build
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "index.html"
-      - "desktop/**"
-      - "package.json"
-      - "agents.json"
-      - "agents/**"
-      - ".github/workflows/build-desktop.yml"
   workflow_dispatch:
 
 permissions:
