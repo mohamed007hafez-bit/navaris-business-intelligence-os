@@ -1,0 +1,9 @@
+<!-- Archived from docs/cash-collected.json on 2026-10-28. Original blob SHA: ed9c93e6a40c76790c7c218d689190304ae48d27. Reason: Empty legacy schema overlaps canonical data/cash-collected.json; no repository references to this exact path were returned by code search. Preserve for audit; new records belong in canonical data schema. -->
+
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-10-17",
+  "currency": "Deal currency; specify per record",
+  "records": [],
+  "rule": "Record cash as collected only when supported by payment/bank evidence. Prospective commissions are not collected cash."
+}
