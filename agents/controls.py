@@ -16,7 +16,7 @@ def classify_cash_status(record):
     record = record or {}
     required = (
         "invoice_id", "bank_transaction_reference", "bank_posted_date",
-        "payer_legal_name", "amount", "currency", "evidence_sha256",
+        "payer_legal_name", "expected_payer_legal_name", "amount", "expected_amount", "currency", "expected_currency", "evidence_sha256",
         "finance_reviewer_id", "verified_at", "verification_status",
         "reconciliation_reference", "reconciliation_status",
     )
@@ -29,6 +29,16 @@ def classify_cash_status(record):
         return {"status": "PAYMENT_PENDING", "missing_evidence": ["valid_amount"]}
     if not amount.is_finite() or amount <= 0:
         return {"status": "PAYMENT_PENDING", "missing_evidence": ["positive_amount"]}
+    try:
+        expected_amount = Decimal(str(record["expected_amount"]))
+    except (InvalidOperation, ValueError, TypeError):
+        return {"status": "PAYMENT_PENDING", "missing_evidence": ["valid_expected_amount"]}
+    if not expected_amount.is_finite() or amount != expected_amount:
+        return {"status": "PAYMENT_PENDING", "missing_evidence": ["amount_reconciliation_mismatch"]}
+    if str(record["currency"]).upper() != str(record["expected_currency"]).upper():
+        return {"status": "PAYMENT_PENDING", "missing_evidence": ["currency_reconciliation_mismatch"]}
+    if str(record["payer_legal_name"]).strip().casefold() != str(record["expected_payer_legal_name"]).strip().casefold():
+        return {"status": "PAYMENT_PENDING", "missing_evidence": ["payer_reconciliation_mismatch"]}
     if str(record["verification_status"]).upper() != "VERIFIED_BY_FINANCE":
         return {"status": "PAYMENT_PENDING", "missing_evidence": ["finance_verification_status"]}
     if str(record["reconciliation_status"]).upper() != "RECONCILED":
