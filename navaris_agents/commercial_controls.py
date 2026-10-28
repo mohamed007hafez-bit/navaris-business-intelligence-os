@@ -22,11 +22,13 @@ def verify_bank_receipt(record: dict[str, Any]) -> dict[str, Any]:
         return {"status": "UNVERIFIED", "cash_collected": 0.0,
                 "missing_or_invalid": sorted(set(missing))}
     try:
-        datetime.fromisoformat(str(record["verified_at"]).replace("Z", "+00:00"))
-        datetime.fromisoformat(str(record["received_date"]).replace("Z", "+00:00"))
+        verified_at = datetime.fromisoformat(str(record["verified_at"]).replace("Z", "+00:00"))
+        received_at = datetime.fromisoformat(str(record["received_date"]).replace("Z", "+00:00"))
+        if verified_at.tzinfo is None or received_at.tzinfo is None:
+            raise ValueError("timezone required")
     except ValueError:
         return {"status": "UNVERIFIED", "cash_collected": 0.0,
-                "missing_or_invalid": ["received_date_and_verified_at_must_be_ISO8601"]}
+                "missing_or_invalid": ["received_date_and_verified_at_must_be_timezone_aware_ISO8601"]}
     return {"status": "RECEIVED_VERIFIED", "cash_collected": round(amount, 2),
             "opportunity_id": str(record["opportunity_id"]),
             "currency": str(record["currency"]).upper(),
