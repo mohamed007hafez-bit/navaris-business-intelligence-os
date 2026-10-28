@@ -1,19 +1,17 @@
 """Central router: local deterministic dispatch only; no background execution or AI API calls."""
 from __future__ import annotations
-
 from typing import Any
+from navaris_agents import config, financial, oilfield, shipping
+from navaris_agents.commercial_controls import evaluate_sla, verify_bank_receipt, verify_demand_supply_match
 
-from navaris_agents import config
-from navaris_agents import financial, oilfield, shipping
-
-AGENT_NAMES = {"shipping", "oilfield", "financial"}
+AGENT_NAMES = {"shipping", "oilfield", "financial", "commercial"}
 
 
 def route_request(agent: str, action: str, payload: dict[str, Any], *,
                   enabled_agents: dict[str, bool] | None = None,
                   allow_cloud_ai: bool | None = None,
                   human_approved: bool = False) -> dict[str, Any]:
-    """Dispatch a single explicit request to an enabled local handler."""
+    """Dispatch one explicit request to an enabled local handler."""
     agent = agent.strip().lower()
     action = action.strip().lower()
     enabled = config.ENABLED_AGENTS if enabled_agents is None else enabled_agents
@@ -38,6 +36,12 @@ def route_request(agent: str, action: str, payload: dict[str, Any], *,
         result = financial.summarize_cashflow(payload.get("rows", []))
     elif agent == "financial" and action == "profitability":
         result = financial.profitability(**payload)
+    elif agent == "commercial" and action == "receipt_verify":
+        result = verify_bank_receipt(payload)
+    elif agent == "commercial" and action == "demand_supply_match":
+        result = verify_demand_supply_match(payload.get("demand", {}), payload.get("supply", {}))
+    elif agent == "commercial" and action == "sla_evaluate":
+        result = evaluate_sla(payload)
     else:
         raise ValueError(f"Unsupported action '{action}' for agent '{agent}'")
     return {"agent": agent, "action": action, "execution_mode": "LOCAL_ONLY",
