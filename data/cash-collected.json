@@ -2,19 +2,20 @@
   "schema_version": "1.0",
   "currency_default": "USD",
   "records": [],
-  "ledger_policy": "Empty means no cash collection has been evidenced in this repository. Add a record only after funds are received and evidenced. Store receipts privately and redacted; never commit bank details or sensitive customer data.",
+  "ledger_policy": "Empty means no cash collection has been evidenced in this repository. Count cash only after a positive-amount BANK_RECEIPT record has ISO-8601 received_date and verified_at, a redacted evidence reference, opportunity_id, currency and verified_by. Never commit raw receipts, account numbers, or sensitive customer data.",
   "required_fields": [
     "record_id",
     "opportunity_id",
     "amount",
     "currency",
     "received_date",
-    "payment_method",
     "evidence_type",
     "evidence_reference_redacted",
-    "verified_by"
+    "verified_by",
+    "verified_at"
   ],
   "status_values": [
     "RECEIVED_VERIFIED"
-  ]
+  ],
+  "required_evidence_type": "BANK_RECEIPT"
 }
