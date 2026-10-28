@@ -55,3 +55,5 @@ These active duplicates were archived with their original content and blob SHA b
 - `agents/whatsapp-sales-agent.md` was converted to a short compatibility pointer to `sales-agent-whatsapp.md`, removing duplicate copy while preserving the path for consumers.
 
 The archived originals are retained for rollback/audit. Three workflow files were removed from the active workflow directory; verify the resulting workflow count and all Actions runs before further consolidation. No email or WhatsApp history was deleted because those external channels were not in scope of the accessible repository audit.
+
+- `.github/workflows/deploy-pages.yml` → `docs/archive/retired-workflows/deploy-pages.yml` (duplicate Pages deploy uploaded the entire repository root; the retained `navaris-pages.yml` publishes the prepared `_site` artifact containing the public homepage only).
