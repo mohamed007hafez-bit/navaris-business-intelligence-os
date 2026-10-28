@@ -2,6 +2,8 @@ from agents.router import route_request
 from agents.shipping import analyze_shipping
 from agents.oilfield import qualify_oilfield
 from agents.financial import analyze_financial
+from agents.controls import activate_sla, classify_cash_status, verify_demand_supply_match
+
 def test_shipping_missing_rates_not_invented():
  r=analyze_shipping({"freight":100}); assert r["status"]=="needs_inputs" and r["total_landed_cost"] is None
 def test_shipping_cost_calculation():
@@ -19,3 +21,20 @@ def test_negative_shipping_cost_rejected():
  try: analyze_shipping({"freight":-1,"customs":0,"handling":0})
  except ValueError: pass
  else: raise AssertionError("negative cost must fail")
+def test_cash_not_collected_from_invoice_or_incomplete_proof():
+ r=classify_cash_status({"invoice_id":"INV-1","amount":"100","currency":"USD"})
+ assert r["status"]=="PAYMENT_PENDING"
+def test_cash_requires_finance_verified_bank_evidence():
+ r=classify_cash_status({"invoice_id":"INV-1","bank_transaction_reference":"TX-1","bank_posted_date":"2026-10-28","payer_legal_name":"Buyer Ltd","amount":"100","currency":"USD","evidence_sha256":"a"*64,"finance_reviewer_id":"finance-01","verified_at":"2026-10-28T10:00:00Z","verification_status":"VERIFIED_BY_FINANCE"})
+ assert r["status"]=="CASH_COLLECTED"
+def test_cash_rejects_unreviewed_claim():
+ r=classify_cash_status({"invoice_id":"INV-1","bank_transaction_reference":"TX-1","bank_posted_date":"2026-10-28","payer_legal_name":"Buyer Ltd","amount":"100","currency":"USD","evidence_sha256":"a"*64,"finance_reviewer_id":"finance-01","verified_at":"2026-10-28T10:00:00Z","verification_status":"SELF_REPORTED"})
+ assert r["status"]=="PAYMENT_PENDING"
+def test_match_requires_evidence():
+ assert verify_demand_supply_match({}, {})["status"]=="NEEDS_EVIDENCE"
+def test_match_rejects_specification_mismatch():
+ d={"demand_id":"D1","buyer_evidence_ref":"buyer.pdf","specification":"Valve A","quantity":2,"location":"Alexandria","required_date":"2026-11-05"}
+ s={"supplier_id":"S1","supplier_evidence_ref":"quote.pdf","specification":"Valve B","available_quantity":4,"location":"Alexandria","available_from":"2026-11-01"}
+ assert verify_demand_supply_match(d,s)["status"]=="NO_MATCH"
+def test_sla_not_active_without_signed_scope():
+ assert activate_sla({"target_minutes":180})["status"]=="SLA_NOT_ACTIVE"
