@@ -35,6 +35,7 @@
       "agents/shipping.py",
       "agents/oilfield.py",
       "agents/financial.py",
+      "agents/controls.py",
       "agents/router.py",
       "!tests/**",
       "!data/**",
