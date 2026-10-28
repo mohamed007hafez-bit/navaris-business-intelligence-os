@@ -18,8 +18,8 @@ jobs:
           node-version: "20"
       - name: Install test dependency
         run: python -m pip install -r requirements-dev.txt
-      - name: Run core agent tests
-        run: python -m pytest -q
+      - name: Run core-only agent tests
+        run: python -m pytest -q tests/test_core.py
       - name: Install Electron dependencies
         run: npm install
       - name: Build Windows x64 installer
@@ -43,7 +43,7 @@ jobs:
       - name: Package source ZIP
         shell: pwsh
         run: |
-          $items = @("agents", "tests", "index.html", "main.js", "package.json", "requirements.txt", "requirements-dev.txt", "README.md")
+          $items = @("agents", "tests/test_core.py", "index.html", "main.js", "package.json", "requirements.txt", "requirements-dev.txt", "README.md")
           Compress-Archive -Path $items -DestinationPath NAVARIS_CORE_ONLY.zip -Force
       - name: Upload core source ZIP
         uses: actions/upload-artifact@v4
