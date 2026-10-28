@@ -1,256 +1,44 @@
-<!doctype html>
-<html lang="en" dir="ltr">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0A1931">
-  <meta name="description" content="NAVARIS Business Operations & Development — energy, oilfield supply, commercial representation, maritime logistics and global trade coordination.">
-  <title>NAVARIS | Business Operations & Development</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { theme: { extend: { colors: { navy: '#0A1931', charcoal: '#1a2a4a', gold: '#C5A059', paper: '#F8F5ED' }, fontFamily: { sans: ['Inter','Arial','sans-serif'], mono: ['JetBrains Mono','monospace'], serif: ['Georgia','serif'] }, boxShadow: { glow: '0 0 28px rgba(197,160,89,.22)' } } } };
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root{--navy:#0A1931;--charcoal:#1a2a4a;--gold:#C5A059;--white:#fff}
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:var(--navy);color:#fff;font-family:Inter,Arial,sans-serif}a{color:inherit;text-decoration:none}button{font:inherit}
-    .mono{font-family:'JetBrains Mono',monospace}.gold{color:var(--gold)}.gold-line{border-color:rgba(197,160,89,.42)}.lux-button{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;border:1px solid var(--gold);border-radius:7px;padding:13px 19px;font-size:13px;font-weight:800;transition:all .2s ease}.lux-button:hover{box-shadow:0 0 24px #c5a05955;transform:translateY(-2px)}.lux-button.primary{background:var(--gold);color:#101522}.lux-button.secondary{background:#0a1931b8;color:#fff}.section-wrap{max-width:1320px;margin:auto;padding-left:clamp(18px,4vw,56px);padding-right:clamp(18px,4vw,56px)}
-    .header{position:sticky;top:0;z-index:50;background:rgba(10,25,49,.96);backdrop-filter:blur(15px);border-bottom:1px solid rgba(197,160,89,.55)}.nav-link{font:600 11px 'JetBrains Mono',monospace;letter-spacing:.08em;color:#e6c783;transition:color .2s}.nav-link:hover{color:#fff;text-shadow:0 0 12px #c5a059}.anchor-mark{filter:drop-shadow(0 0 7px #c5a05944)}
-    .hero-left{background:linear-gradient(130deg,rgba(10,25,49,.98),rgba(14,33,62,.97));position:relative;overflow:hidden}.hero-left:before{content:"";position:absolute;inset:-30%;pointer-events:none;background:repeating-linear-gradient(132deg,transparent 0 78px,rgba(197,160,89,.17) 79px,transparent 81px 155px);mask-image:linear-gradient(90deg,#000,transparent 95%)}.hero-left:after{content:"";position:absolute;width:340px;height:340px;border:1px solid #c5a05922;transform:rotate(45deg);right:-220px;top:-170px}.hero-content{position:relative;z-index:1}.eyebrow{font:600 11px 'JetBrains Mono',monospace;letter-spacing:.25em;text-transform:uppercase;color:var(--gold)}.hero-title{font-weight:900;letter-spacing:-.045em;line-height:1.05}.hero-art{position:relative;min-height:420px;overflow:hidden;background:#172b44}.hero-art svg{width:100%;height:100%;min-height:420px;display:block}.art-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,25,49,.13),transparent 30%,rgba(10,25,49,.05));pointer-events:none}
-    .service-card{background:linear-gradient(155deg,rgba(26,42,74,.85),rgba(10,25,49,.97));border:1px solid rgba(197,160,89,.2);border-radius:12px;min-height:198px;transition:transform .25s,border-color .25s,box-shadow .25s}.service-card:hover{transform:translateY(-5px);border-color:rgba(197,160,89,.85);box-shadow:0 12px 34px #0004,0 0 20px #c5a05913}.service-card p{color:rgba(255,255,255,.58);font:10px/1.7 'JetBrains Mono',monospace}.section-title{font:normal clamp(28px,3vw,39px) Georgia,serif;color:#e6c783}.founder-frame{padding:8px;border:1px solid var(--gold);outline:1px solid #c5a05966;outline-offset:5px;position:relative;background:#1a2a4a}.founder-frame:before,.founder-frame:after{content:"✦";position:absolute;color:var(--gold);font-size:18px;z-index:2}.founder-frame:before{top:-11px;left:-9px}.founder-frame:after{bottom:-11px;right:-9px}.founder-img{width:100%;aspect-ratio:4/4.5;object-fit:cover;display:block;background:linear-gradient(145deg,#233957,#0a1931)}.governance{border:1px solid rgba(197,160,89,.38);background:linear-gradient(145deg,#152746,#0b1a31);border-radius:8px}.stat{border-left:1px solid rgba(197,160,89,.42);padding-left:14px}.stat:first-child{border-left:0;padding-left:0}.footer-rule{border-top:1px solid rgba(197,160,89,.4)}.disclaimer{font:9px/1.75 'JetBrains Mono',monospace;color:#b7c0ce}.badge-draft{display:inline-flex;align-items:center;gap:8px;border:1px solid #c5a05977;background:#c5a05912;border-radius:999px;padding:7px 11px;color:#f0d79c;font:10px 'JetBrains Mono',monospace}.mobile-menu{display:none}
-    [dir=rtl] body,[dir=rtl] .hero-content{text-align:right}[dir=rtl] .stat{border-left:0;border-right:1px solid rgba(197,160,89,.42);padding-left:0;padding-right:14px}[dir=rtl] .stat:first-child{border-right:0;padding-right:0}[dir=rtl] .nav-link{letter-spacing:0}
-    @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-art,.hero-art svg{min-height:340px}.service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.founder-grid{grid-template-columns:1fr 1.3fr}.founder-governance{grid-column:1/-1;grid-row:2}.founder-copy{grid-column:2;grid-row:1}.founder-photo{grid-column:1;grid-row:1}.nav-links{display:none}.mobile-menu{display:inline-flex}.header-inner{min-height:76px}}
-    @media(max-width:600px){.hero-art,.hero-art svg{min-height:270px}.service-grid{grid-template-columns:1fr}.founder-grid{grid-template-columns:1fr}.founder-photo,.founder-governance,.founder-copy{grid-column:auto;grid-row:auto}.founder-photo{max-width:310px;margin:0 auto 14px}.stats{grid-template-columns:1fr;gap:12px}.stat{border-left:0;padding-left:0;border-top:1px solid #c5a05944;padding-top:10px}[dir=rtl] .stat{border-right:0;padding-right:0}.footer-grid{grid-template-columns:1fr;text-align:center}.hero-title{font-size:clamp(35px,11vw,54px)}.hero-art svg{min-width:600px;transform:translateX(-10%)}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAVARIS - Business Operations & Development</title>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<header class="header">
-  <div class="section-wrap header-inner min-h-[86px] flex items-center justify-between gap-6">
-    <a href="#home" class="flex items-center gap-3 shrink-0" aria-label="NAVARIS home">
-      <svg class="anchor-mark w-10 h-10 gold" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="7" r="4" stroke="currentColor" stroke-width="2"/><path d="M24 11v25M17 17h14M20 13h8M11 25l13 12 13-12M7 29c2 8 8 12 17 12s15-4 17-12M7 29l8 1M7 29l2 8M41 29l-8 1M41 29l-2 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 22h10" stroke="currentColor" stroke-width="2"/></svg>
-      <span class="text-[26px] md:text-[29px] tracking-[.15em] font-semibold gold" style="font-family:Georgia,serif">NAVARIS</span>
-    </a>
-    <nav class="nav-links flex items-center gap-4 lg:gap-5" aria-label="Main navigation">
-      <a class="nav-link" href="#home" data-en="HOME" data-ar="الرئيسية">HOME</a><span class="gold text-xs">•</span>
-      <a class="nav-link" href="#services" data-en="SERVICES" data-ar="الخدمات">SERVICES</a><span class="gold text-xs">•</span>
-      <a class="nav-link" href="#about" data-en="ABOUT" data-ar="عن الشركة">ABOUT</a><span class="gold text-xs">•</span>
-      <a class="nav-link" href="#sectors" data-en="SECTORS" data-ar="القطاعات">SECTORS</a><span class="gold text-xs">•</span>
-      <a class="nav-link" href="#contact" data-en="CONTACT" data-ar="اتصل بنا">CONTACT</a>
-    </nav>
-    <div class="flex items-center gap-3">
-      <button id="langToggle" class="mono text-[10px] gold border border-[#c5a05966] rounded px-2 py-2" type="button" aria-label="Switch language">عربي</button>
-      <a href="#contact" class="lux-button primary !py-3 !px-4 !text-[11px] whitespace-nowrap" data-en="GET IN TOUCH" data-ar="تواصل معنا">GET IN TOUCH</a>
-    </div>
-  </div>
-  <nav id="mobileNav" class="hidden px-5 pb-4 flex-wrap gap-x-5 gap-y-3" aria-label="Mobile navigation">
-    <a class="nav-link" href="#home">HOME</a><a class="nav-link" href="#services">SERVICES</a><a class="nav-link" href="#about">ABOUT</a><a class="nav-link" href="#sectors">SECTORS</a><a class="nav-link" href="#contact">CONTACT</a>
-  </nav>
+<body style="background:#0A1931;color:white;font-family:sans-serif">
+<header style="border-bottom:1px solid #C5A0594D;padding:12px 24px;display:flex;justify-content:space-between">
+<div><b style="color:#E8C99A;letter-spacing:0.2em">⚓ NAVARIS</b></div>
+<div style="color:#E8C99A;font-size:11px">HOME • SERVICES • ABOUT • SECTORS • CONTACT</div>
 </header>
-<main>
-<section id="home" class="grid hero-grid grid-cols-[45%_55%] min-h-[420px]">
-  <div class="hero-left flex items-center py-12 md:py-14">
-    <div class="section-wrap hero-content w-full !pr-7 lg:!pr-10">
-      <p class="eyebrow mb-4" data-en="NAVARIS • GATEWAY EGYPT" data-ar="نافاريس • بوابة مصر">NAVARIS • GATEWAY EGYPT</p>
-      <div class="badge-draft mb-4"><span class="inline-block w-1.5 h-1.5 rounded-full bg-[#C5A059]"></span><span data-en="DRAFT THESIS · FIGURES REQUIRE SOURCE VERIFICATION" data-ar="مسودة أولية · الأرقام تتطلب التحقق من المصادر">DRAFT THESIS · FIGURES REQUIRE SOURCE VERIFICATION</span></div>
-      <h1 class="hero-title text-[clamp(36px,3.5vw,55px)] mb-4" data-en="Direct Income Source — GUPCO $516.5M + SLB OBN 1,035 km² — Zero Capital" data-ar="مصدر دخل مباشر — GUPCO ‏516.5 مليون دولار + SLB OBN ‏1,035 كم² — دون رأس مال">Direct Income Source — GUPCO $516.5M + SLB OBN 1,035 km² — Zero Capital</h1>
-      <h2 class="text-base md:text-lg font-bold leading-snug text-white/90 mb-3" data-en="Business Operations & Development | Your Global Partner in Energy, Oil & Gas, Trade & Maritime Logistics" data-ar="تطوير وإدارة الأعمال | شريكك العالمي في الطاقة والنفط والغاز والتجارة والخدمات اللوجستية البحرية">Business Operations & Development | Your Global Partner in Energy, Oil & Gas, Trade & Maritime Logistics</h2>
-      <p class="gold font-semibold text-sm md:text-base mb-6" data-en="Bridging Needs With Solutions • Turning Opportunities Into Results" data-ar="نربط الاحتياجات بالحلول • ونحوّل الفرص إلى نتائج">Bridging Needs With Solutions • Turning Opportunities Into Results</p>
-      <div class="flex flex-wrap gap-3 mb-7"><a href="#services" class="lux-button primary" data-en="› Explore Services" data-ar="› استكشف الخدمات">› Explore Services</a><button id="downloadProfile" class="lux-button secondary" type="button" data-en="Download Profile" data-ar="تحميل الملف التعريفي">Download Profile</button></div>
-      <div id="sectors" class="grid grid-cols-3 gap-3 max-w-[560px] border-t border-[#c5a05944] pt-4">
-        <div class="flex flex-col items-center text-center gap-2 px-1"><svg class="w-7 h-7 gold" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 27 12 5l7 22M8 18h8M10 12h6M7 23h10M22 6h5v21h-5zM20 11h9M20 17h9"/></svg><span class="text-[10px] md:text-xs font-semibold" data-en="Petroleum & Energy" data-ar="البترول والطاقة">Petroleum & Energy</span></div>
-        <div class="flex flex-col items-center text-center gap-2 px-1 border-x border-[#c5a05944]"><svg class="w-7 h-7 gold" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 3v20M11 8h10M12 5h8M7 19l9 8 9-8M4 22c2 5 6 7 12 7s10-2 12-7"/></svg><span class="text-[10px] md:text-xs font-semibold" data-en="Maritime Logistics" data-ar="الخدمات اللوجستية البحرية">Maritime Logistics</span></div>
-        <div class="flex flex-col items-center text-center gap-2 px-1"><svg class="w-7 h-7 gold" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 11h24v15H4zM8 11V6h4v5M16 11V6h4v5M4 16h24M9 16v10M15 16v10M21 16v10"/></svg><span class="text-[10px] md:text-xs font-semibold" data-en="Global Trade Solutions" data-ar="حلول التجارة العالمية">Global Trade Solutions</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="hero-art" role="img" aria-label="Illustrated golden offshore oil platform, power plant cooling towers, container ship and yellow marine hoses at sunset">
-    <svg viewBox="0 0 900 560" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#e9a875"/><stop offset=".38" stop-color="#f7d4a5"/><stop offset=".67" stop-color="#8e9aa5"/><stop offset="1" stop-color="#243d54"/></linearGradient>
-        <linearGradient id="sea" x2="0" y2="1"><stop stop-color="#35586b"/><stop offset="1" stop-color="#081b2c"/></linearGradient>
-        <linearGradient id="goldMetal" x2="1" y2="1"><stop stop-color="#fff0b0"/><stop offset=".35" stop-color="#d6a34d"/><stop offset=".72" stop-color="#8c5d2a"/><stop offset="1" stop-color="#f3ca70"/></linearGradient>
-        <linearGradient id="shipHull" x2="0" y2="1"><stop stop-color="#263c50"/><stop offset="1" stop-color="#081523"/></linearGradient>
-        <linearGradient id="sunGlow"><stop stop-color="#fff2c7" stop-opacity=".8"/><stop offset="1" stop-color="#f0b969" stop-opacity="0"/></linearGradient>
-        <filter id="glow"><feGaussianBlur stdDeviation="18"/></filter>
-        <pattern id="containerPattern" width="32" height="21" patternUnits="userSpaceOnUse"><path d="M3 1v19M8 1v19M13 1v19M18 1v19M23 1v19M28 1v19" stroke="#fff" stroke-opacity=".13" stroke-width="1"/></pattern>
-      </defs>
-      <rect width="900" height="560" fill="url(#sky)"/>
-      <circle cx="610" cy="128" r="88" fill="#ffe7b1" opacity=".42" filter="url(#glow)"/><circle cx="610" cy="128" r="38" fill="#fff0c7" opacity=".7"/>
-      <path d="M0 220 65 192 110 208 174 174 233 204 294 183 351 215 414 188 475 209 542 184 600 205 662 177 726 207 790 185 900 211V335H0Z" fill="#74818a" opacity=".25"/>
-      <path d="M0 284 98 247 174 272 245 239 319 270 395 243 467 270 548 236 620 270 701 240 788 267 900 230V366H0Z" fill="#e9c5a0" opacity=".28"/>
-      <rect y="325" width="900" height="235" fill="url(#sea)"/>
-      <path d="M0 350q70 -12 140 0t140 0t140 0t140 0t140 0t140 0t140 0" stroke="#e7c18a" stroke-opacity=".4" fill="none"/>
-      <g opacity=".3" stroke="#e9c48d"><path d="M480 363h300M520 380h300M570 397h280M610 416h260M650 436h220M700 457h180M735 480h165"/></g>
-      <!-- distant shoreline and power station -->
-      <path d="M0 331 80 315 151 321 212 306 285 325 344 310 410 326 478 313 538 328 590 320 647 333 700 319 768 330 900 316V365H0Z" fill="#263849"/>
-      <g transform="translate(525 214)" stroke="#b8864b" stroke-width="3" fill="url(#goldMetal)">
-        <path d="M0 91 18 18 66 18 85 91Z" opacity=".82"/><path d="M102 91 120 8 168 8 188 91Z" opacity=".9"/><path d="M202 91 219 26 260 26 278 91Z" opacity=".82"/>
-        <path d="M15 91V55h56v36M117 91V47h54v44M216 91V58h47v33" fill="#9b6a39"/>
-        <path d="M8 53h70M111 45h66M210 56h58" fill="none" stroke="#ffe0a0"/>
-        <path d="M32 16V-5h19v23M133 8V-16h20V8M230 26V4h18v22" fill="#d8b26a"/>
-      </g>
-      <!-- platform legs and lower deck -->
-      <g stroke="url(#goldMetal)" stroke-width="7" fill="none">
-        <path d="M70 367 120 510M180 355 160 520M300 365 338 520M385 355 410 520M95 432 370 435M115 480 395 480M110 410 375 488M375 410 125 488"/>
-      </g>
-      <g stroke="#f2cd79" stroke-width="2" opacity=".9"><path d="M91 396h283M103 422h280M113 449h282M125 475h280"/><path d="M140 390v105M190 390v105M245 390v105M300 390v105M350 390v105"/></g>
-      <!-- rig derrick -->
-      <g transform="translate(155 46)" stroke="url(#goldMetal)" stroke-width="4" fill="none">
-        <path d="M0 242 40 5 80 242M12 172h56M18 137h45M24 101h33M30 66h22M35 34h12M40 5v-15M5 242h70M15 172l48 65M65 172 17 237M22 137l41 35M58 137l-40 35M28 101l29 36M53 101l-25 36M33 66l20 35M48 66 33 101"/>
-        <path d="M20 181h42M28 152h28M33 121h23M37 91h17" stroke-width="2"/>
-        <path d="M-15 242h110M-7 228h95M-2 214h87" stroke-width="5"/>
-      </g>
-      <!-- platform upper deck -->
-      <g stroke="url(#goldMetal)" stroke-width="3">
-        <path d="M36 292h410l-18 35H53Z" fill="#b9823d"/><path d="M53 292 80 270h335l31 22Z" fill="#f1c36d"/>
-        <path d="M76 269v-33h48v33M131 269v-57h42v57M180 269v-40h47v40M237 269v-67h46v67M292 269v-34h43v34M347 269v-50h48v50" fill="#9e6e3d"/>
-        <path d="M82 242h37M135 222h34M185 236h37M242 211h36M297 241h34M352 225h38" fill="none" stroke="#ffdfa0" stroke-width="4"/>
-        <path d="M60 278h355M66 285h348" fill="none" stroke="#fff0b4" stroke-width="2"/>
-      </g>
-      <!-- pipes and storage cylinders -->
-      <g fill="url(#goldMetal)" stroke="#8c602f" stroke-width="2">
-        <rect x="83" y="244" width="24" height="31" rx="4"/><ellipse cx="95" cy="244" rx="12" ry="4" fill="#f5d28a"/>
-        <rect x="298" y="215" width="27" height="54" rx="5"/><ellipse cx="311.5" cy="215" rx="13.5" ry="4"/>
-        <rect x="335" y="229" width="25" height="40" rx="4"/><ellipse cx="347.5" cy="229" rx="12.5" ry="4"/>
-      </g>
-      <g stroke="#f5c66c" stroke-width="6" fill="none" stroke-linecap="round"><path d="M95 266v-24q0-12 12-12h18q12 0 12-12v-15"/><path d="M311 268v-13q0-10 10-10h25q11 0 11-11v-14"/><path d="M164 269v-17h70v-19"/></g>
-      <!-- container ship, perspective -->
-      <g transform="translate(410 286)">
-        <path d="M0 96 371 38 445 76 95 169 0 96Z" fill="#172d42" stroke="#d4a15a" stroke-width="3"/>
-        <path d="M95 169 445 76 418 113 126 192Z" fill="url(#shipHull)" stroke="#8d633e" stroke-width="2"/>
-        <path d="M0 96 95 169 126 192 35 115Z" fill="#9d563e"/>
-        <!-- container rows -->
-        <g stroke="#1a2638" stroke-width="2">
-          <path d="M28 77 325 27 370 51 73 105Z" fill="#d5a34f"/>
-          <path d="M42 59 339 9 384 33 87 87Z" fill="#d86c42"/>
-          <path d="M55 42 352 -8 397 16 100 70Z" fill="#e8c88a"/>
-          <path d="M72 104 369 54 413 78 116 132Z" fill="#3d7890"/>
-          <path d="M87 87 384 37 428 61 131 115Z" fill="#d4a64f"/>
-          <path d="M101 70 398 20 442 44 145 98Z" fill="#a84e3e"/>
-          <path d="M28 77 325 27 370 51 73 105Z" fill="url(#containerPattern)"/>
-          <path d="M42 59 339 9 384 33 87 87Z" fill="url(#containerPattern)"/>
-          <path d="M72 104 369 54 413 78 116 132Z" fill="url(#containerPattern)"/>
-        </g>
-        <path d="M347 47 398 38 423 52 371 62Z" fill="#e7e0c7"/><path d="M366 64 418 55 418 85 366 99Z" fill="#e8e1cc"/><path d="M374 68h38M374 76h38M374 84h38" stroke="#7c8992" stroke-width="2"/>
-        <path d="M20 103 95 151 126 174" stroke="#f5c86c" stroke-width="3" fill="none"/>
-      </g>
-      <!-- marine hoses -->
-      <g fill="none" stroke-linecap="round">
-        <path d="M434 436c-70 56-130 33-106 4s64 11 33 28-79-11-61-36" stroke="#382c1e" stroke-width="20"/>
-        <path d="M434 436c-70 56-130 33-106 4s64 11 33 28-79-11-61-36" stroke="#e4ad35" stroke-width="12"/>
-        <path d="M779 429c62 42 98 17 77-10s-56 5-34 24 65-3 50-29" stroke="#382c1e" stroke-width="22"/>
-        <path d="M779 429c62 42 98 17 77-10s-56 5-34 24 65-3 50-29" stroke="#f0bd48" stroke-width="13"/>
-        <path d="M495 491c-27 17-55 19-70 2" stroke="#f0bd48" stroke-width="9"/>
-        <path d="M495 491c-27 17-55 19-70 2" stroke="#302b22" stroke-width="15"/>
-      </g>
-      <!-- water highlights -->
-      <g stroke="#f4d39a" stroke-width="2" stroke-linecap="round" opacity=".45"><path d="M34 537h125M180 548h77M472 529h83M602 516h91M736 535h112M540 551h40M12 513h50"/></g>
-      <rect width="900" height="560" fill="url(#sunGlow)" opacity=".1"/>
-    </svg>
-    <div class="art-overlay"></div>
-  </div>
+<section style="display:grid;grid-template-columns:44% 56%;max-width:1600px;margin:auto">
+<div style="padding:32px">
+<div style="color:#C5A059;font-size:12px;font-weight:bold">NAVARIS</div>
+<h1 style="font-size:24px;font-weight:bold">Business Operations & Development<br>Your Global Partner in Energy, Oil & Gas, Trade & Maritime Logistics</h1>
+<p style="color:#E8C99A;font-size:12px;margin-top:12px">Bridging Needs With Solutions • Turning Opportunities Into Results</p>
+<div style="margin-top:20px"><span style="background:#C5A059;color:#0A1931;padding:8px 20px;font-size:12px">Explore Services</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;margin-top:24px;font-size:11px;text-align:center"><div>Petroleum & Energy</div><div>Maritime Logistics</div><div>Global Trade Solutions</div></div>
+</div>
+<img src="hero_golden.jpg" style="width:100%;height:380px;object-fit:cover">
 </section>
-
-<section id="services" class="py-12 md:py-14 bg-[#08172b] border-b border-[#c5a05935]">
-  <div class="section-wrap">
-    <div class="text-center mb-8"><p class="eyebrow mb-2">CAPABILITIES</p><h2 class="section-title" data-en="Our Core Services" data-ar="خدماتنا الأساسية">Our Core Services</h2><p class="mono text-[10px] text-white/45 mt-3 tracking-wide" data-en="COORDINATED COMMERCIAL SUPPORT • EVIDENCE-LED EXECUTION" data-ar="دعم تجاري منسق • تنفيذ قائم على الأدلة">COORDINATED COMMERCIAL SUPPORT • EVIDENCE-LED EXECUTION</p></div>
-    <div class="service-grid grid grid-cols-5 gap-4">
-      <article class="service-card p-5 text-center"><svg class="w-9 h-9 gold mx-auto mb-4" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 34V7h30v27H5ZM10 28l6-7 5 3 8-11M24 13h5v5"/><path d="M10 12h7M10 16h4"/></svg><h3 class="font-extrabold text-sm mb-2" data-en="Business Operations" data-ar="إدارة العمليات">Business Operations</h3><p data-en="Operational coordination, process improvement and delivery governance across energy and maritime work." data-ar="تنسيق العمليات وتحسين الإجراءات وحوكمة التنفيذ في قطاعات الطاقة والأنشطة البحرية.">Operational coordination, process improvement and delivery governance across energy and maritime work.</p></article>
-      <article class="service-card p-5 text-center"><svg class="w-9 h-9 gold mx-auto mb-4" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="20" cy="20" r="15"/><path d="M5 20h30M20 5c8 8 8 22 0 30M20 5c-8 8-8 22 0 30M8 11h24M8 29h24"/></svg><h3 class="font-extrabold text-sm mb-2" data-en="Commercial Representation" data-ar="التمثيل التجاري">Commercial Representation</h3><p data-en="Market-entry support, opportunity qualification and partner coordination, subject to mandate." data-ar="دعم دخول الأسواق وتأهيل الفرص وتنسيق الشركاء وفق تفويض واضح.">Market-entry support, opportunity qualification and partner coordination, subject to mandate.</p></article>
-      <article class="service-card p-5 text-center"><svg class="w-9 h-9 gold mx-auto mb-4" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m20 4 4 4 6-1 2 6 5 4-3 6 1 6-7 2-4 5-6-3-6 1-2-6-5-4 3-6-1-6 7-2Z"/><circle cx="20" cy="20" r="7"/><circle cx="20" cy="20" r="2"/></svg><h3 class="font-extrabold text-sm mb-2" data-en="Oilfield & Industrial Supply" data-ar="توريدات حقول النفط والصناعة">Oilfield & Industrial Supply</h3><p data-en="Specification-led sourcing and supplier coordination for industrial and oilfield requirements." data-ar="توفير قائم على المواصفات وتنسيق الموردين للاحتياجات الصناعية وحقول النفط.">Specification-led sourcing and supplier coordination for industrial and oilfield requirements.</p></article>
-      <article class="service-card p-5 text-center"><svg class="w-9 h-9 gold mx-auto mb-4" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 25h32l-5 8H12ZM9 25l4-12h13l5 12M17 13V7h7v6M4 36h32M13 16h12"/></svg><h3 class="font-extrabold text-sm mb-2" data-en="Maritime & Logistics" data-ar="الخدمات البحرية واللوجستية">Maritime & Logistics</h3><p data-en="Freight, shipping and port-service coordination with scope and partner availability confirmed." data-ar="تنسيق الشحن والنقل والخدمات المينائية بعد تأكيد النطاق وتوافر الشركاء.">Freight, shipping and port-service coordination with scope and partner availability confirmed.</p></article>
-      <article class="service-card p-5 text-center"><svg class="w-9 h-9 gold mx-auto mb-4" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 4 34 10v9c0 8-5 13-14 17C11 32 6 27 6 19v-9Z"/><path d="m13 20 5 5 10-11M12 12h16"/></svg><h3 class="font-extrabold text-sm mb-2" data-en="Logistics Coordination" data-ar="تنسيق الخدمات اللوجستية">Logistics Coordination</h3><p data-en="Shipment milestones, documentation readiness and exception tracking across the delivery chain." data-ar="متابعة مراحل الشحن وجاهزية المستندات والاستثناءات عبر سلسلة التسليم.">Shipment milestones, documentation readiness and exception tracking across the delivery chain.</p></article>
-    </div>
-  </div>
+<section style="max-width:1600px;margin:auto;padding:16px;border-top:1px solid #C5A05933">
+<h3 style="text-align:center;color:#E8C99A">Our Core Services</h3>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px;font-size:10px;text-align:center">
+<div style="border:1px solid #C5A05966;padding:12px">Business Operations</div>
+<div style="border:1px solid #C5A05966;padding:12px">Commercial Representation</div>
+<div style="border:1px solid #C5A05966;padding:12px">Oilfield & Industrial Supply</div>
+<div style="border:1px solid #C5A05966;padding:12px">Maritime & Logistics</div>
+<div style="border:1px solid #C5A05966;padding:12px">& Logistics Coordination</div>
+</div>
 </section>
-
-<section id="about" class="py-14 md:py-16">
-  <div class="section-wrap">
-    <div class="grid founder-grid grid-cols-[.78fr_1.05fr_1.25fr] gap-8 lg:gap-10 items-center">
-      <div class="founder-photo">
-        <div class="founder-frame max-w-[330px] mx-auto">
-          <img class="founder-img" src="founder.jpg" alt="Founder portrait placeholder — replace with the approved founder.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div style="display:none" class="founder-img items-center justify-center flex-col gap-3 p-6 text-center"><svg class="w-16 h-16 gold" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="32" cy="20" r="12"/><path d="M10 57c2-15 10-22 22-22s20 7 22 22M4 60h56"/></svg><span class="mono text-[10px] gold">FOUNDER PHOTO<br>founder.jpg</span></div>
-        </div>
-      </div>
-      <div class="founder-governance">
-        <h2 class="section-title text-center mb-5" data-en="About the Founder" data-ar="عن المؤسس">About the Founder</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div class="governance p-4"><h3 class="gold font-bold text-sm mb-3 text-center" data-en="Governance" data-ar="الحوكمة">Governance</h3><p class="text-[11px] leading-6 text-center text-white/80">Compliance • Ethics & Integrity • Quality & HSE • Sustainability</p></div>
-          <div class="governance p-4"><h3 class="gold font-bold text-sm mb-3 text-center" data-en="Execution Discipline" data-ar="انضباط التنفيذ">Execution Discipline</h3><p class="text-[11px] leading-6 text-center text-white/80">Evidence • Scope • Verified Partners • Documented Outcomes</p></div>
-        </div>
-      </div>
-      <div class="founder-copy">
-        <p class="eyebrow mb-2" data-en="LEADERSHIP & OPERATING PRINCIPLES" data-ar="القيادة ومبادئ التشغيل">LEADERSHIP & OPERATING PRINCIPLES</p>
-        <h2 class="text-xl md:text-2xl font-black leading-tight mb-1" data-en="Dr. Mohamed Hafez Khalifa, DBA" data-ar="د. محمد حافظ خليفة، DBA">Dr. Mohamed Hafez Khalifa, DBA</h2>
-        <p class="gold font-bold text-sm mb-4" data-en="Founder & Managing Director" data-ar="المؤسس والعضو المنتدب">Founder & Managing Director</p>
-        <p class="text-[12px] leading-6 text-white/75 mb-4" data-en="NAVARIS brings together business operations, energy and oilfield context, commercial representation and maritime-logistics coordination. The operating approach is evidence-led: qualify demand, verify counterparties, define scope and terms in writing, and measure outcomes against documented baselines. Experience and credentials below are presented as stated and should be supported by records before formal external use." data-ar="تجمع نافاريس بين إدارة الأعمال وفهم قطاع الطاقة وحقول النفط والتمثيل التجاري وتنسيق الخدمات البحرية واللوجستية. يعتمد نهج العمل على الأدلة: تأهيل الطلب والتحقق من الأطراف وتوثيق النطاق والشروط وقياس النتائج مقارنة بخط أساس موثق. تُعرض الخبرات والمؤهلات أدناه كما وردت، وينبغي دعمها بالمستندات قبل الاستخدام الخارجي الرسمي.">NAVARIS brings together business operations, energy and oilfield context, commercial representation and maritime-logistics coordination. The operating approach is evidence-led: qualify demand, verify counterparties, define scope and terms in writing, and measure outcomes against documented baselines. Experience and credentials below are presented as stated and should be supported by records before formal external use.</p>
-        <div class="text-[10px] leading-5 text-white/65 mb-5 space-y-1"><p><span class="gold">CREDENTIALS — AS STATED:</span> DBA Entrepreneurship & Strategic Turnarounds; MBA Project Management; Commercial Representation.</p><p>10 Years Wellhead / Slickline / Wireline, including Red Sea Basin (2012–2013) — as stated; verify against supporting records.</p><p>ISO 9001:2015 QMS framework <span class="text-white/50">(2026 edition not published — current is 2015 per <a class="underline gold" href="https://www.iso.org/standard/62085.html" target="_blank" rel="noopener noreferrer">iso.org/standard/62085</a>)</span>.</p></div>
-        <div class="stats grid grid-cols-3 gap-3">
-          <div class="stat"><strong class="gold text-lg block">20+ Years</strong><span class="mono text-[9px] text-white/60" data-en="Experience · as stated" data-ar="الخبرة · كما وردت">Experience · as stated</span></div>
-          <div class="stat"><strong class="gold text-lg block" data-en="Global" data-ar="عالمي">Global</strong><span class="mono text-[9px] text-white/60" data-en="Network ambition" data-ar="شبكة علاقات مستهدفة">Network ambition</span></div>
-          <div class="stat"><strong class="gold text-base block">Energy • Oil & Gas</strong><span class="mono text-[9px] text-white/60">Maritime • Trade</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
+<section style="max-width:1600px;margin:auto;padding:24px;display:grid;grid-template-columns:20% 80%;gap:24px">
+<img src="founder.jpg" style="width:100%;height:220px;object-fit:cover;border:2px solid #C5A059">
+<div>
+<div style="color:#E8C99A;font-weight:bold">Dr. Mohamed Hafez Khalifa, DBA - Founder & Managing Director</div>
+<p style="font-size:11px;color:#ccc;margin-top:8px">20 years expertise in petroleum, energy, maritime logistics. DBA, Alexandria, connecting global partners.</p>
+<p style="font-size:8px;color:#888;margin-top:16px">No guaranteed three-hour mobilization, fixed savings percentage, certification or port clearance outcome is promised without documented evidence. Any 22% saving is hypothesis until baseline documented. ISO 9001:2015. DRAFT ONLY • Cash EGP 0</p>
+</div>
 </section>
-<section class="py-8 bg-[#08172b] border-y border-[#c5a05930]">
-  <div class="section-wrap flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-    <div><p class="eyebrow mb-2">COMMERCIAL THESIS</p><h2 class="font-extrabold text-lg" data-en="Source-backed opportunities. No unsupported promises." data-ar="فرص موثقة المصدر. دون وعود غير مدعومة.">Source-backed opportunities. No unsupported promises.</h2></div>
-    <p class="mono text-[10px] leading-6 text-white/60 max-w-2xl" data-en="The GUPCO $516.5M and SLB OBN 1,035 km² figures in the hero are unverified opportunity references supplied for this draft, not confirmed NAVARIS contracts, awards, revenue or mandates. Validate the original source, scope, date and commercial relevance before acting." data-ar="الأرقام الواردة في الواجهة بشأن GUPCO ‏516.5 مليون دولار وSLB OBN ‏1,035 كم² هي إشارات فرص غير متحقق منها أُدرجت في هذه المسودة، وليست عقودًا أو ترسيات أو إيرادات أو تفويضات مؤكدة لنافاريس. يجب التحقق من المصدر الأصلي والنطاق والتاريخ والصلة التجارية قبل اتخاذ أي إجراء.">The GUPCO $516.5M and SLB OBN 1,035 km² figures in the hero are unverified opportunity references supplied for this draft, not confirmed NAVARIS contracts, awards, revenue or mandates. Validate the original source, scope, date and commercial relevance before acting.</p>
-  </div>
-</section>
-</main>
-<footer id="contact" class="footer-rule bg-[#071426]">
-  <div class="section-wrap py-8">
-    <div class="footer-grid grid grid-cols-[1fr_1.4fr_1fr] gap-8 items-center">
-      <div class="flex flex-col items-center md:items-start"><div class="flex items-center gap-2 gold"><svg class="w-8 h-8" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><circle cx="24" cy="7" r="4"/><path d="M24 11v25M17 17h14M11 25l13 12 13-12M7 29c2 8 8 12 17 12s15-4 17-12"/></svg><span class="text-2xl tracking-widest" style="font-family:Georgia,serif">NAVARIS</span></div><p class="text-xs text-white/70 mt-2">Business Operations & Development</p></div>
-      <div class="md:border-x border-[#c5a05955] md:px-7 text-center"><h3 class="gold font-bold mb-2" data-en="Governance" data-ar="الحوكمة">Governance</h3><p class="text-[11px] text-white/75 leading-6">Compliance • Ethics & Integrity • Quality & HSE • Sustainability</p></div>
-      <div class="text-center md:text-right"><h3 class="gold font-bold mb-2" data-en="Contact" data-ar="التواصل">Contact</h3><p class="text-xs text-white/75">Alexandria, Egypt</p><a class="text-xs gold hover:underline" href="mailto:info@navaris.example">info@navaris.example</a><p class="mono text-[10px] text-white/55 mt-1">+20 3 XXX XXXX</p></div>
-    </div>
-    <div class="footer-rule mt-7 pt-5 text-center"><p class="mono text-[9px] text-white/50">© 2024 NAVARIS. All rights reserved. • <a href="#about" class="hover:text-[#C5A059]">Governance</a> • <a href="#contact" class="hover:text-[#C5A059]">Privacy Policy</a> • <a href="#contact" class="hover:text-[#C5A059]">Terms of Service</a></p>
-      <p class="disclaimer mt-4 text-left">Commercial discipline: no guaranteed three-hour mobilization, fixed savings percentage, certification or port clearance outcome is promised without documented evidence, confirmed partners and a written service scope. Any cost-reduction target (including a 22% scenario) is a hypothesis until a baseline, comparable quotes and actual delivery costs are documented. DRAFT ONLY | Cash EGP 0 verified | 15% AFTER payment 48H NCNDA 5Y | Evidence before promises. 3H mobilization is conditional on permits, partner availability, operational readiness and a written scope; it is not guaranteed.</p>
-    </div>
-  </div>
-</footer>
-<script>
-  const profileText = [
-    'NAVARIS — Business Operations & Development',
-    'DRAFT ONLY | EGP 0 verified cash | Evidence before promises',
-    '',
-    'Founder & Managing Director: Dr. Mohamed Hafez Khalifa, DBA',
-    'Services: Business Operations; Commercial Representation; Oilfield & Industrial Supply; Maritime & Logistics; Logistics Coordination.',
-    'Commercial thesis references: GUPCO $516.5M and SLB OBN 1,035 km² — unverified references, not confirmed NAVARIS contracts, awards, revenue or mandates.',
-    '',
-    'Credentials as stated and subject to documentary verification: DBA Entrepreneurship & Strategic Turnarounds; MBA Project Management; Commercial Representation; 10 Years Wellhead/Slickline/Wireline including Red Sea Basin 2012–2013.',
-    'ISO 9001:2015 QMS framework. Reference: https://www.iso.org/standard/62085.html',
-    '',
-    'Commercial discipline: no guaranteed three-hour mobilization, fixed savings percentage, certification or port clearance outcome is promised without documented evidence, confirmed partners and written scope.',
-    'Contact: info@navaris.example | Alexandria, Egypt'
-  ].join('\n');
-  document.getElementById('downloadProfile').addEventListener('click', () => {
-    const blob = new Blob([profileText], {type:'text/plain;charset=utf-8'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = 'NAVARIS-Profile-DRAFT.txt'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-  });
-  const langToggle = document.getElementById('langToggle');
-  let arabic = false;
-  langToggle.addEventListener('click', () => {
-    arabic = !arabic;
-    document.documentElement.lang = arabic ? 'ar' : 'en';
-    document.documentElement.dir = arabic ? 'rtl' : 'ltr';
-    document.querySelectorAll('[data-en][data-ar]').forEach(el => { el.textContent = arabic ? el.dataset.ar : el.dataset.en; });
-    langToggle.textContent = arabic ? 'EN' : 'عربي';
-  });
-  const mobileButton = document.createElement('button');
-  mobileButton.type = 'button'; mobileButton.className = 'mobile-menu mono text-[10px] gold border border-[#c5a05966] rounded px-2 py-2'; mobileButton.textContent = 'MENU'; mobileButton.setAttribute('aria-expanded','false'); mobileButton.setAttribute('aria-controls','mobileNav');
-  const headerActions = document.querySelector('.header-inner > div:last-child');
-  headerActions.insertBefore(mobileButton, headerActions.firstChild);
-  mobileButton.addEventListener('click', () => { const menu=document.getElementById('mobileNav'); const open=menu.classList.toggle('hidden')===false; mobileButton.setAttribute('aria-expanded',String(open)); });
-</script>
+<footer style="text-align:center;font-size:10px;color:#666;padding:12px;border-top:1px solid #C5A05933">© 2024 NAVARIS - Alexandria, Egypt - info@navaris.global</footer>
 </body>
 </html>
