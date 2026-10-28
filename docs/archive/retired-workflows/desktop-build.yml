@@ -1,0 +1,17 @@
+<!-- Archived from .github/workflows/desktop-build.yml on 2026-10-28. Original blob SHA: 4cfc1c971fb8ee1400e322dc955587d7b7bcbace. Reason: overlaps root Windows installer workflows; canonical build remains under review in docs/NAVARIS_DEDUPLICATION_REGISTER.md. -->
+
+name: Desktop Build
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with: {node-version: '18.x'}
+      - run: npm install
+      - run: npm run dist:win
+      - uses: actions/upload-artifact@v4
+        with: {name: navaris-desktop-build, path: release/*.exe, if-no-files-found: error}
