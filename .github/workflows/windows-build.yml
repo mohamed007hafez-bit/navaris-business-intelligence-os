@@ -1,9 +1,7 @@
 name: Windows Desktop Build
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: ['index.html','desktop/**','package.json','agents.json','agents/**','.github/workflows/windows-build.yml']
+
 jobs:
   build-windows:
     runs-on: windows-latest
