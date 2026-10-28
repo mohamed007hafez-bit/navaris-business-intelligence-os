@@ -30,8 +30,11 @@ Method: recursive Git tree inventory plus targeted review of workflow definition
 6. The core `agents/database.py` explicitly documents SQLite as unencrypted placeholder; it must not store confidential client/bank evidence.
 7. The core `agents/router.py` dispatches shipping/oilfield/financial analysis but has no implemented bank-receipt verification, verified match state, or SLA approval gate at this baseline.
 
-## Purge decision
-No files were deleted in this baseline audit. Similar filenames or overlapping purpose are not proof of duplicate content. Use a content hash + semantic comparison + trigger/side-effect review, preserve provenance, and retire one workflow at a time after the replacement passes. External email channels were not inspected; no email or CRM records were purged.
+## Purge decision and action taken
+- Removed `.github/workflows/deploy-pages.yml` in commit `16d5f4d8ccb3f3af460d4c02de0c43f9aacf9fe5`. It published the entire repository root while `navaris-pages.yml` builds a minimal `_site` artifact from the canonical `index.html`; the competing publisher could expose unrelated repository files and create inconsistent deployments. `navaris-pages.yml` remains the intended publisher.
+- No other files were deleted in this pass. Similar filenames or overlapping purpose are not proof of duplicate content. Use a content hash + semantic comparison + trigger/side-effect review, preserve provenance, and retire one workflow at a time after the replacement passes.
+- External email channels were not inspected; no email or CRM records were purged.
+- `Index.html` and `index.html` are both present but differ in content/size. `index.html` remains the canonical public path; `Index.html` is not deleted until its unique content/history is reviewed.
 
 ## Required next audit
 - Compute SHA-256 for every repository blob and exact duplicate groups.
