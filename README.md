@@ -7,7 +7,8 @@ Minimal offline-first starter with three deterministic Python agents, router, co
 - agents/oilfield.py: oilfield requirement qualification checklist.
 - agents/financial.py: current ratio, working capital, and EBITDA margin.
 - agents/router.py: JSON request router and CLI.
-- agents/config.py and agents/database.py: local paths and SQLite history placeholder.\n- agents/controls.py: bank-reconciliation, demand/supply evidence, and SLA-readiness gates. These validate record completeness; they do not independently authenticate evidence.
+- agents/config.py and agents/database.py: local paths and SQLite history placeholder.
+- agents/controls.py: bank-reconciliation, demand/supply evidence, and SLA-readiness gates. These validate record completeness; they do not independently authenticate evidence.
 - main.js and package.json: Electron desktop shell and Windows x64 NSIS packaging.
 - index.html: marketing-only Moths to Light visual using Three.js.
 - tests/test_core.py: basic deterministic tests.
@@ -17,7 +18,12 @@ Requires Python 3.10+, Node.js, and npm. Install test dependencies with python -
 
 On Windows x64, run npm run dist to build the NSIS installer in release/. Target installer size is 70–80 MiB, but actual size depends on Electron and packaging.
 
-Control examples (JSON payloads are illustrative; do not invent evidence):\n- Cash status: {\"operation\":\"record_cash\",\"payload\":{...}}; status remains PAYMENT_PENDING until finance verification and reconciliation fields are present.\n- Demand/supply: {\"operation\":\"verify_match\",\"payload\":{\"demand\":{...},\"supply\":{...}}}; output is review-only, never execution approval.\n- SLA readiness: {\"operation\":\"activate_sla\",\"payload\":{...}}; no SLA becomes active without signed scope, provider capacity evidence and clock rules.\n\nFor direct agent use, run from repository root with module mode:
+Control examples (JSON payloads are illustrative; do not invent evidence):
+- Cash status: {\"operation\":\"record_cash\",\"payload\":{...}}; status remains PAYMENT_PENDING until finance verification and reconciliation fields are present.
+- Demand/supply: {\"operation\":\"verify_match\",\"payload\":{\"demand\":{...},\"supply\":{...}}}; output is review-only, never execution approval.
+- SLA readiness: {\"operation\":\"activate_sla\",\"payload\":{...}}; no SLA becomes active without signed scope, provider capacity evidence and clock rules.
+
+For direct agent use, run from repository root with module mode:
 python -m agents.router
 Then paste a JSON request on stdin, such as {"agent":"shipping","payload":{"freight":100,"customs":20,"handling":5}}.
 
