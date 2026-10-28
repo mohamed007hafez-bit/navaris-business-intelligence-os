@@ -4,13 +4,53 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: navaris-quality-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONPATH: .
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-python@v5
         with:
-          node-version: 20
-      - run: test -f index.html && grep -F '<title>NAVARIS GATEWAY EGYPT</title>' index.html && test -f manifest.json && test -f service-worker.js && test -f navaris-exe/package.json && test -f app/package.json && test -f toolkit/index.json
-      - run: node -e "for(const f of ['manifest.json','navaris-exe/package.json','app/package.json','toolkit/index.json']) JSON.parse(require('fs').readFileSync(f,'utf8')); console.log('JSON validation passed')"
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install project dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Validate canonical website and core files
+        run: |
+          test -f index.html
+          grep -F '<title>NAVARIS GATEWAY EGYPT</title>' index.html
+          test -f agents/shipping.py
+          test -f agents/oilfield.py
+          test -f agents/financial.py
+          test -f navaris_agents/commercial_controls.py
+          test -f docs/NAVARIS_MASTER_STRATEGY_EXECUTION_BLUEPRINT.md
+          test -f docs/NAVARIS_CLAIM_EVIDENCE_REGISTER.md
+      - name: Validate JSON sources
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          required = [Path("package.json"), Path("data/cash-collected.json")]
+          optional = [Path("agents.json"), Path("manifest.json")]
+          for path in required + [p for p in optional if p.exists()]:
+              json.loads(path.read_text(encoding="utf-8"))
+              print(f"JSON OK: {path}")
+          PY
+      - name: Compile Python modules
+        run: python -m compileall -q agents navaris_agents
+      - name: Run toolkit and commercial control tests
+        run: |
+          python -m unittest discover -s tests -p "test_navaris_agents.py" -v
+          python -m unittest discover -s tests -p "test_commercial_controls.py" -v
