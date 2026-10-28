@@ -25,10 +25,10 @@ def test_cash_not_collected_from_invoice_or_incomplete_proof():
  r=classify_cash_status({"invoice_id":"INV-1","amount":"100","currency":"USD"})
  assert r["status"]=="PAYMENT_PENDING"
 def test_cash_requires_finance_verified_bank_evidence():
- r=classify_cash_status({"invoice_id":"INV-1","bank_transaction_reference":"TX-1","bank_posted_date":"2026-10-28","payer_legal_name":"Buyer Ltd","amount":"100","currency":"USD","evidence_sha256":"a"*64,"finance_reviewer_id":"finance-01","verified_at":"2026-10-28T10:00:00Z","verification_status":"VERIFIED_BY_FINANCE"})
+ r=classify_cash_status({"invoice_id":"INV-1","bank_transaction_reference":"TX-1","bank_posted_date":"2026-10-28","payer_legal_name":"Buyer Ltd","amount":"100","currency":"USD","evidence_sha256":"a"*64,"finance_reviewer_id":"finance-01","verified_at":"2026-10-28T10:00:00Z","verification_status":"VERIFIED_BY_FINANCE","reconciliation_reference":"REC-1","reconciliation_status":"RECONCILED"})
  assert r["status"]=="CASH_COLLECTED"
 def test_cash_rejects_unreviewed_claim():
- r=classify_cash_status({"invoice_id":"INV-1","bank_transaction_reference":"TX-1","bank_posted_date":"2026-10-28","payer_legal_name":"Buyer Ltd","amount":"100","currency":"USD","evidence_sha256":"a"*64,"finance_reviewer_id":"finance-01","verified_at":"2026-10-28T10:00:00Z","verification_status":"SELF_REPORTED"})
+ r=classify_cash_status({"invoice_id":"INV-1","bank_transaction_reference":"TX-1","bank_posted_date":"2026-10-28","payer_legal_name":"Buyer Ltd","amount":"100","currency":"USD","evidence_sha256":"a"*64,"finance_reviewer_id":"finance-01","verified_at":"2026-10-28T10:00:00Z","verification_status":"SELF_REPORTED","reconciliation_reference":"REC-1","reconciliation_status":"RECONCILED"})
  assert r["status"]=="PAYMENT_PENDING"
 def test_match_requires_evidence():
  assert verify_demand_supply_match({}, {})["status"]=="NEEDS_EVIDENCE"
@@ -38,3 +38,15 @@ def test_match_rejects_specification_mismatch():
  assert verify_demand_supply_match(d,s)["status"]=="NO_MATCH"
 def test_sla_not_active_without_signed_scope():
  assert activate_sla({"target_minutes":180})["status"]=="SLA_NOT_ACTIVE"
+
+def test_router_cash_control_requires_reconciliation():
+ r=route_request({"operation":"record_cash","payload":{"invoice_id":"INV-2"}},persist=False)
+ assert r["status"]=="PAYMENT_PENDING"
+
+def test_router_match_control_is_review_only():
+ r=route_request({"operation":"verify_match","payload":{"demand":{},"supply":{}}},persist=False)
+ assert r["status"]=="NEEDS_EVIDENCE"
+
+def test_router_sla_control_does_not_assume_three_hour_promise():
+ r=route_request({"operation":"activate_sla","payload":{"target_minutes":180}},persist=False)
+ assert r["status"]=="SLA_NOT_ACTIVE"
