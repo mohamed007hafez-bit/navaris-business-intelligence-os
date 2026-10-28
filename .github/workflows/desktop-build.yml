@@ -1,9 +1,7 @@
 name: Desktop Build
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: ['index.html','desktop/**','package.json','agents/**']
+
 jobs:
   build:
     runs-on: windows-latest
