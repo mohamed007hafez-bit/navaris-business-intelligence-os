@@ -44,3 +44,14 @@
 - Compare all 18 workflow triggers and artifact outputs; choose canonical Pages and desktop build paths.
 - Reconcile every opportunity and supplier by stable ID and legal entity/domain, retaining provenance and last-verified date.
 - Review email/WhatsApp channel history only through authorized connectors; deduplicate drafts by normalized subject/body hash, not by recipient alone.
+
+## Completed safe retirements — 2026-10-28
+These active duplicates were archived with their original content and blob SHA before removal from active paths:
+- `.github/workflows/desktop-build.yml` → `docs/archive/retired-workflows/desktop-build.yml` (overlapping root Windows build).
+- `.github/workflows/windows-build.yml` → `docs/archive/retired-workflows/windows-build.yml` (overlapping root Windows build; `build-desktop.yml` retains SHA-256 reporting).
+- `.github/workflows/navaris-quality-gate.yml` → `docs/archive/retired-workflows/navaris-quality-gate.yml` (founder-image dependency incompatible with core-only scope and build failure masking).
+- `Index.html` → `docs/archive/legacy-site/Index.html` (case-variant duplicate; lowercase `index.html` is canonical).
+- `docs/cash-collected.json` → `docs/archive/legacy-data/cash-collected.json` (empty legacy schema; canonical ledger is `data/cash-collected.json`).
+- `agents/whatsapp-sales-agent.md` was converted to a short compatibility pointer to `sales-agent-whatsapp.md`, removing duplicate copy while preserving the path for consumers.
+
+The archived originals are retained for rollback/audit. Three workflow files were removed from the active workflow directory; verify the resulting workflow count and all Actions runs before further consolidation. No email or WhatsApp history was deleted because those external channels were not in scope of the accessible repository audit.
