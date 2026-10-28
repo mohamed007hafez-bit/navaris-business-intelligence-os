@@ -25,7 +25,7 @@ def test_cash_not_collected_from_invoice_or_incomplete_proof():
  r=classify_cash_status({"invoice_id":"INV-1","amount":"100","currency":"USD"})
  assert r["status"]=="PAYMENT_PENDING"
 def test_cash_requires_finance_verified_bank_evidence():
- r=classify_cash_status({"invoice_id":"INV-1","bank_transaction_reference":"TX-1","bank_posted_date":"2026-10-28","payer_legal_name":"Buyer Ltd","amount":"100","currency":"USD","evidence_sha256":"a"*64,"finance_reviewer_id":"finance-01","verified_at":"2026-10-28T10:00:00Z","verification_status":"VERIFIED_BY_FINANCE","reconciliation_reference":"REC-1","reconciliation_status":"RECONCILED"})
+ r=classify_cash_status({"invoice_id":"INV-1","bank_transaction_reference":"TX-1","bank_posted_date":"2026-10-28","payer_legal_name":"Buyer Ltd","expected_payer_legal_name":"Buyer Ltd","amount":"100","expected_amount":"100","currency":"USD","expected_currency":"USD","evidence_sha256":"a"*64,"finance_reviewer_id":"finance-01","verified_at":"2026-10-28T10:00:00Z","verification_status":"VERIFIED_BY_FINANCE","reconciliation_reference":"REC-1","reconciliation_status":"RECONCILED"})
  assert r["status"]=="CASH_COLLECTED"
 def test_cash_rejects_unreviewed_claim():
  r=classify_cash_status({"invoice_id":"INV-1","bank_transaction_reference":"TX-1","bank_posted_date":"2026-10-28","payer_legal_name":"Buyer Ltd","amount":"100","currency":"USD","evidence_sha256":"a"*64,"finance_reviewer_id":"finance-01","verified_at":"2026-10-28T10:00:00Z","verification_status":"SELF_REPORTED","reconciliation_reference":"REC-1","reconciliation_status":"RECONCILED"})
