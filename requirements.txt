@@ -1,4 +1,1 @@
-fastapi
-uvicorn
-pandas>=2.0
-openpyxl>=3.1
+# Core runtime uses Python standard library only.
