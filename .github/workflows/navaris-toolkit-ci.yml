@@ -6,6 +6,7 @@ on:
     paths:
       - "navaris_agents/**"
       - "tests/test_navaris_agents.py"
+      - "tests/test_commercial_controls.py"
       - "requirements.txt"
       - ".github/workflows/navaris-toolkit-ci.yml"
       - ".github/workflows/main.yml"
@@ -46,6 +47,8 @@ jobs:
       - name: Compile agent modules
         run: python -m compileall -q navaris_agents tests
       - name: Run toolkit tests
-        run: python -m unittest discover -s tests -p "test_navaris_agents.py" -v
+        run: |
+          python -m unittest discover -s tests -p "test_navaris_agents.py" -v
+          python -m unittest discover -s tests -p "test_commercial_controls.py" -v
       - name: Import API application
         run: python -c "from navaris_agents.api import app; assert app.title == 'NAVARIS Business Toolkits API'; print('API import OK')"
