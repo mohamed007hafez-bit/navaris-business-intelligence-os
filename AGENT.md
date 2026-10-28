@@ -1,36 +1,36 @@
-# NAVARIS - SINGLE COMPANY - ALEXANDRIA v4.1 FINAL LOCKED
+# NAVARIS Operating Charter — Single Source of Truth
+**Version:** 5.0 | **Effective:** 2026-10-28 | **Owner:** Dr. Mohamed Hafez Khalifa
+**Company:** NAVARIS — Business Operations & Development
+**Markets:** Egypt first; Oman and GCC when licensing, partner capacity and evidence support the engagement.
+**Positioning:** asset-light business operations, energy/oilfield coordination, maritime/logistics readiness, QMS/process improvement and AI automation.
 
-ROLE: You are building OS for NAVARIS - One Company Only.
-OWNER: Dr. Mohamed Hafez Khalifa - Alexandria, Egypt - ONE MAIN MASTER ONLY
-COMPANY: NAVARIS - Single entity - Locked - Do not create HAFEZ GROUP, holding, or other companies
+## Mission and operating law
+**TARGET → CASH 1ST → FLOW**
+**DISCOVER → ANALYZE → QUALIFY → STRUCTURE → EXECUTE → COLLECT → REPEAT**
+Primary KPI: **CASH COLLECTED**, counted only from verified bank-receipt evidence.
 
-BUSINESS LOCKED:
-- Base: Alexandria, Egypt
-- Market: Egypt only (no GCC in this version)
-- Core: Business Doctor + Technical Services (Rigless background IOD 2012-13)
-- Clients: Nasr Civil Works, Al Fanar Contracting, Cresting Mark = CLIENTS of NAVARIS, not companies
-- Partner: Maridive & Oil Services = subcontractor ONLY
-- Diagnostic Fee: $25-50k - 250k EGP is too low for Enppi
-- Start: Egypt
+## Formula-first requirement
+Before any analytical calculation or recommendation, state the governing formula/model, define variables and units, list evidence and assumptions, then apply and interpret. Unknown inputs stay UNKNOWN; never invent rates, ROI, savings, availability, demand, client approvals or cash.
 
-ARCHITECTURE - ONE MAIN:
-- Master = Dr. Mohamed - core/master.py - ONLY file that can give orders - Has MASTER_KEY = "NAVARIS-MASTER-2026"
-- Slaves = 13 agents - core/slave.py - They can only report_to_master() and execute_task() - CANNOT control master
-- All commands go through master: python core/master.py assign --agent 06 --task "..."
-- Rule: Slaves cannot talk to each other directly, only to master
+## Authority & attraction
+Publish evidence-led tools, checklists, cases and clear qualification standards. Do not chase, pressure, beg or imply guaranteed inbound demand. Public claims require a current evidence record and approval. Unverified $20.7M portfolio, 3-hour SLA, 22% saving, customs-pipeline and certification claims are not authorized for external use.
 
-STACK: Zero cost - Python + FastAPI + SQLite - No paid APIs - No keys - Auto-fix 10 retries - Never ask user for money
+## Single-company and legal controls
+NAVARIS is the single company identity. Do not create an implied holding company or claim authority that NAVARIS does not have. Use appropriately licensed and contractually authorized partners for regulated shipping, customs, procurement or certification activities. No false affiliation, logo, license or certification claim.
 
-BUILD NOW - FILES REQUIRED:
-1. /core/master.py
-2. /core/slave.py
-3. /core/orchestrator.py (health + upgrade)
-4. /mcp-server/server.py (FastAPI local port 8000)
-5. /agents/ 13 files - Each file header: "# Works for NAVARIS only - Single Company"
-6. /install.sh - One-click: bash install.sh -> installs and runs
-7. README.md - Title: NAVARIS - Alexandria - Single Company - One Main
-8. requirements.txt - fastapi, uvicorn only
+## Architecture
+- Keep deterministic local Python agents and FastAPI dispatch as the execution core.
+- Default all agents disabled until intentionally enabled.
+- No cloud AI, email, WhatsApp, bidding, purchasing, payment or booking side effects by default.
+- Any external action requires explicit founder approval.
+- A demand-supply match must pass identity, live-demand, specification, capacity, availability, terms and evidence gates; otherwise HOLD.
+- A cash record is valid only with verified bank receipt evidence and auditable metadata; a boolean flag alone is insufficient.
+- SLA status requires a defined clock and timestamp evidence; missing inputs return UNVERIFIED.
+- SQLite in the Electron core is an unencrypted placeholder. Never store confidential client or bank data there until controls are implemented and tested.
 
-COMMIT MESSAGE: "feat: NAVARIS single company Alexandria v4.1 - name locked - one main"
+## Evidence standard
+FACT → SOURCE → CALCULATION → ASSUMPTION → INTERPRETATION → RISK → ACTION.
+Each template has unique ID, version, owner, status (DRAFT / REVIEWED / APPROVED / RETIRED), last-reviewed date and evidence links. Every open opportunity has a stable ID, owner and dated next action. External communication is draft-only until approved.
 
-HARD RULE: DO NOT CREATE OTHER COMPANIES. ONE COMPANY = NAVARIS ONLY. DO NOT FABRICATE.
+## Conflict resolution
+This charter supersedes older project instructions that conflict with the current geography, attraction strategy, formula-first method, or cash/evidence controls. It does not authorize destructive deletion of historical records; follow `docs/NAVARIS_DEDUPLICATION_REGISTER.md`.
