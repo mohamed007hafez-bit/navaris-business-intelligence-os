@@ -51,10 +51,21 @@ jobs:
               print(f"JSON OK: {path}")
           PY
       - name: Compile Python modules
-        run: python -m compileall -q agents navaris_agents navaris_core_engine.py
+        run: python -m compileall -q agents navaris_agents navaris_core_engine.py scripts/github_sync.py
       - name: Test NAVARIS core engine formulas and cash gate
         run: python -m unittest discover -s tests -p 'test_navaris_core_engine.py' -v
+      - name: Test secure GitHub sync path validation
+        run: python -m unittest discover -s tests -p 'test_github_sync.py' -v
       - name: Run toolkit and commercial control tests
         run: |
           python -m unittest discover -s tests -p "test_navaris_agents.py" -v
           python -m unittest discover -s tests -p "test_commercial_controls.py" -v
+      - name: Block hard-coded GitHub credential patterns
+        shell: bash
+        run: |
+          set -eu
+          if git grep -n -I -E 'gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{20,}' -- .; then
+            echo "::error::Credential-like GitHub token found in tracked text file."
+            exit 1
+          fi
+          echo "No token-like GitHub credentials found in tracked files."
