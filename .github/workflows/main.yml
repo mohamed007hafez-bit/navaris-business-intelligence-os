@@ -39,7 +39,7 @@ jobs:
 
       - name: Compile NAVARIS Python modules
         run: |
-          python -m py_compile navaris_core.py scout_agent.py pricer_agent.py ncnda_agent.py cash_agent.py chatgpt_bridge.py main.py suco_quote_workbook.py
+          python -m py_compile engines/legacy_route_pricing.py scout_agent.py pricer_agent.py ncnda_agent.py cash_agent.py chatgpt_bridge.py main.py suco_quote_workbook.py
           python -m compileall -q tests
 
       - name: Run NAVARIS regression tests
