@@ -8,7 +8,14 @@ on:
   push:
     branches: [main]
     paths:
-      - "skills/navaris-cash-engine/**"
+      - "navaris_core_engine.py"
+      - "engines/**"
+      - "main.py"
+      - "pricer_agent.py"
+      - "scout_agent.py"
+      - "cash_agent.py"
+      - "tests/test_navaris_os.py"
+      - "requirements.txt"
       - ".github/workflows/navaris-cash-flow-engine.yml"
 
 permissions:
@@ -43,7 +50,7 @@ jobs:
 
       - name: Compile and test fixed core
         run: |
-          python -m py_compile engines/legacy_route_pricing.py scout_agent.py pricer_agent.py ncnda_agent.py cash_agent.py chatgpt_bridge.py main.py
+          python -m py_compile navaris_core_engine.py engines/legacy_route_pricing.py scout_agent.py pricer_agent.py ncnda_agent.py cash_agent.py chatgpt_bridge.py main.py
           python -m unittest discover -s tests -p "test_navaris_os.py" -v
 
       - name: Build local workbook
@@ -51,11 +58,12 @@ jobs:
 
       - name: Validate cash-first policy and workbook
         run: |
-          grep -Fq 'ANALYSIS → EQUATION → EVALUATION' skills/navaris-cash-engine/SKILL.md
-          grep -Fq 'COMMERCIAL OPPORTUNITY → DECISION PACKAGE' skills/navaris-cash-engine/SKILL.md
-          grep -Fq 'NOT CALCULABLE' skills/navaris-cash-engine/SKILL.md
-          grep -Fq 'NO QUALIFIED LIVE OPPORTUNITY FOUND' skills/navaris-cash-engine/SKILL.md
-          grep -Fq 'SEND/DO NOT SEND' skills/navaris-cash-engine/SKILL.md
+          test -f navaris_core_engine.py
+          grep -Fq 'OER = (OPEX / Net Revenue) * 100' navaris_core_engine.py
+          grep -Fq 'Operating Margin = (EBIT / Net Revenue) * 100' navaris_core_engine.py
+          grep -Fq 'CASH COLLECTED = 0' navaris_core_engine.py
+          grep -Fq 'written agreement required' navaris_core_engine.py
+          grep -Fq '<title>NAVARIS GATEWAY EGYPT</title>' index.html
           python - <<'PY'
           from pathlib import Path
           from openpyxl import load_workbook
