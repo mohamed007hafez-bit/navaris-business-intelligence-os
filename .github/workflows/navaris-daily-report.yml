@@ -4,6 +4,16 @@ on:
     # 18:00 UTC = 21:00 Cairo while Cairo is UTC+3; use 19:00 UTC during UTC+2.
     - cron: "0 18 * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/navaris-daily-report.yml"
+      - "navaris_report.py"
+      - "tests/**"
+      - "requirements.txt"
+      - "requirements-dev.txt"
+      - "navaris_core_engine.py"
+      - "engines/**"
 permissions:
   contents: write
 concurrency:
@@ -23,6 +33,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install project and test dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --upgrade pip
+          python -m pip install -r requirements.txt -r requirements-dev.txt
       - name: Unit tests
         run: python -m unittest discover -s tests -v
       - name: Collect and email report
