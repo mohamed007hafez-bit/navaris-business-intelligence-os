@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 import pandas as pd
 
-from navaris_core import build_excel_with_charts
+from engines.legacy_route_pricing import build_excel_with_charts
 from pricer_agent import price_route
 from scout_agent import scout_tenders
 from cash_agent import calc_monthly_cash
