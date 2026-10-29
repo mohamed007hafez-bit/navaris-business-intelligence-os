@@ -1,7 +1,7 @@
 """Pricing agent built on the immutable NAVARIS core formulas."""
 from __future__ import annotations
 from typing import Any
-import navaris_core as core
+import engines.legacy_route_pricing as core
 
 
 def price_route(route_name: str, distance: float, toll: float, surcharge: float, selling: float,
