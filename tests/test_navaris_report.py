@@ -1,6 +1,7 @@
-import tempfile, unittest
+import os, tempfile, unittest
 from pathlib import Path
-from navaris_report import LinkParser, build_report, contains_keyword, load_seen, save_seen, stable_id
+from unittest.mock import patch
+from navaris_report import LinkParser, build_report, contains_keyword, load_seen, save_seen, stable_id, send_email
 class Tests(unittest.TestCase):
  def test_keywords(self):
   self.assertTrue(contains_keyword('Tender Notice')); self.assertTrue(contains_keyword('مناقصة جديدة')); self.assertFalse(contains_keyword('About company'))
@@ -12,4 +13,7 @@ class Tests(unittest.TestCase):
    p=Path(d)/'state.json'; save_seen(p,{'a','b'}); self.assertEqual(load_seen(p),{'a','b'})
  def test_report(self):
   r=build_report([{'company':'GASCO','source':'https://example.com','status':'ok','items':[]}],[],'2026-10-21T00:00:00+00:00'); self.assertIn('غير متاح',r); self.assertIn('لا تُحسب درجة رقمية',r)
+ def test_email_is_optional_when_secrets_are_missing(self):
+  with patch.dict(os.environ, {}, clear=True):
+   self.assertFalse(send_email('subject','body'))
 if __name__=='__main__': unittest.main()
