@@ -51,7 +51,7 @@ jobs:
               print(f"JSON OK: {path}")
           PY
       - name: Compile Python modules
-        run: python -m compileall -q agents navaris_agents navaris_core_engine.py scripts/github_sync.py
+        run: python -m compileall -q agents navaris_agents navaris_core_engine.py engines/legacy_route_pricing.py scripts/github_sync.py
       - name: Test NAVARIS core engine formulas and cash gate
         run: python -m unittest discover -s tests -p 'test_navaris_core_engine.py' -v
       - name: Test secure GitHub sync path validation
