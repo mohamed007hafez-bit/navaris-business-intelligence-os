@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import Iterable, Mapping, Any
 import pandas as pd
-import navaris_core as core
+import engines.legacy_route_pricing as core
 
 ILLUSTRATIVE_TENDERS = [
     {"name": "Borg Dekheila 20 trips", "value": 30000, "distance": 45, "selling": 1500,
