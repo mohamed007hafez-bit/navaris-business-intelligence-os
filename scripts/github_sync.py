@@ -27,13 +27,12 @@ class SyncError(RuntimeError):
 
 def validate_repo_path(value: str) -> str:
     """Return a normalized repository-relative path or reject traversal."""
-    candidate = PurePosixPath(value)
-    if not value or candidate.is_absolute() or any(part in ("", ".", "..") for part in candidate.parts):
-        raise ValueError("Repository path must be a non-empty relative path without dot segments.")
-    normalized = candidate.as_posix()
-    if normalized.startswith("../") or "\\" in value or "\x00" in value:
-        raise ValueError("Repository path contains an invalid path component.")
-    return normalized
+    if not value or value.startswith("/") or "\\" in value or "\x00" in value:
+        raise ValueError("Repository path must be relative and use forward slashes.")
+    parts = value.split("/")
+    if any(part in ("", ".", "..") for part in parts):
+        raise ValueError("Repository path must not contain empty, dot, or parent segments.")
+    return PurePosixPath(*parts).as_posix()
 
 
 def _validate_repository(value: str) -> str:
