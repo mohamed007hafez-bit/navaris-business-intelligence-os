@@ -35,6 +35,8 @@ jobs:
           test -f agents/oilfield.py
           test -f agents/financial.py
           test -f navaris_agents/commercial_controls.py
+          test -f navaris_core_engine.py
+          test -f NAVARIS_CORE_MASTER_LOG.md
           test -f docs/NAVARIS_MASTER_STRATEGY_EXECUTION_BLUEPRINT.md
           test -f docs/NAVARIS_CLAIM_EVIDENCE_REGISTER.md
       - name: Validate JSON sources
@@ -49,7 +51,9 @@ jobs:
               print(f"JSON OK: {path}")
           PY
       - name: Compile Python modules
-        run: python -m compileall -q agents navaris_agents
+        run: python -m compileall -q agents navaris_agents navaris_core_engine.py
+      - name: Test NAVARIS core engine formulas and cash gate
+        run: python -m unittest discover -s tests -p 'test_navaris_core_engine.py' -v
       - name: Run toolkit and commercial control tests
         run: |
           python -m unittest discover -s tests -p "test_navaris_agents.py" -v
