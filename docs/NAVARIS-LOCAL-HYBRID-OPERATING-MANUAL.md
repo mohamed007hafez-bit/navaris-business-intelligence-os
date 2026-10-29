@@ -8,7 +8,7 @@ Implement the supplied NAVARIS skill as a small, beginner-operable local Python 
 
 Input JSON / locally verified records
 → scout_agent.py
-→ pricer_agent.py → navaris_core.py (fixed formulas)
+→ pricer_agent.py → engines/legacy_route_pricing.py (route-cost and workbook helpers; canonical financial formulas and cash recognition are governed by navaris_core_engine.py)
 → evidence and decision gate
 → ncnda_agent.py (draft only) and cash_agent.py (forecast vs collected)
 → chatgpt_bridge.py (approval policy only; no network call)
