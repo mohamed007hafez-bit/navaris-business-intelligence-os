@@ -6,7 +6,7 @@ from pathlib import Path
 import pandas as pd
 from openpyxl import load_workbook
 
-import navaris_core as core
+import engines.legacy_route_pricing as core
 from cash_agent import calc_monthly_cash
 from chatgpt_bridge import should_call_cloud
 from ncnda_agent import generate_ncnda
