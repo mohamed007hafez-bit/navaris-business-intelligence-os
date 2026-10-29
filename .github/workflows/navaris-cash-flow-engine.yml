@@ -43,7 +43,7 @@ jobs:
 
       - name: Compile and test fixed core
         run: |
-          python -m py_compile navaris_core.py scout_agent.py pricer_agent.py ncnda_agent.py cash_agent.py chatgpt_bridge.py main.py
+          python -m py_compile engines/legacy_route_pricing.py scout_agent.py pricer_agent.py ncnda_agent.py cash_agent.py chatgpt_bridge.py main.py
           python -m unittest discover -s tests -p "test_navaris_os.py" -v
 
       - name: Build local workbook
