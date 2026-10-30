@@ -2,6 +2,7 @@ name: Build NAVARIS EXE
 on:
   push:
     branches: [ai-work]
+  workflow_dispatch:
 jobs:
   build:
     runs-on: windows-latest
@@ -10,10 +11,24 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
-      - run: pip install -r requirements.txt
-      - run: pip install pyinstaller openpyxl customtkinter
-      - run: pyinstaller --onefile --windowed --name navaris-business-intelligence-os main.py
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+      - name: Compile Python sources
+        run: python -m compileall -q main.py dashboard src
+      - name: Build Windows desktop executable
+        run: >
+          pyinstaller --noconfirm --clean --onefile --windowed
+          --name navaris-business-intelligence-os
+          --collect-all sqlcipher3
+          --collect-all customtkinter
+          --hidden-import sqlcipher3.dbapi2
+          main.py
       - uses: actions/upload-artifact@v5
         with:
           name: navaris-os-exe
           path: dist/navaris-business-intelligence-os.exe
+          if-no-files-found: error
