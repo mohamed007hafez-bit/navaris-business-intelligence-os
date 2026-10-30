@@ -1,0 +1,19 @@
+name: Build NAVARIS EXE
+on:
+  push:
+    branches: [ai-work]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - run: pip install pyinstaller openpyxl customtkinter
+      - run: pyinstaller --onefile --windowed --name navaris-business-intelligence-os main.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: navaris-os-exe
+          path: dist/navaris-business-intelligence-os.exe
