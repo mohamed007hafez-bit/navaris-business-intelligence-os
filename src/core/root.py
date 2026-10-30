@@ -1,25 +1,24 @@
-"""NAVARIS ROOT identity and authorization primitives.
+"""NAVARIS ROOT authority and application-level write controls.
 
-The configured owner email identifies the logical ROOT account. This is an
-application-level role check, not cryptographic proof of identity; production
-deployment should add device-bound credentials and OS account verification.
+A local environment secret is required in addition to the configured handle.
+This is not a substitute for OS account isolation, signed device identity,
+GitHub branch protection, or a hardware-backed credential.
 """
 from __future__ import annotations
 
+import hmac
 import os
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import PurePosixPath
 
-ROOT_EMAIL = "mohamed007hafez@gmail.com"
 ROOT_HANDLE = "mohamed007hafez-bit"
 ROOT_ROLE = "ROOT"
 BRANCH_ROLE = "BRANCH"
-
-# Paths reserved to the origin device. Branches cannot write these paths via
-# the application API; repository protections must additionally enforce this.
 ROOT_PROTECTED_PATHS = (
     "src/core/root.py",
+    "src/core/secure_vault.py",
+    "src/core/branch_manager.py",
     "src/core/hybrid_engine.py",
     "main.py",
     "dashboard/app.py",
@@ -34,44 +33,41 @@ class NodeRole(str, Enum):
 
 @dataclass(frozen=True)
 class NodeIdentity:
-    email: str
+    handle: str
     role: NodeRole
     node_id: str
 
 
-def normalize_email(email: str | None) -> str:
-    return (email or "").strip().casefold()
+class RootAuthority:
+    """Promotes only a handle presenting the out-of-band ROOT secret."""
+    def __init__(self, root_handle: str = ROOT_HANDLE, root_token: str | None = None):
+        self.root_handle = root_handle.casefold()
+        self._root_token = root_token if root_token is not None else os.environ.get("NAVARIS_ROOT_TOKEN", "")
 
+    def identify(self, handle: str | None = None, token: str | None = None,
+                 node_id: str | None = None) -> NodeIdentity:
+        candidate = (handle if handle is not None else os.environ.get("NAVARIS_GITHUB_HANDLE", "")).strip()
+        supplied = token if token is not None else os.environ.get("NAVARIS_ROOT_TOKEN", "")
+        is_owner = (
+            candidate.casefold() == self.root_handle
+            and bool(self._root_token)
+            and hmac.compare_digest(supplied.encode(), self._root_token.encode())
+        )
+        return NodeIdentity(
+            handle=candidate or "unregistered",
+            role=NodeRole.ROOT if is_owner else NodeRole.BRANCH,
+            node_id=node_id or os.environ.get("NAVARIS_NODE_ID", "local-branch"),
+        )
 
-def identify_node(email: str | None, node_id: str | None = None) -> NodeIdentity:
-    normalized = normalize_email(email)
-    if not normalized:
-        raise ValueError("A configured account email is required.")
-    role = NodeRole.ROOT if normalized == ROOT_EMAIL.casefold() else NodeRole.BRANCH
-    return NodeIdentity(email=normalized, role=role, node_id=node_id or ROOT_HANDLE)
+    def is_root(self, identity: NodeIdentity) -> bool:
+        return identity.role is NodeRole.ROOT
 
-
-def is_root(email: str | None) -> bool:
-    return normalize_email(email) == ROOT_EMAIL.casefold()
-
-
-def can_write_path(role: NodeRole | str, path: str) -> bool:
-    """Return False when a BRANCH attempts to mutate ROOT-owned files."""
-    role_value = role.value if isinstance(role, NodeRole) else str(role).upper()
-    if role_value == ROOT_ROLE:
-        return True
-    normalized = str(PurePosixPath(path)).lstrip("./")
-    for protected in ROOT_PROTECTED_PATHS:
-        if protected.endswith("/"):
-            if normalized.startswith(protected):
-                return False
-        elif normalized == protected:
+    def can_write_path(self, identity: NodeIdentity, path: str) -> bool:
+        if not self.is_root(identity):
             return False
-    return True
+        normalized = str(PurePosixPath(path)).lstrip("./")
+        return not normalized.startswith("../")
 
 
 def configured_identity() -> NodeIdentity:
-    """Load the local account identity; never silently promote an unknown user."""
-    email = os.environ.get("NAVARIS_OWNER_EMAIL", "")
-    node_id = os.environ.get("NAVARIS_NODE_ID", "local-branch")
-    return identify_node(email, node_id)
+    return RootAuthority().identify()
