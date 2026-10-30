@@ -1,8 +1,7 @@
 """NAVARIS encrypted local vault.
 
-Requires SQLCipher (sqlcipher3) and cryptography. Fails closed if SQLCipher
-is unavailable; never silently falls back to plaintext SQLite.
-TPM/HSM adapters in this module are explicitly MOCK interfaces.
+SQLCipher encrypts the database; AES-256-GCM encrypts record and file payloads.
+The TPM/HSM adapters below are MOCKS, not hardware security modules.
 """
 from __future__ import annotations
 
@@ -11,7 +10,6 @@ import hmac
 import json
 import os
 import secrets
-import socket
 import threading
 import time
 from pathlib import Path
@@ -19,12 +17,12 @@ from typing import Any
 
 try:
     from sqlcipher3 import dbapi2 as sqlcipher
-except ImportError:  # pragma: no cover - environment dependent
+except ImportError:
     sqlcipher = None
 
 try:
     from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-except ImportError:  # pragma: no cover
+except ImportError:
     AESGCM = None
 
 
@@ -33,7 +31,7 @@ class VaultSecurityError(RuntimeError):
 
 
 class TPM2Mock:
-    """Test double only; it is NOT a TPM and provides no hardware attestation."""
+    """Mock adapter only; no hardware-backed TPM attestation."""
     provider = "TPM 2.0 MOCK"
 
     def seal(self, key: bytes) -> bytes:
@@ -44,7 +42,7 @@ class TPM2Mock:
 
 
 class HSMMock:
-    """Test double only; it is NOT an HSM or a production key-management service."""
+    """Mock adapter only; no hardware-backed HSM key custody."""
     provider = "HSM MOCK"
 
     def sign(self, payload: bytes, key: bytes) -> str:
@@ -52,24 +50,18 @@ class HSMMock:
 
 
 class SecureVault:
-    """Local encrypted store for sensitive NAVARIS records.
-
-    Financial payloads are AES-256-GCM encrypted before insertion. SQLCipher
-    encrypts the database at rest. Keys are local-only and never transmitted.
-    """
     def __init__(self, db_path: str | Path | None = None, key_path: str | Path | None = None):
         if sqlcipher is None:
-            raise VaultSecurityError("SQLCipher unavailable. Install requirements; plaintext fallback is disabled.")
+            raise VaultSecurityError("SQLCipher unavailable; plaintext fallback is disabled.")
         if AESGCM is None:
-            raise VaultSecurityError("cryptography unavailable. AES-256-GCM cannot be initialized.")
+            raise VaultSecurityError("cryptography unavailable; AES-256-GCM cannot start.")
         data_dir = Path(os.environ.get("NAVARIS_DATA_DIR", Path.home() / ".navaris"))
         data_dir.mkdir(parents=True, exist_ok=True)
         self.db_path = Path(db_path) if db_path else data_dir / "vault.db"
         self.key_path = Path(key_path) if key_path else data_dir / "vault.key"
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self._lock = threading.RLock()
-        self.tpm = TPM2Mock()
-        self.hsm = HSMMock()
+        self.tpm, self.hsm = TPM2Mock(), HSMMock()
         self._key = self._load_or_create_key()
         self._aes = AESGCM(self._key)
         self._conn = None
@@ -83,12 +75,12 @@ class SecureVault:
             except ValueError as exc:
                 raise VaultSecurityError("NAVARIS_VAULT_KEY must be 64 hex characters.") from exc
             if len(key) != 32:
-                raise VaultSecurityError("NAVARIS_VAULT_KEY must decode to exactly 32 bytes.")
+                raise VaultSecurityError("NAVARIS_VAULT_KEY must decode to 32 bytes.")
             return key
         if self.key_path.exists():
             key = self.key_path.read_bytes()
             if len(key) != 32:
-                raise VaultSecurityError("Vault key file is invalid; refusing to recreate or reset it.")
+                raise VaultSecurityError("Invalid key file; refusing silent key regeneration.")
             return key
         key = secrets.token_bytes(32)
         fd = os.open(str(self.key_path), os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
@@ -100,11 +92,7 @@ class SecureVault:
 
     @staticmethod
     def is_offline() -> bool:
-        """True only when offline mode is explicitly enforced by configuration.
-
-        A software check cannot prove physical air-gapping; disconnect network
-        interfaces and apply OS/firewall policy for a true air-gapped deployment.
-        """
+        """Software configuration check; physical air-gap requires OS/network controls."""
         return os.environ.get("NAVARIS_OFFLINE", "1").strip().lower() in {"1", "true", "yes"}
 
     def start(self) -> "SecureVault":
@@ -118,34 +106,31 @@ class SecureVault:
             if not version or not version[0]:
                 self._conn.close()
                 self._conn = None
-                raise VaultSecurityError("SQLCipher cipher_version unavailable; refusing unencrypted database.")
-            self._conn.execute("PRAGMA foreign_keys = ON")
+                raise VaultSecurityError("SQLCipher cipher_version unavailable; refusing plaintext DB.")
             self._conn.execute("""
                 CREATE TABLE IF NOT EXISTS vault_records (
-                    record_id TEXT PRIMARY KEY,
-                    nonce BLOB NOT NULL,
-                    ciphertext BLOB NOT NULL,
-                    created_at REAL NOT NULL
+                    record_id TEXT PRIMARY KEY, nonce BLOB NOT NULL,
+                    ciphertext BLOB NOT NULL, created_at REAL NOT NULL
+                )
+            """)
+            self._conn.execute("""
+                CREATE TABLE IF NOT EXISTS vault_files (
+                    file_id TEXT PRIMARY KEY, filename TEXT NOT NULL,
+                    content_type TEXT NOT NULL, nonce BLOB NOT NULL,
+                    ciphertext BLOB NOT NULL, created_at REAL NOT NULL
                 )
             """)
             self._conn.execute("""
                 CREATE TABLE IF NOT EXISTS audit_log (
-                    seq INTEGER PRIMARY KEY AUTOINCREMENT,
-                    created_at REAL NOT NULL,
-                    event TEXT NOT NULL,
-                    record_id TEXT,
-                    previous_hash TEXT NOT NULL,
+                    seq INTEGER PRIMARY KEY AUTOINCREMENT, created_at REAL NOT NULL,
+                    event TEXT NOT NULL, record_id TEXT, previous_hash TEXT NOT NULL,
                     entry_hash TEXT NOT NULL
                 )
             """)
-            self._conn.execute("""
-                CREATE TRIGGER IF NOT EXISTS audit_no_update
-                BEFORE UPDATE ON audit_log BEGIN SELECT RAISE(ABORT, 'append-only audit log'); END
-            """)
-            self._conn.execute("""
-                CREATE TRIGGER IF NOT EXISTS audit_no_delete
-                BEFORE DELETE ON audit_log BEGIN SELECT RAISE(ABORT, 'append-only audit log'); END
-            """)
+            self._conn.execute("""CREATE TRIGGER IF NOT EXISTS audit_no_update
+                BEFORE UPDATE ON audit_log BEGIN SELECT RAISE(ABORT, 'append-only audit log'); END""")
+            self._conn.execute("""CREATE TRIGGER IF NOT EXISTS audit_no_delete
+                BEFORE DELETE ON audit_log BEGIN SELECT RAISE(ABORT, 'append-only audit log'); END""")
             self._conn.commit()
             self._audit("VAULT_STARTED", None)
             return self
@@ -159,29 +144,23 @@ class SecureVault:
         row = self._conn.execute("SELECT entry_hash FROM audit_log ORDER BY seq DESC LIMIT 1").fetchone()
         previous = row[0] if row else "0" * 64
         created = time.time()
-        canonical = json.dumps(
-            {"created_at": created, "event": event, "record_id": record_id, "previous_hash": previous},
-            sort_keys=True, separators=(",", ":")
-        ).encode()
-        digest = hashlib.sha256(canonical).hexdigest()
+        body = json.dumps({"created_at": created, "event": event, "record_id": record_id,
+                           "previous_hash": previous}, sort_keys=True, separators=(",", ":")).encode()
+        digest = hashlib.sha256(body).hexdigest()
         self._conn.execute(
             "INSERT INTO audit_log(created_at,event,record_id,previous_hash,entry_hash) VALUES(?,?,?,?,?)",
-            (created, event, record_id, previous, digest)
-        )
+            (created, event, record_id, previous, digest))
         self._conn.commit()
 
     def put_financial_record(self, record_id: str, payload: dict[str, Any]) -> None:
         self._require_started()
-        if not record_id:
-            raise ValueError("record_id is required")
         plaintext = json.dumps(payload, ensure_ascii=False, sort_keys=True).encode("utf-8")
         nonce = secrets.token_bytes(12)
-        ciphertext = self._aes.encrypt(nonce, plaintext, record_id.encode("utf-8"))
+        ciphertext = self._aes.encrypt(nonce, plaintext, record_id.encode())
         with self._lock:
             self._conn.execute(
-                "INSERT OR REPLACE INTO vault_records(record_id,nonce,ciphertext,created_at) VALUES(?,?,?,?)",
-                (record_id, nonce, ciphertext, time.time())
-            )
+                "INSERT OR REPLACE INTO vault_records VALUES(?,?,?,?)",
+                (record_id, nonce, ciphertext, time.time()))
             self._conn.commit()
             self._audit("FINANCIAL_RECORD_STORED_ENCRYPTED", record_id)
 
@@ -189,29 +168,62 @@ class SecureVault:
         self._require_started()
         with self._lock:
             row = self._conn.execute(
-                "SELECT nonce,ciphertext FROM vault_records WHERE record_id=?", (record_id,)
-            ).fetchone()
+                "SELECT nonce,ciphertext FROM vault_records WHERE record_id=?", (record_id,)).fetchone()
             if row is None:
                 return None
-            plaintext = self._aes.decrypt(row[0], row[1], record_id.encode("utf-8"))
+            value = json.loads(self._aes.decrypt(row[0], row[1], record_id.encode()).decode("utf-8"))
             self._audit("FINANCIAL_RECORD_READ", record_id)
-            return json.loads(plaintext.decode("utf-8"))
+            return value
+
+    def encrypt_file(self, file_path: str | Path, file_id: str | None = None,
+                     delete_source: bool = True, content_type: str =
+                     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") -> str:
+        """Encrypt a file into the vault_files BLOB table; optionally erase plaintext copy."""
+        self._require_started()
+        source = Path(file_path)
+        if not source.is_file():
+            raise FileNotFoundError(source)
+        payload = source.read_bytes()
+        identifier = file_id or secrets.token_hex(16)
+        nonce = secrets.token_bytes(12)
+        aad = identifier.encode("utf-8")
+        ciphertext = self._aes.encrypt(nonce, payload, aad)
+        with self._lock:
+            self._conn.execute(
+                "INSERT OR REPLACE INTO vault_files(file_id,filename,content_type,nonce,ciphertext,created_at) "
+                "VALUES(?,?,?,?,?,?)",
+                (identifier, source.name, content_type, nonce, ciphertext, time.time()))
+            self._conn.commit()
+            self._audit("FILE_ENCRYPTED_IN_VAULT", identifier)
+        if delete_source:
+            source.unlink()
+        return identifier
+
+    def decrypt_file(self, file_id: str, destination: str | Path) -> Path:
+        """Explicitly export a decrypted copy; caller controls destination and access."""
+        self._require_started()
+        row = self._conn.execute(
+            "SELECT filename,nonce,ciphertext FROM vault_files WHERE file_id=?", (file_id,)).fetchone()
+        if row is None:
+            raise KeyError(file_id)
+        plaintext = self._aes.decrypt(row[1], row[2], file_id.encode("utf-8"))
+        target = Path(destination)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(plaintext)
+        self._audit("FILE_EXPORTED_DECRYPTED", file_id)
+        return target
 
     def verify_audit_chain(self) -> bool:
         self._require_started()
         previous = "0" * 64
         rows = self._conn.execute(
-            "SELECT created_at,event,record_id,previous_hash,entry_hash FROM audit_log ORDER BY seq"
-        ).fetchall()
+            "SELECT created_at,event,record_id,previous_hash,entry_hash FROM audit_log ORDER BY seq").fetchall()
         for created, event, record_id, stored_previous, stored_hash in rows:
             if stored_previous != previous:
                 return False
-            canonical = json.dumps(
-                {"created_at": created, "event": event, "record_id": record_id, "previous_hash": previous},
-                sort_keys=True, separators=(",", ":")
-            ).encode()
-            calculated = hashlib.sha256(canonical).hexdigest()
-            if not hmac.compare_digest(calculated, stored_hash):
+            body = json.dumps({"created_at": created, "event": event, "record_id": record_id,
+                               "previous_hash": previous}, sort_keys=True, separators=(",", ":")).encode()
+            if not hmac.compare_digest(hashlib.sha256(body).hexdigest(), stored_hash):
                 return False
             previous = stored_hash
         return True
