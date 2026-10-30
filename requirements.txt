@@ -4,3 +4,4 @@ pandas>=2.0
 openpyxl>=3.1
 cryptography>=42.0
 sqlcipher3-binary>=0.5.4
+customtkinter>=5.2.2
