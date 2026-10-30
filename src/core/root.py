@@ -40,9 +40,10 @@ class NodeIdentity:
 
 class RootAuthority:
     """Promotes only a handle presenting the out-of-band ROOT secret."""
-    def __init__(self, root_handle: str = ROOT_HANDLE, root_token: str | None = None):
+    def __init__(self, root_handle: str = ROOT_HANDLE, root_secret: str | None = None):
         self.root_handle = root_handle.casefold()
-        self._root_token = root_token if root_token is not None else os.environ.get("NAVARIS_ROOT_TOKEN", "")
+        # Expected secret is provisioned out-of-band; caller supplies NAVARIS_ROOT_TOKEN.
+        self._root_secret = root_secret if root_secret is not None else os.environ.get("NAVARIS_ROOT_SECRET", "")
 
     def identify(self, handle: str | None = None, token: str | None = None,
                  node_id: str | None = None) -> NodeIdentity:
@@ -50,8 +51,8 @@ class RootAuthority:
         supplied = token if token is not None else os.environ.get("NAVARIS_ROOT_TOKEN", "")
         is_owner = (
             candidate.casefold() == self.root_handle
-            and bool(self._root_token)
-            and hmac.compare_digest(supplied.encode(), self._root_token.encode())
+            and bool(self._root_secret)
+            and hmac.compare_digest(supplied.encode(), self._root_secret.encode())
         )
         return NodeIdentity(
             handle=candidate or "unregistered",
