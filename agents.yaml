@@ -1,0 +1,68 @@
+version: "2.0"
+identity: KHALIFAROCK
+product: NAVARIS OS
+service_count: 4
+agent_count: 7
+policy:
+  human_approval_required_for: [external_communication, tender_submission, binding_quote, signature, financial_commitment, partner_appointment]
+  cash_collected: 0
+  cash_rule: "Finance verifies and reconciles CIB USD bank receipt; otherwise zero."
+  client_money_access: false
+  data_policy: "No contracts or bank documents in unencrypted SQLite."
+agents:
+  - id: supervisor
+    goal: "Orchestrate seven agents, enforce service scope, permissions, approvals and evidence gates."
+    tools: [read_registry, route_task, approval_gate, audit_log]
+    skills: [policy_enforcement, workflow_orchestration, exception_handling]
+    input_schema: {type: object, required: [task], properties: {task: {type: string}, service_id: {type: string}}}
+    output_schema: {type: object, required: [route, approval_required, status], properties: {route: {type: string}, approval_required: {type: boolean}, status: {type: string}}}
+    permission: "Read and route only; cannot approve or execute."
+    test: tests/test_agent_contracts.py::test_supervisor_contract
+  - id: discovery
+    goal: "Find and register source-backed opportunities, partners, tenders and requirements."
+    tools: [web_research, source_registry, document_intake]
+    skills: [source_validation, demand_discovery, partner_screening]
+    input_schema: {type: object, required: [query], properties: {query: {type: string}, service_id: {type: string}}}
+    output_schema: {type: object, required: [facts, sources, unknowns], properties: {facts: {type: array, items: {type: string}}, sources: {type: array, items: {type: string}}, unknowns: {type: array, items: {type: string}}}}
+    permission: "Research and draft only; no outreach."
+    test: tests/test_agent_contracts.py::test_discovery_contract
+  - id: analysis
+    goal: "Perform deterministic calculations and evidence-based strategic analysis."
+    tools: [core_formulas, spreadsheet_reader, risk_matrix]
+    skills: [financial_analysis, operational_analysis, scenario_analysis]
+    input_schema: {type: object, required: [facts], properties: {facts: {type: object}}}
+    output_schema: {type: object, required: [calculations, assumptions, status], properties: {calculations: {type: object}, assumptions: {type: array, items: {type: string}}, status: {type: string}}}
+    permission: "Calculate and recommend; no financial execution."
+    test: tests/test_agent_contracts.py::test_analysis_contract
+  - id: coordination
+    goal: "Coordinate qualified licensed partners and milestone follow-up without assuming execution."
+    tools: [task_board, milestone_tracker, partner_qualification]
+    skills: [well_intervention_coordination, logistics_coordination, marine_coordination]
+    input_schema: {type: object, required: [work_package], properties: {work_package: {type: object}}}
+    output_schema: {type: object, required: [owner, milestones, execution_party], properties: {owner: {type: string}, milestones: {type: array}, execution_party: {type: string}}}
+    permission: "Coordination only; execution by qualified licensed partner."
+    test: tests/test_agent_contracts.py::test_coordination_contract
+  - id: documentation
+    goal: "Prepare SOPs, checklists, RFQ comparison records, NCRs and close-out packs."
+    tools: [template_library, document_generator, evidence_register]
+    skills: [iso_9001_2015_alignment, quality_documentation, closeout]
+    input_schema: {type: object, required: [document_type, inputs], properties: {document_type: {type: string}, inputs: {type: object}}}
+    output_schema: {type: object, required: [draft, disclaimer, missing_evidence], properties: {draft: {type: string}, disclaimer: {type: string}, missing_evidence: {type: array}}}
+    permission: "Draft documents only; no certification or signature."
+    test: tests/test_agent_contracts.py::test_documentation_contract
+  - id: audit
+    goal: "Test controls, source traceability, quality evidence, cash recognition and compliance gates."
+    tools: [test_runner, source_validator, cash_reconciliation_gate]
+    skills: [control_testing, evidence_audit, risk_review]
+    input_schema: {type: object, required: [record], properties: {record: {type: object}}}
+    output_schema: {type: object, required: [findings, status], properties: {findings: {type: array}, status: {type: string}}}
+    permission: "Read and report findings; cannot certify."
+    test: tests/test_agent_contracts.py::test_audit_contract
+  - id: memory
+    goal: "Maintain approved, versioned operational knowledge with source and change provenance."
+    tools: [local_registry, version_log, retention_policy]
+    skills: [knowledge_management, source_provenance, controlled_updates]
+    input_schema: {type: object, required: [record], properties: {record: {type: object}}}
+    output_schema: {type: object, required: [stored, version, source_ref], properties: {stored: {type: boolean}, version: {type: string}, source_ref: {type: string}}}
+    permission: "Store non-sensitive approved metadata only; no contracts or bank documents in unencrypted SQLite."
+    test: tests/test_agent_contracts.py::test_memory_contract
