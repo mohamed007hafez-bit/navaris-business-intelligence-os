@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAVARIS | Business Intelligence OS</title>
+<link rel="stylesheet" href="assets/style.css"></head><body>
+<header><div class="logo">NAVARIS <span>Business Intelligence OS</span></div><button class="btn-g" onclick="location.href='os/structured.html'">✦ Open OS</button></header>
+<div class="hero"><h1>Put NAVARIS to work</h1><p>Not generic chat. Decision OS — Score • OER • COUNTRY • INVEST / STOP</p>
+<div class="tasks" id="tasks"><button class="active" onclick="pick(this,'Business Model')">📊 Business Model</button><button onclick="pick(this,'Feasibility')">🔍 Feasibility</button><button onclick="pick(this,'Strategic')">🎯 Strategic</button><button onclick="pick(this,'Planning')">📅 Planning</button><button onclick="pick(this,'Operating')">⚙️ Operating</button><button onclick="pick(this,'Marketing')">📣 Marketing</button><button onclick="pick(this,'Sales')">📈 Sales</button><button onclick="pick(this,'HR')">👥 HR</button></div></div>
+<div class="wrap"><div class="card">
+<h3>Inputs & Configuration — Dynamic — Editable ✏️</h3>
+<label>▼ Select Sector</label><select id="sector"><option>Investment</option><option>Management</option><option>Investment + Management</option></select>
+<label>▼ Sector — All Sectors Worldwide</label><select id="sectorType"><option>All Sectors Worldwide</option><option>Oil & Gas</option><option>Mining</option><option>Energy</option><option>Shipping</option><option>Real Estate</option><option>Services</option><option>Trade</option><option>Technology</option><option>Healthcare</option></select>
+<label>▼ Type — Add New Type</label><select id="type"><option>Laundry - مغسلة</option><option>Garage - جراج</option><option>Factory - مصنع</option><option>Trade - تجارة</option><option>Services - خدمات</option><option>Oil Well</option><option>Mine</option><option>Vessel</option></select>
+<input id="newType" placeholder="+ Add New Type"><button class="add" onclick="addType()">+ Add New Type</button>
+<div id="dyn"></div><button class="add" onclick="addField()">+ Add Field — Dynamic Input</button>
+<h3 style="margin-top:14px">Investment Evaluation</h3>
+<label>Invested Capital — الأساس</label><input id="cap" type="number" value="100000" oninput="calc()">
+<label>Capital Opinion — رأي رأس المال</label><input id="opinion" value="كافي لـ 6 شهور - محتاج 20% احتياطي">
+<label>Revenue</label><input id="rev" type="number" value="150000" oninput="calc()">
+<label>OPEX</label><input id="opex" type="number" value="100000" oninput="calc()">
+<label>CAPEX</label><input id="capex" type="number" value="200000" oninput="calc()">
+<label>Payment — Add Payment</label><div class="pay"><button class="active" onclick="setPay(this,'Monthly')">Monthly</button><button onclick="setPay(this,'Quarterly')">Quarterly</button><button onclick="setPay(this,'Yearly')">Yearly</button></div><input id="payAmt" type="number" value="5000" oninput="calc()">
+<label>Fund Type</label><select id="fund"><option>Balanced Fund</option><option>Growth Fund</option><option>Income Fund</option><option>Real Assets Fund</option><option>Sharia Fund</option></select>
+<label>All Investment Types in the World</label><select id="invType"><option>All Investment Types</option><option>Stocks</option><option>Bonds</option><option>Real Estate</option><option>Crypto</option><option>Private Equity</option><option>Venture</option><option>Commodities</option><option>Funds</option></select>
+<div id="invChips"><span class="chip" onclick="this.remove();calc()">✕ Stocks</span><span class="chip" onclick="this.remove();calc()">✕ Bonds</span><span class="chip" onclick="this.remove();calc()">✕ Real Estate</span><span class="chip" onclick="this.remove();calc()">✕ Crypto</span><span class="chip" onclick="this.remove();calc()">✕ Funds</span></div>
+<input id="newInv" placeholder="New Investment Type"><button class="add" onclick="addInv()">+ Add Investment Type</button>
+<label>Ratios — 30 / 70</label><div class="slider"><span>Equity</span><input type="range" id="eq" min="0" max="100" value="30" oninput="sync1()"><b id="eqVal">30%</b></div><div class="slider"><span>Debt</span><input type="range" id="debt" min="0" max="100" value="70" oninput="sync2()"><b id="debtVal">70%</b></div>
+<h4>Dynamic Evaluation</h4><div id="evals"><div class="row"><span>ESG</span><input type="range" min="0" max="100" value="70" oninput="calc()"><button onclick="this.parentElement.remove();calc()">✕</button></div><div class="row"><span>Liquidity</span><input type="range" min="0" max="100" value="80" oninput="calc()"><button onclick="this.parentElement.remove();calc()">✕</button></div><div class="row"><span>Tax</span><input type="range" min="0" max="100" value="60" oninput="calc()"><button onclick="this.parentElement.remove();calc()">✕</button></div></div>
+<input id="newEval" placeholder="New Criteria"><button class="add" onclick="addEval()">+ Add Evaluation Criteria</button>
+<p id="eval" style="background:#FFFBF0;padding:12px;border-radius:8px;margin-top:10px"></p>
+<button class="green" onclick="calc()">Run Analysis</button></div>
+<div><div class="card"><h2>Live Performance <span style="float:right;color:#16A34A;font-size:13px">● LIVE</span></h2>
+<div class="kpi"><div>Total Invested<br><b id="total">$1,248,500</b></div><div>Monthly Return<br><b>+8.7%</b></div><div>ROI<br><b id="roi">24.3%</b></div></div>
+<div class="chart"><div class="bar" style="height:30%"></div><div class="bar" style="height:38%"></div><div class="bar" style="height:45%"></div><div class="bar" style="height:58%"></div><div class="bar" style="height:65%"></div><div class="bar" style="height:78%"></div><div class="bar" style="height:92%"></div></div>
+<p style="text-align:center;color:#667085;margin-top:8px">Jan Feb Mar Apr May Jun Jul Aug</p>
+<p style="margin-top:12px"><b>NAVARIS Score:</b> <span id="score">78</span> | <b>OER:</b> <span id="oer">0.67</span> | <b>COUNTRY:</b> UAE | <b>Decision:</b> <span id="dec" style="color:#16A34A;font-weight:bold">GREEN - INVEST</span></p></div><br>
+<div class="card"><h3>Payment Online — Pay • TRUST=1 • Get Report</h3>
+<select id="pack" onchange="updPrice()" style="width:100%;padding:11px;border:1px solid #DCE1E8;border-radius:8px;margin:6px 0"><option value="200">X-Ray Report - $200</option><option value="500">Fund Monthly - $500 / month</option><option value="1000">Consulting OS 90 Days - $1000</option></select>
+<p id="price" style="font-size:22px;font-weight:bold;text-align:center">$200</p>
+<button class="pay-btn stripe" onclick="pay('Stripe')">Pay with Stripe — Visa / Mastercard 💳</button>
+<button class="pay-btn paypal" onclick="pay('PayPal')">Pay with PayPal</button>
+<button class="pay-btn fawry" onclick="pay('Fawry')">Pay with Fawry — فوري 🇪🇬</button>
+<button class="pay-btn insta" onclick="pay('InstaPay')">Pay with InstaPay</button>
+<button class="pay-btn voda" onclick="pay('Vodafone Cash')">Pay with Vodafone Cash</button>
+<p id="payStatus" style="font-size:13px;margin-top:10px;text-align:center;color:#667085">CASH=0 • TRUST=0 • Score=0 — ادفع عشان التقرير يطلع</p></div><br>
+<div class="card"><h3>NAVARIS TOOLKIT — Private</h3><p style="font-size:13px;color:#667085">You command — I FETCH → STORE → ANALYZE → DEVELOP → DELIVER</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><div class="tool"><b>📁 Assets</b><br><span>Track holdings • Risk</span></div><div class="tool"><b>🔍 Investment X-Ray</b><br><span>Due diligence • OER • COUNTRY</span></div><div class="tool"><b>💬 Consulting OS</b><br><span>Strategy • ROI • Plans</span></div><div class="tool"><b>📚 Research Vault</b><br><span>Books • Papers • Library</span></div></div></div></div></div>
+<footer>NAVARIS OS — I am the Seed — Agents are Peers — Like Torrent but Intelligence — <a href="os/structured.html">Structured OS →</a></footer>
+<script src="os/agents.js"></script></body></html>
