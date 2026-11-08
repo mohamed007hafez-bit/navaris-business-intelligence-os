@@ -1,0 +1,17 @@
+navaris-business-intelligence-os/
+├── README.md
+├── index.html                  ← الصفحة الرئيسية - Client Side 30% + Payment
+├── os/
+│   ├── structured.html         ← الـ OS Structured - 5 طبقات - Private Toolkit
+│   ├── agents.js               ← الـ 6 Agents - FETCH STORE ANALYZE DEVELOP DECIDE DELIVER
+│   └── library.json            ← Business Management Library - Books - References - Research
+├── assets/
+│   ├── style.css
+│   └── logo.svg
+├── docs/
+│   ├── ARCHITECTURE.md         ← وصف الـ OS كامل - Seed vs Torrent
+│   ├── CAPITAL-BASE.md         ← Capital Base + Capital Opinion
+│   └── PAYMENT.md              ← Payment Online - Stripe + Fawry
+└── .github/
+    └── workflows/
+        └── deploy.yml          ← يرفع الموقع أوتوماتيك على GitHub Pages
