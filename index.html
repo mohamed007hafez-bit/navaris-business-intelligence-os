@@ -1,58 +1,1002 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0A1931">
-<meta name="description" content="NAVARIS Business Operations & Development — energy, oil and gas, trade and maritime logistics from Alexandria, Egypt.">
-<title>NAVARIS GATEWAY EGYPT</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root{--navy:#0A1931;--deep:#061225;--gold:#C5A059;--light:#E7CB8B;--ivory:#FFFBF0;--line:rgba(197,160,89,.48)}
-*{box-sizing:border-box;scroll-behavior:smooth}body{margin:0;background:var(--navy);color:var(--ivory);font-family:Montserrat,Arial,sans-serif}a{text-decoration:none}header{background:rgba(10,25,49,.98);border-bottom:1px solid var(--line)}.brand{font:500 28px Georgia,serif;letter-spacing:4px;color:var(--light);white-space:nowrap}.anchor{font-size:39px;color:var(--light);line-height:1}.navlink{font-size:12px;font-weight:800;color:#e7d3a6}.navlink:hover{color:white}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;min-height:44px;border:1px solid var(--gold);border-radius:5px;background:linear-gradient(135deg,#e7cb8b,#c5a059);color:#101a2a;font-size:12px;font-weight:800}.btn:hover{filter:brightness(1.08)}.btn-outline{background:transparent;color:white}.hero{display:grid;grid-template-columns:.96fr 1.04fr;min-height:410px;background:var(--deep);border-bottom:1px solid var(--line)}.hero-copy{position:relative;display:flex;align-items:center;padding:36px clamp(22px,5.7vw,76px);overflow:hidden;background:radial-gradient(ellipse at 0 100%,rgba(197,160,89,.1),transparent 50%),linear-gradient(135deg,#0d203d,#07152b)}.hero-copy:after{content:"";position:absolute;width:200px;height:200px;right:-100px;bottom:-100px;border:1px solid var(--line);transform:rotate(45deg)}.hero-inner{position:relative;z-index:1}.eyebrow{font-size:19px;font-weight:800;color:var(--light);margin-bottom:7px}.hero h1{font-size:clamp(26px,2.5vw,37px);font-weight:800;line-height:1.25;letter-spacing:-.7px;margin:0}.hero h2{font-size:clamp(23px,2.3vw,33px);font-weight:800;line-height:1.2;margin:10px 0}.tagline{font-size:12px;line-height:1.8;font-weight:700;color:var(--light)}.pillars{display:grid;grid-template-columns:repeat(3,1fr);margin-top:23px;padding-top:15px;border-top:1px solid var(--line)}.pillar{text-align:center;padding:0 7px;border-right:1px solid var(--line);font-size:10px;font-weight:700;line-height:1.5}.pillar:last-child{border:0}.pillar b{display:block;font-size:26px;color:var(--light);margin-bottom:5px}.hero-art{min-height:410px;background:#102443;overflow:hidden}.hero-art img{display:block;width:100%;height:100%;min-height:410px;object-fit:cover;object-position:center}.section-title{font:500 25px Georgia,serif;color:var(--light);text-align:center;margin:0 0 22px}.services{padding:14px 6.1% 23px;background:linear-gradient(#08162b,#0a1931);border-bottom:1px solid var(--line)}.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.card{min-height:140px;padding:15px 11px;text-align:center;border:1px solid var(--line);background:rgba(255,255,255,.02);transition:transform .2s,border-color .2s}.card:hover{transform:translateY(-3px);border-color:var(--light)}.icon{font-size:28px;color:var(--light);line-height:1.3;margin-bottom:8px}.card h3{font-size:12px;font-weight:800;line-height:1.45;margin:0 0 6px}.card p{font-size:10px;line-height:1.55;color:#e3e8f0;margin:0}.founder{display:grid;grid-template-columns:.88fr 1.05fr 1.25fr;gap:24px;align-items:center;padding:25px 6.1%;background:linear-gradient(120deg,#0a1931,#071529);border-bottom:1px solid var(--line)}.portrait-frame{position:relative;max-width:280px;width:100%;margin:auto;padding:8px;border:2px solid var(--gold);outline:1px solid rgba(197,160,89,.6);outline-offset:4px;background:#101d32}.portrait{display:block;width:100%;aspect-ratio:4/4.3;object-fit:cover;border:1px solid var(--line)}.governance{padding:15px;border:1px solid var(--line);border-radius:5px;background:rgba(255,255,255,.015)}.governance h3{font-size:12px;color:var(--light);text-align:center;font-weight:800;margin:0 0 12px}.governance p{text-align:center;font-size:11px;line-height:1.9;color:#e2e8f0;margin:0}.founder h2{font-size:clamp(17px,1.5vw,22px);font-weight:800;line-height:1.4;color:var(--light);margin:0}.role{font-size:13px;font-weight:700;margin:4px 0 10px}.bio{font-size:10.5px;line-height:1.75;color:#e5eaf2}.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:14px}.stat{padding:0 9px;border-right:1px solid var(--line)}.stat:first-child{padding-left:0}.stat:last-child{border:0}.stat strong{display:block;color:var(--light);font-size:12px;line-height:1.5}.stat span{display:block;font-size:9px;line-height:1.5;color:#d9e0eb;margin-top:3px}.footer-main{display:grid;grid-template-columns:1fr 1.2fr 1fr;align-items:center;gap:20px;padding:16px 6.1%;background:#08162b;border-bottom:1px solid var(--line)}.footcol{min-height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 12px;border-right:1px solid var(--line)}.footcol:last-child{border:0}.foot-title{font:17px Georgia,serif;color:var(--light);margin-bottom:5px}.foot-text{font-size:10px;line-height:1.7;color:white}.disclaimer{padding:16px 6.1%;background:#061225;border-top:1px solid rgba(197,160,89,.25)}.disclaimer h3{font-size:12px;color:var(--light);font-weight:800;margin:0 0 7px}.disclaimer p{font-size:10px;line-height:1.9;color:#c8d0dc;margin:0}.status{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:10px;color:var(--light);font-size:10px;font-weight:800}.copyright{padding:11px 15px;background:#061225;text-align:center;color:#e6d3aa;font-size:10px;line-height:1.8}.menu{display:none}
-@media(max-width:1000px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.founder{grid-template-columns:.8fr 1fr}.profile{grid-column:1/-1;max-width:760px;margin:auto}.hero h2{font-size:27px}}
-@media(max-width:700px){.desktop-nav{display:none}.menu{display:block;background:transparent;color:var(--light);border:1px solid var(--line);border-radius:4px;padding:6px 11px;font-size:22px}.mobile-nav{display:none;padding:15px 20px 20px;gap:16px;grid-template-columns:1fr 1fr}.mobile-nav.open{display:grid}.brand{font-size:23px;letter-spacing:3px}.anchor{font-size:32px}.hero{grid-template-columns:1fr}.hero-copy{padding:32px 22px 24px}.hero-art,.hero-art img{min-height:260px;max-height:350px}.hero h1{font-size:29px}.hero h2{font-size:27px}.services{padding:25px 17px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{min-height:145px;padding:15px 9px}.founder{grid-template-columns:1fr;gap:23px;padding:29px 22px}.profile{grid-column:auto}.portrait-frame{max-width:300px}.bio{font-size:12px}.footer-main{grid-template-columns:1fr;gap:0;padding:20px}.footcol{padding:14px 0;border-right:0;border-bottom:1px solid var(--line)}.footcol:last-child{border:0}.foot-text{font-size:11px}.disclaimer{padding:20px}.disclaimer p{font-size:10px}}
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto;transition:none}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A1F44" />
+  <meta name="description" content="NAVARIS Business AI X-Ray — premium decision intelligence for capital, strategy, and feasibility analysis." />
+  <title>NAVARIS Business AI X-Ray</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0A1F44;
+      --navy-deep: #071935;
+      --gold: #C9A86A;
+      --gold-soft: #E7D3A6;
+      --gold-strong: #BE9250;
+      --beige: #FFFBF0;
+      --beige-strong: #F4E9D1;
+      --dark: #0c1b2e;
+      --text: #11233e;
+      --muted: #5a6476;
+      --glass: rgba(20, 34, 54, 0.46);
+      --line: rgba(201, 168, 106, 0.5);
+      --green: #27B46A;
+      --green-dark: #175d3d;
+      --shadow: 0 30px 60px rgba(3, 7, 18, 0.35);
+      --radius: 26px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--navy);
+      color: #fff;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+
+    .container {
+      width: min(1280px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(10, 31, 68, 0.72);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      height: 76px;
+      width: min(1280px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .menu-btn {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+      color: var(--gold-soft);
+      font-size: 1.6rem;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .menu-btn:hover { border-color: var(--gold); }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold), #f9e9bc 55%, #d0a75c 100%);
+      color: var(--navy);
+      font-weight: 900;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 24px rgba(201, 168, 106, 0.38);
+    }
+
+    .brand-name {
+      font-size: 0.88rem;
+      letter-spacing: 0.25rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #f6f2eb;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: rgba(255,255,255,0.74);
+      font-size: 0.8rem;
+      letter-spacing: 0.08rem;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .nav-links a { opacity: 0.8; }
+    .nav-links a:hover { opacity: 1; color: var(--gold-soft); }
+
+    .cta-btn,
+    .gold-btn,
+    .black-btn,
+    .send-btn,
+    .run-btn,
+    .analysis-btn {
+      border: 0;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .cta-btn {
+      padding: 0.9rem 1.4rem;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+      color: var(--navy-deep);
+      font-weight: 800;
+      letter-spacing: 0.06rem;
+      text-transform: uppercase;
+      box-shadow: 0 16px 30px rgba(201,168,106,0.26);
+    }
+
+    .cta-btn:hover,
+    .gold-btn:hover,
+    .run-btn:hover,
+    .analysis-btn:hover,
+    .send-btn:hover,
+    .black-btn:hover { transform: translateY(-1px); }
+
+    .hero {
+      position: relative;
+      min-height: 960px;
+      background:
+        linear-gradient(90deg, rgba(8,17,31,0.83) 0%, rgba(8,17,31,0.52) 52%, rgba(8,17,31,0.72) 100%),
+        url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 75% 30%, rgba(201,168,106,0.30), transparent 22%),
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.10), transparent 18%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      min-height: 960px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 72px 0 62px;
+    }
+
+    .glass-card {
+      width: min(1180px, calc(100% - 36px));
+      padding: 34px 34px 28px;
+      border: 1px solid rgba(201,168,106,0.45);
+      background: linear-gradient(180deg, rgba(13,26,43,0.58), rgba(11,20,31,0.56));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+      border-radius: 32px;
+    }
+
+    .hero-topline {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      border: 1px solid rgba(201,168,106,0.6);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.03);
+      color: var(--gold-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.14rem;
+      font-weight: 700;
+      font-size: 0.72rem;
+      margin-bottom: 22px;
+    }
+
+    .hero-topline .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+      box-shadow: 0 0 18px rgba(201,168,106,0.8);
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+      margin: 0;
+      font-weight: 900;
+      max-width: 700px;
+      color: #f8f4ee;
+    }
+
+    .hero-subtitle {
+      max-width: 780px;
+      margin-top: 22px;
+      font-size: clamp(1.05rem, 2vw, 1.55rem);
+      line-height: 1.6;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .hero-subtitle strong { color: var(--gold-soft); }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 26px;
+      color: var(--gold-soft);
+      font-size: 0.78rem;
+      letter-spacing: 0.12rem;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .pill-row .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(201,168,106,0.6);
+      background: rgba(201,168,106,0.07);
+    }
+
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .task-card {
+      min-height: 108px;
+      padding: 16px 18px;
+      border: 1px solid rgba(201,168,106,0.7);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.02);
+      color: #edf2f8;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .task-card:hover {
+      background: rgba(201,168,106,0.16);
+      border-color: rgba(201,168,106,1);
+      transform: translateY(-2px);
+    }
+
+    .task-card .mini-tag {
+      display: inline-block;
+      font-size: 0.62rem;
+      letter-spacing: 0.06rem;
+      font-weight: 700;
+      color: var(--gold-soft);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .task-card .task-name {
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .hero-query {
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(9, 20, 34, 0.6);
+      border: 1px solid rgba(201,168,106,0.35);
+      border-radius: 18px;
+      padding: 12px 12px 12px 18px;
+    }
+
+    .hero-query input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      color: #f7efe8;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .hero-query input::placeholder {
+      color: rgba(255,255,255,0.55);
+    }
+
+    .gold-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 1.3rem;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #f5ddb3, var(--gold));
+      color: var(--navy-deep);
+      font-weight: 800;
+      letter-spacing: 0.08rem;
+      text-transform: uppercase;
+      box-shadow: 0 18px 30px rgba(201,168,106,0.30);
+    }
+
+    .live-line {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.9);
+      font-size: 0.9rem;
+      letter-spacing: 0.04rem;
+      font-weight: 600;
+    }
+
+    .live-line .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #31d48c;
+      box-shadow: 0 0 18px rgba(49,212,140,0.7);
+    }
+
+    .light-panel {
+      background: var(--beige);
+      color: var(--text);
+      padding: 82px 0 90px;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 26px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(201,168,106,0.5);
+      padding: 8px 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.12rem;
+      font-size: 0.7rem;
+      color: var(--gold-strong);
+      background: rgba(201,168,106,0.06);
+      font-weight: 800;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: clamp(2.1rem, 5vw, 4rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      font-weight: 900;
+      color: var(--navy-deep);
+    }
+
+    .panel-subtitle {
+      margin: 14px auto 0;
+      max-width: 620px;
+      font-size: 1.15rem;
+      color: rgba(17, 35, 62, 0.78);
+      line-height: 1.6;
+    }
+
+    .task-list-soft {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    .soft-card {
+      background: #fff;
+      border: 1px solid rgba(201,168,106,0.75);
+      border-radius: 18px;
+      min-height: 128px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 10px 24px rgba(10, 31, 68, 0.04);
+      transition: border-color 0.2s ease, background 0.2s ease,
+        box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .soft-card:hover {
+      border-color: rgba(201,168,106,1);
+      box-shadow: 0 16px 26px rgba(10,31,68,0.08);
+      transform: translateY(-2px);
+    }
+
+    .soft-card .mini-tag {
+      color: var(--gold-strong);
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 0.62rem;
+      letter-spacing: 0.08rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .soft-card .task-name {
+      color: var(--navy-deep);
+      font-weight: 700;
+      font-size: 1.08rem;
+      line-height: 1.35;
+    }
+
+    .task-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    .black-btn {
+      min-height: 54px;
+      padding: 0 1.5rem;
+      border-radius: 14px;
+      background: #0D1725;
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.08rem;
+      text-transform: uppercase;
+    }
+
+    .prompt-box {
+      max-width: 980px;
+      margin: 26px auto 0;
+      border: 1px solid rgba(201,168,106,0.7);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.85);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px 10px 18px;
+      box-shadow: 0 18px 38px rgba(10,31,68,0.04);
+    }
+
+    .prompt-box input {
+      flex: 1;
+      border: 0;
+      background: transparent;
+      font-size: 1.05rem;
+      color: var(--navy-deep);
+      outline: none;
+    }
+
+    .prompt-box input::placeholder { color: rgba(17,35,62,0.56); }
+
+    .mic-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(201,168,106,0.6);
+      background: rgba(201,168,106,0.08);
+      color: var(--navy-deep);
+      font-size: 1.1rem;
+    }
+
+    .send-btn {
+      min-height: 46px;
+      padding: 0 1.2rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+      color: var(--navy-deep);
+      font-weight: 800;
+      letter-spacing: 0.08rem;
+      text-transform: uppercase;
+    }
+
+    .analysis-section {
+      background: linear-gradient(180deg, #f8efe2 0%, #f1e8d6 100%);
+      color: var(--navy-deep);
+      padding: 82px 0 90px;
+    }
+
+    .analysis-wrap {
+      display: grid;
+      grid-template-columns: 1.14fr 1.4fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .panel-box {
+      background: rgba(255,255,255,0.66);
+      border: 1px solid rgba(201,168,106,0.32);
+      border-radius: 26px;
+      padding: 28px 24px 22px;
+      box-shadow: 0 18px 40px rgba(10,31,68,0.06);
+    }
+
+    .panel-box h3 {
+      margin: 0 0 18px;
+      font-size: 1.8rem;
+      letter-spacing: -0.045em;
+      color: var(--navy-deep);
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--navy-deep);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08rem;
+      font-weight: 700;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      min-height: 52px;
+      border-radius: 14px;
+      border: 1px solid rgba(17,35,62,0.12);
+      background: rgba(255,255,255,0.9);
+      color: var(--navy-deep);
+      padding: 0 14px;
+      outline: none;
+      box-shadow: inset 0 0 0 1px transparent;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: rgba(201,168,106,0.86);
+      box-shadow: 0 0 0 3px rgba(201,168,106,0.20);
+    }
+
+    .analysis-btn {
+      margin-top: 16px;
+      min-height: 54px;
+      padding: 0 1.4rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #60d89a, #1d8d5d);
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0.08rem;
+      text-transform: uppercase;
+      box-shadow: 0 18px 28px rgba(30, 141, 93, 0.26);
+    }
+
+    .metrics-panel {
+      background: rgba(11, 25, 42, 0.95);
+      border: 1px solid rgba(201,168,106,0.5);
+      border-radius: 26px;
+      padding: 28px 24px 20px;
+      color: #f5f5f6;
+      box-shadow: var(--shadow);
+    }
+
+    .metrics-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .metrics-head span {
+      text-transform: uppercase;
+      letter-spacing: 0.12rem;
+      font-size: 0.72rem;
+      color: var(--gold-soft);
+      font-weight: 800;
+    }
+
+    .chart-box {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      height: 160px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.04));
+      border-radius: 18px;
+      padding: 18px 14px 12px;
+      border: 1px solid rgba(201,168,106,0.18);
+    }
+
+    .bar-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      flex: 1;
+      gap: 8px;
+      height: 100%;
+    }
+
+    .bar {
+      width: 100%;
+      max-width: 52px;
+      border-radius: 12px 12px 0 0;
+      background: linear-gradient(180deg, #f0d5a5, var(--gold));
+      height: 62%;
+      box-shadow: inset 0 -10px 20px rgba(10,31,68,0.18);
+    }
+
+    .bar:nth-child(2) { background: linear-gradient(180deg, #8de4b0, #2fb86d); }
+    .bar:nth-child(3) { background: linear-gradient(180deg, #dce6ff, #8aa5ff); }
+    .bar:nth-child(4) { background: linear-gradient(180deg, #f8d0a6, #e1925f); }
+
+    .bar-label {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.08rem;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .kpi-box {
+      padding: 14px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(201,168,106,0.2);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .kpi-box .label {
+      display: block;
+      font-size: 0.66rem;
+      letter-spacing: 0.08rem;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.70);
+      margin-bottom: 8px;
+    }
+
+    .kpi-box strong {
+      font-size: clamp(1.1rem, 2vw, 1.8rem);
+      letter-spacing: -0.04em;
+      display: block;
+      color: #fff;
+    }
+
+    .decision-box {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(68, 216, 134, 0.38);
+      background: rgba(21, 126, 77, 0.18);
+    }
+
+    .decision-box .decision-label {
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      letter-spacing: 0.10rem;
+      color: rgba(255,255,255,0.72);
+    }
+
+    .decision-box strong {
+      font-size: clamp(1.25rem, 2vw, 1.8rem);
+      letter-spacing: -0.04em;
+      color: #8be2ad;
+    }
+
+    .payment-row {
+      margin-top: 18px;
+      border-top: 1px solid rgba(201,168,106,0.2);
+      padding-top: 16px;
+    }
+
+    .payment-row .label {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.1rem;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.70);
+      margin-bottom: 12px;
+    }
+
+    .payments {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pay-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(201,168,106,0.35);
+      background: rgba(255,255,255,0.02);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.06rem;
+      color: rgba(255,255,255,0.88);
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 1000px) {
+      .nav-links { display: none; }
+      .task-grid,
+      .task-list-soft { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .analysis-wrap { grid-template-columns: 1fr; }
+      .hero { min-height: 840px; }
+      .hero-inner { min-height: 840px; }
+    }
+
+    @media (max-width: 680px) {
+      .hero { min-height: 760px; }
+      .hero-inner { min-height: 760px; }
+      .glass-card { padding: 24px 20px 18px; }
+      .hero-title { max-width: 100%; }
+      .task-grid,
+      .task-list-soft,
+      .field-grid,
+      .kpi-grid { grid-template-columns: 1fr; }
+      .hero-query,
+      .prompt-box { flex-direction: column; align-items: stretch; }
+      .gold-btn,
+      .send-btn,
+      .black-btn,
+      .analysis-btn { width: 100%; }
+      .topbar-inner { height: 68px; }
+      .brand-name { letter-spacing: 0.12rem; font-size: 0.72rem; }
+      .glass-card { border-radius: 22px; }
+    }
+  </style>
 </head>
 <body>
-<header class="sticky top-0 z-50"><div class="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-5 py-3 md:px-8 lg:px-16"><a class="flex items-center gap-2" href="#home" aria-label="NAVARIS home"><span class="anchor">⚓</span><span class="brand">NAVARIS</span></a><nav class="desktop-nav flex items-center gap-3 lg:gap-4" aria-label="Main navigation"><a class="navlink" href="#home">HOME</a><span class="text-gold">•</span><a class="navlink" href="#services">SERVICES</a><span class="text-gold">•</span><a class="navlink" href="#about">ABOUT</a><span class="text-gold">•</span><a class="navlink" href="#sectors">SECTORS</a><span class="text-gold">•</span><a class="navlink" href="#contact">CONTACT</a></nav><a class="btn hidden sm:inline-flex" href="#contact">GET IN TOUCH</a><button id="menu-toggle" class="menu" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobile-navigation">☰</button></div><nav id="mobile-navigation" class="mobile-nav" aria-label="Mobile navigation"><a class="navlink" href="#home">HOME</a><a class="navlink" href="#services">SERVICES</a><a class="navlink" href="#about">ABOUT</a><a class="navlink" href="#sectors">SECTORS</a><a class="navlink" href="#contact">CONTACT</a><a class="btn" href="#contact">GET IN TOUCH</a></nav></header>
-<main>
-<section id="home" class="hero"><div class="hero-copy"><div class="hero-inner"><div class="eyebrow">NAVARIS</div><h1>Business Operations &amp; Development</h1><h2>Your Global Partner in Energy, Oil &amp; Gas, Trade &amp; Maritime Logistics</h2><p class="tagline">Bridging Needs With Solutions <span>•</span> Turning Opportunities Into Results</p><div class="mt-5 flex flex-wrap gap-3"><a class="btn" href="#services">› &nbsp;Explore Services</a><a class="btn btn-outline" href="#about">Download Profile</a></div><div id="sectors" class="pillars"><div class="pillar"><b>⚒</b>Petroleum &amp; Energy</div><div class="pillar"><b>⚓</b>Maritime Logistics</div><div class="pillar"><b>▤</b>Global Trade Solutions</div></div></div></div><div class="hero-art"><img src="hero_golden.jpg" alt="Golden energy facility, offshore rig and container ship" fetchpriority="high" onerror="this.alt='Hero image missing: add hero_golden.jpg to the repository root';this.style.opacity='.18'"></div></section>
-<section id="services" class="services"><h2 class="section-title">Our Core Services</h2><div class="cards"><article class="card"><div class="icon">▧</div><h3>Business Operations</h3><p>Strategic operations management and process optimization for energy and maritime sectors.</p></article><article class="card"><div class="icon">◎</div><h3>Commercial Representation</h3><p>Market entry, agency and representation across global energy and logistics markets.</p></article><article class="card"><div class="icon">⚙</div><h3>Oilfield &amp; Industrial Supply</h3><p>Procurement and coordination of oilfield equipment, industrial supplies and technical materials.</p></article><article class="card"><div class="icon">⚓</div><h3>Maritime &amp; Logistics</h3><p>Freight, port logistics and supply-chain coordination for trade and offshore operations.</p></article><article class="card"><div class="icon">♧</div><h3>&amp; Logistics Coordination</h3><p>Freight, port logistics and supply-chain coordination for commercial operations.</p></article></div></section>
-<section id="about" class="founder"><div class="portrait-frame"><img class="portrait" src="founder.jpg" alt="Dr. Mohamed Hafez Khalifa, founder of NAVARIS" loading="lazy"></div><div><h2 class="section-title">About the Founder</h2><div class="governance"><h3>Governance</h3><p>Compliance <span class="text-gold">•</span> Ethics &amp; Integrity<br>Quality &amp; HSE <span class="text-gold">•</span> Sustainability<br>Accountability <span class="text-gold">•</span> Operational Excellence</p></div></div><div class="profile"><h2>Dr. Mohamed Hafez Khalifa, DBA</h2><p class="role">Founder &amp; Managing Director</p><p class="bio">Dr. Mohamed Hafez Khalifa founded NAVARIS to connect business needs with practical solutions across petroleum, energy, international trade and maritime logistics. With a Doctorate in Business Administration and experience across operational management and project delivery, he focuses on dependable coordination, commercial discipline and measurable outcomes. Based in Alexandria, Egypt, NAVARIS connects global partners with qualified opportunities and transparent operating practices.</p><div class="stats"><div class="stat"><strong>20+ Years</strong><span>Experience</span></div><div class="stat"><strong>Global</strong><span>Network</span></div><div class="stat"><strong>Energy · Oil &amp; Gas</strong><span>Maritime &amp; Trade</span></div></div></div></section>
-<footer id="contact"><div class="footer-main"><div class="footcol"><a class="brand" href="#home">NAVARIS</a><p class="foot-text mt-1 font-bold">Business Operations &amp; Development</p></div><div class="footcol"><h2 class="foot-title">Governance</h2><p class="foot-text">Compliance <span class="text-gold">•</span> Ethics &amp; Integrity <span class="text-gold">•</span> Quality &amp; HSE <span class="text-gold">•</span> Sustainability</p></div><div class="footcol"><h2 class="foot-title">Contact</h2><p class="foot-text">Alexandria, Egypt<br><a href="mailto:info@navaris.example">info@navaris.example</a> <span class="text-gold">•</span> +20 3 XXX XXXX</p></div></div><section class="disclaimer" aria-labelledby="disclaimer-title"><h3 id="disclaimer-title">Commercial Disclaimer &amp; Evidence Policy</h3><p>No guaranteed three-hour mobilization, fixed savings percentage, certification or port clearance outcome is promised without documented evidence. Any 22% saving is a hypothesis until baseline costs and comparable actual results are documented. ISO 9001:2015 is referenced as a quality management standard; no certification or accredited status is claimed without valid supporting documentation. Scope, rates, timelines and deliverables remain subject to verification and written agreement.</p><div class="status"><span>DRAFT ONLY</span><span>•</span><span>Cash EGP 0 — no documentary evidence of collection recorded</span></div></section><div class="copyright">© <span id="year">2026</span> NAVARIS. All rights reserved. <span class="text-gold">•</span> Governance <span class="text-gold">•</span> Privacy Policy <span class="text-gold">•</span> Terms of Service</div></footer>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-wrap">
+        <button class="menu-btn" aria-label="Open menu">☰</button>
+        <div class="brand-mark">N</div>
+        <div class="brand-name">NAVARIS</div>
+      </div>
 
-<section id="navaris-core" class="services" aria-labelledby="core-engine-title">
-  <h2 id="core-engine-title" class="section-title">NAVARIS Core Engine</h2>
-  <p style="max-width:900px;margin:0 auto 18px;text-align:center;line-height:1.8;color:#e5eaf2;font-size:12px">One evidence-led operating core connecting nine independent service verticals through five coordinating intelligence agents. Calculations remain reviewable; cash is recognized only after bank-receipt verification and reconciliation.</p>
-  <div class="cards">
-    <article class="card"><div class="icon">01</div><h3>Consulting</h3><p>Strategy, diagnosis and turnaround.</p></article>
-    <article class="card"><div class="icon">02</div><h3>Audit</h3><p>Controls, evidence and remediation.</p></article>
-    <article class="card"><div class="icon">03</div><h3>Training</h3><p>Corporate learning and capability.</p></article>
-    <article class="card"><div class="icon">04</div><h3>Fund Intelligence</h3><p>Research and representation support.</p></article>
-    <article class="card"><div class="icon">05</div><h3>Shipping Agent</h3><p>Authorized agency coordination.</p></article>
-    <article class="card"><div class="icon">06</div><h3>Commercial Representation</h3><p>Market entry and buyer development.</p></article>
-    <article class="card"><div class="icon">07</div><h3>NVOCC</h3><p>Subject to applicable authority and registration.</p></article>
-    <article class="card"><div class="icon">08</div><h3>ISO / QMS</h3><p>Quality systems and audit support.</p></article>
-    <article class="card"><div class="icon">09</div><h3>Tourism</h3><p>Tourism and hospitality development.</p></article>
-  </div>
-  <div class="governance" style="max-width:1100px;margin:20px auto 0">
-    <h3>Five Coordinating Agents</h3>
-    <p>Research &amp; Market Intelligence • Business Diagnosis &amp; Strategy • Finance &amp; Cash Integrity • Commercial &amp; Deal Qualification • Delivery, Risk &amp; Quality</p>
-    <p style="margin-top:10px"><strong>OER</strong> = OPEX ÷ Net Revenue × 100% &nbsp; | &nbsp; <strong>Operating Margin</strong> = EBIT ÷ Net Revenue × 100% &nbsp; | &nbsp; <strong>Cash Collected</strong> = 0 until verified bank receipt</p>
-    <p style="margin-top:10px"><a href="NAVARIS_CORE_MASTER_LOG.md" style="color:#e7cb8b;text-decoration:underline">Read the NAVARIS Core Master Log</a></p>
-  </div>
-</section>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#">Overview</a>
+        <a href="#">Scenarios</a>
+        <a href="#">Strategy</a>
+        <a href="#">Insights</a>
+      </nav>
 
-</main>
-<script>
-const toggle=document.getElementById('menu-toggle'),nav=document.getElementById('mobile-navigation');
-toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'×':'☰';});
-nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false');toggle.textContent='☰';}));
-document.getElementById('year').textContent=new Date().getFullYear();
-</script>
+      <button class="cta-btn">Get Pro</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="NAVARIS Business AI X-Ray hero section">
+      <div class="hero-inner">
+        <div class="glass-card container">
+          <div class="hero-topline"><span class="dot"></span> NAVARIS BUSINESS AI X-RAY</div>
+
+          <h1 class="hero-title">Put NAVARIS to work</h1>
+          <p class="hero-subtitle"><strong>Business AI X-Ray</strong> — not generic chat. It is a Decision OS for real strategy.</p>
+
+          <div class="pill-row" aria-label="Performance summary pills">
+            <span class="pill">Score</span>
+            <span class="pill">OER</span>
+            <span class="pill">Country</span>
+            <span class="pill">Invest Stop</span>
+          </div>
+
+          <div class="task-grid" aria-label="NAVARIS tasks list">
+            <article class="task-card"><div class="mini-tag">01</div><div class="task-name">Create Business Model</div></article>
+            <article class="task-card"><div class="mini-tag">02</div><div class="task-name">Feasibility Study</div></article>
+            <article class="task-card"><div class="mini-tag">03</div><div class="task-name">Strategic Management</div></article>
+            <article class="task-card"><div class="mini-tag">04</div><div class="task-name">Planning</div></article>
+            <article class="task-card"><div class="mini-tag">05</div><div class="task-name">Operating</div></article>
+            <article class="task-card"><div class="mini-tag">06</div><div class="task-name">Marketing</div></article>
+            <article class="task-card"><div class="mini-tag">07</div><div class="task-name">Sales</div></article>
+            <article class="task-card"><div class="mini-tag">08</div><div class="task-name">Strategic HR</div></article>
+          </div>
+
+          <div class="hero-query">
+            <input type="text" value="Assess feasibility for offshore supply in UAE; risk, ROI, go/no-go" aria-label="Ask NAVARIS X-Ray" />
+            <button class="gold-btn" type="button">Run X-Ray</button>
+          </div>
+
+          <div class="live-line"><span class="live-dot"></span><span>Live: OER 1.23 • Risk Score 62/100 • Country: UAE • PROCEED — INVEST</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="light-panel">
+      <div class="container">
+        <div class="section-header">
+          <div class="eyebrow">NAVARIS</div>
+          <h2 class="panel-title">Put NAVARIS to work</h2>
+          <p class="panel-subtitle">Business AI X-Ray</p>
+        </div>
+
+        <div class="task-list-soft" aria-label="NAVARIS task cards">
+          <article class="soft-card"><div class="mini-tag">01</div><div class="task-name">Create Business Model</div></article>
+          <article class="soft-card"><div class="mini-tag">02</div><div class="task-name">Feasibility Study</div></article>
+          <article class="soft-card"><div class="mini-tag">03</div><div class="task-name">Strategic Management</div></article>
+          <article class="soft-card"><div class="mini-tag">04</div><div class="task-name">Planning</div></article>
+          <article class="soft-card"><div class="mini-tag">05</div><div class="task-name">Operating</div></article>
+          <article class="soft-card"><div class="mini-tag">06</div><div class="task-name">Marketing</div></article>
+          <article class="soft-card"><div class="mini-tag">07</div><div class="task-name">Sales</div></article>
+          <article class="soft-card"><div class="mini-tag">08</div><div class="task-name">Strategic HR</div></article>
+        </div>
+
+        <div class="task-actions">
+          <button class="black-btn" type="button">Pick a task</button>
+        </div>
+
+        <div class="prompt-box">
+          <input type="text" placeholder="Ask NAVARIS X-Ray" aria-label="Ask NAVARIS X-Ray" />
+          <button class="mic-btn" type="button" aria-label="Use microphone">🎙</button>
+          <button class="send-btn" type="button">Send</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="analysis-section">
+      <div class="container analysis-wrap">
+        <div class="panel-box">
+          <h3>Inputs</h3>
+
+          <div class="field-grid">
+            <label class="field">
+              Invested Capital
+              <input id="cap" type="number" value="2400000" />
+            </label>
+
+            <label class="field">
+              Capital Opinion
+              <input type="text" value="Expand offshore support" />
+            </label>
+
+            <label class="field">
+              Revenue
+              <input id="rev" type="number" value="4200000" />
+            </label>
+
+            <label class="field">
+              OPEX
+              <input id="opex" type="number" value="2000000" />
+            </label>
+
+            <label class="field">
+              Sector
+              <select id="sector">
+                <option value="Energy" selected>Energy</option>
+                <option value="Infrastructure">Infrastructure</option>
+                <option value="Logistics">Logistics</option>
+                <option value="Maritime">Maritime</option>
+              </select>
+            </label>
+
+            <label class="field">
+              Type
+              <select id="type">
+                <option value="Offshore" selected>Offshore</option>
+                <option value="Onshore">Onshore</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Expansion">Expansion</option>
+              </select>
+            </label>
+          </div>
+
+          <button class="analysis-btn" type="button" onclick="calc()">Run Analysis</button>
+        </div>
+
+        <div class="metrics-panel">
+          <div class="metrics-head">
+            <span>Live Performance KPIs</span>
+          </div>
+
+          <div class="chart-box" aria-label="Performance chart">
+            <div class="bar-wrap"><div class="bar" style="height:76%"></div><div class="bar-label">Q1</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:88%"></div><div class="bar-label">Q2</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:82%"></div><div class="bar-label">Q3</div></div>
+            <div class="bar-wrap"><div class="bar" style="height:94%"></div><div class="bar-label">Q4</div></div>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-box">
+              <span class="label">Score</span>
+              <strong id="score">76</strong>
+            </div>
+            <div class="kpi-box">
+              <span class="label">OER</span>
+              <strong id="oer">47.62%</strong>
+            </div>
+            <div class="kpi-box">
+              <span class="label">ROI</span>
+              <strong id="roi">18.33%</strong>
+            </div>
+            <div class="kpi-box">
+              <span class="label">Decision</span>
+              <strong id="dec">GREEN INVEST</strong>
+            </div>
+          </div>
+
+          <div class="decision-box">
+            <span class="decision-label">Decision</span>
+            <strong id="decisionValue">GREEN INVEST</strong>
+          </div>
+
+          <div class="payment-row">
+            <span class="label">Payment Online</span>
+            <div class="payments">
+              <div class="pay-pill">Stripe</div>
+              <div class="pay-pill">Fawry</div>
+              <div class="pay-pill">InstaPay</div>
+              <div class="pay-pill">Vodafone Cash</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function calc() {
+      const cap = Number(document.getElementById('cap').value) || 0;
+      const rev = Number(document.getElementById('rev').value) || 0;
+      const opex = Number(document.getElementById('opex').value) || 0;
+      const sector = document.getElementById('sector').value;
+      const type = document.getElementById('type').value;
+
+      let score = 0;
+      let oer = 0;
+      let roi = 0;
+      let decision = 'NO-GO';
+
+      if (rev > 0) {
+        oer = (opex / rev) * 100;
+      }
+
+      if (cap > 0) {
+        roi = ((rev - opex) / cap) * 100;
+      }
+
+      const sectorBoost = sector === 'Energy' ? 9 : sector === 'Infrastructure' ? 6 : sector === 'Logistics' ? 4 : 3;
+      const typeBoost = type === 'Offshore' ? 12 : type === 'Hybrid' ? 8 : type === 'Expansion' ? 7 : 5;
+      const riskFactor = Math.max(0, oer - 30) * 0.7;
+      score = Math.min(99, Math.max(32, 58 + sectorBoost + typeBoost - riskFactor + (roi * 0.9)));
+      score = Math.round(score);
+
+      if (score >= 75 && roi > 12 && oer < 60) {
+        decision = 'GREEN INVEST';
+      } else if (score >= 55 && roi > 0) {
+        decision = 'WATCHLIST';
+      } else {
+        decision = 'NO-GO';
+      }
+
+      document.getElementById('score').textContent = score;
+      document.getElementById('oer').textContent = oer.toFixed(2) + '%';
+      document.getElementById('roi').textContent = roi.toFixed(2) + '%';
+      document.getElementById('dec').textContent = decision;
+      document.getElementById('decisionValue').textContent = decision;
+    }
+
+    calc();
+  </script>
 </body>
 </html>
