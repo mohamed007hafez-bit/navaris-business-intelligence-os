@@ -1,0 +1,17 @@
+{
+  "library": "Business Management Library — Goal: Research & Development",
+  "books": [
+    {"title": "Strategic Management", "author": "NAVARIS", "frameworks": ["STP", "SWOT", "Porter 5 Forces"]},
+    {"title": "Planning & Operating", "author": "NAVARIS", "frameworks": ["90-Day Plan", "OER", "COUNTRY"]}
+  ],
+  "references": [
+    {"source": "Harvard Business Review 2026", "topic": "Asset Management"},
+    {"source": "McKinsey MPP", "topic": "Productivity Platform"},
+    {"source": "BlackRock Aladdin", "topic": "Risk Management"}
+  ],
+  "research": [
+    {"topic": "Green Hydrogen", "year": 2025, "roi": "18%"},
+    {"topic": "Shipping", "year": 2026, "oer": "0.72"}
+  ],
+  "upgrade_rule": "UPGRADE → FETCH → STORE → ANALYZE → DEVELOP → ADDITION"
+}
