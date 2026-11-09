@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAVARIS - محمد حافظ</title>
+<style>
+body{font-family:Arial;background:#0F2A44;color:#fff;margin:0;padding:16px;text-align:center}
+.card{background:#fff;color:#0F2A44;border-radius:16px;padding:16px;margin:12px 0;text-align:right}
+h1{margin:4px}.gold{color:#C9A86A}
+input,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:1px solid #ddd;font-size:16px}
+button{width:100%;padding:14px;background:#C9A86A;border:0;border-radius:12px;font-size:18px;font-weight:bold}
+a{color:#0F2A44;font-weight:bold}
+.small{font-size:13px;color:#eee}
+</style>
+</head>
+<body>
+<h1>محمد حافظ</h1>
+<h2 class="gold">NAVARIS</h2>
+<p>مساعدك الذكي في البيزنس الخاص بيك</p>
+<p>MH</p>
+
+<div class="card">
+<h3>1. قبل الاستثمار - أشعة - هتكسب ولا هتخسر؟</h3>
+<p>Business X-Ray - 30% Free</p>
+<h3>2. التنسيق</h3>
+<p>DEMAND &lt; محمد حافظ - NAVARIS &gt; SUPPLIER</p>
+<p>Coordinator - Not Seller - Not Buyer</p>
+<h3>3. التنفيذ</h3>
+<p>خطة - SOPs - عقد - موردين - متابعة</p>
+</div>
+
+<div class="card">
+<h3>🤖 NAVARIS AI - جرب بنفسك - 30 ثانية</h3>
+<label>هتستثمر كام؟ - بالجنيه</label>
+<input id="amt" type="number" value="100000" placeholder="100000">
+<label>لمدة قد ايه؟</label>
+<select id="years">
+<option value="0.5">6 شهور</option>
+<option value="2">سنتين</option>
+<option value="3" selected>3 سنين</option>
+<option value="5">5 سنين</option>
+</select>
+<label>هتدخل ازاي؟</label>
+<select id="type">
+<option>شريك برأس مال</option>
+<option>أسهم</option>
+<option>عضو منتدب</option>
+<option>عقد</option>
+<option>قرض</option>
+</select>
+<label>نوع المشروع؟</label>
+<select id="proj">
+<option>مصنع أغذية</option>
+<option>بترول</option>
+<option>شحن</option>
+<option>مخزن</option>
+<option>مركب - Supply Vessel 50m</option>
+</select>
+<button onclick="calc()">احسب - هكسب ولا هخسر؟</button>
+<div id="out" style="margin-top:12px;font-weight:bold"></div>
+</div>
+
+<div class="card">
+<p>نقبل 5 عملاء في الشهر فقط - 50% Advance - Bank Only</p>
+<p>DRAFT - INDICATIVE ONLY - Not a Contract</p>
+<p>📞 <a href="https://wa.me/201278166680">تواصل لبدء العمل - مع محمد حافظ - WhatsApp +20 1278166680</a></p>
+</div>
+
+<p class="small">NAVARIS - مصباح علاء الدين - بتاع محمد حافظ - 30% Free - 70% Locked</p>
+
+<script>
+function calc(){
+let amt = Number(document.getElementById('amt').value||0);
+let y = Number(document.getElementById('years').value||3);
+let usd = amt / 48.53;
+let gain = usd * 0.1044 * y;
+let total = usd + gain;
+let payback = (2.1).toFixed(1);
+document.getElementById('out').innerHTML =
+"+ $" + Math.round(gain).toLocaleString() + " - هتكسب<br>" +
+"دخلت: " + amt.toLocaleString() + " جنيه = $" + Math.round(usd).toLocaleString() + "<br>" +
+"هترجع فلوسك بعد " + payback + " سنة<br>" +
+"خطر واحد - الوقود<br>" +
+"🔒 التفاصيل الكاملة - تواصل مع محمد حافظ - اجتماع 15 دقيقة";
+}
+</script>
+</body>
+</html>
