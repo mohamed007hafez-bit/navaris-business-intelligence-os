@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAVARIS - دكتور محمد حافظ</title>
+<style>
+body{font-family:Arial;background:#0f172a;color:white;margin:0;padding:15px;text-align:center}
+.box{background:white;color:#0f172a;border-radius:20px;padding:20px;margin:15px 0;text-align:right}
+h1{font-size:28px;margin:5px} h2{color:#0ea5e9} 
+button{width:100%;padding:15px;font-size:18px;border:0;border-radius:12px;background:#0ea5e9;color:white;margin-top:10px;cursor:pointer}
+input{width:95%;padding:12px;margin:5px 0;border:1px solid #ddd;border-radius:10px;font-size:16px}
+.green{background:#22c55e} .gold{background:#f59e0b}
+</style>
+</head>
+<body>
+
+<h1>دكتور محمد حافظ</h1>
+<p>NAVARIS - Business Intelligence OS</p>
+<p>📡 رادار - X-Ray - Supply Vessel - بترول</p>
+
+<!-- الجزء 1 -->
+<div class="box">
+<h2>1 - مين احنا؟</h2>
+<p><b>1.</b> دكتور محمد حافظ - NAVARIS</p>
+<p><b>2.</b> بنجيبلك المناقصات قبل أي حد - بالرادار</p>
+<p><b>3.</b> بنعملك X-Ray للمشروع - ROI - Profit - Payback</p>
+<p><b>4.</b> بنجهزلك العرض والرسالة - وانت تقول Yes بس</p>
+</div>
+
+<!-- الجزء 2 - 30% -->
+<div class="box">
+<h2>2 - جرب 30% مجانا - دلوقتي</h2>
+<p>اكتب الأرقام - وهو يحسبلك لوحده:</p>
+<input id="days" placeholder="عدد الأيام - مثال 14">
+<input id="rate" placeholder="Day Rate بالدولار - مثال 12000">
+<button onclick="calc()">احسب - 30% مجانا</button>
+<p id="res" style="font-weight:bold;font-size:18px"></p>
+<p>دي - 30% - بس - من اللي بنقدمه.</p>
+</div>
+
+<!-- الجزء 3 - 70% -->
+<div class="box">
+<h2>3 - كمل 70% معانا</h2>
+<p>عشان تاخد:</p>
+<p>✅ الرادار الكامل - مناقصات كل يوم</p>
+<p>✅ X-Ray كامل - تقرير PDF جاهز</p>
+<p>✅ رسائل جاهزة للشركات</p>
+<p>✅ متابعة لحد ما تكسب المناقصة</p>
+<button class="green" onclick="window.open('https://wa.me/201000000000?text=عايز اكمل 70% مع NAVARIS')">كمل معانا على واتساب - 70%</button>
+<button class="gold" onclick="alert('اكتب رادار - وهنبعتلك اول مناقصة')">اطلب أول مناقصة - رادار</button>
+</div>
+
+<script>
+function calc(){
+let d = parseFloat(document.getElementById('days').value) || 14;
+let r = parseFloat(document.getElementById('rate').value) || 12000;
+let rev = d*r; let profit = rev*0.35; let roi = 53.8;
+document.getElementById('res').innerHTML = "Revenue: $"+rev.toLocaleString()+"<br>Profit: $"+profit.toLocaleString()+"<br>ROI: "+roi+"%";
+}
+</script>
+</body>
+</html>
