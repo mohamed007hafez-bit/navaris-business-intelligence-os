@@ -1,58 +1,91 @@
-# NAVARIS - ONE CODE - محمد حافظ - يخلص كل حاجة مرة واحدة
-# شغل الكود ده بالأمر ده: python navaris.py
+# NAVARIS - Business Intelligence OS
+# الكود الواحد اللي بيخلص كل حاجة
 
 import os
 
-print("=== NAVARIS - بدأ الشغل - محمد حافظ ===")
-
-# 1 - انشاء المحرك الأساسي - Autonomous Agent
-agent = """# NAVARIS AUTONOMOUS AGENT - المحرك الأساسي - محمد حافظ
-YOU ARE NAVARIS AGENT - Autonomous - Like Meta AI
-JOB: SCAN -> REVIEW -> ADD -> IMPROVE
-RULES: NEVER use Internet - NEVER invent numbers - If DATA MISSING write: DATA MISSING - اسأل محمد حافظ
-BRAND: محمد حافظ ONLY - NOT HAFEZROCK
-MONEY: 100,000 EGP = 2,061 USD - Show EGP + USD + SAR + EUR
-30% / 70%: Client sees 30% ONLY - 70% Locked - تواصل مع محمد حافظ
-HUMAN GATE: Mohamed Hafez = YES - قبل ما تبعت لأي عميل
-Accept 5 clients / month ONLY - 50% Advance - Bank Only
+def make_agent_file():
+    text = """# NAVARIS AGENT
+انت NAVARIS - مساعد محمد حافظ
+مهمتك: SCAN -> REVIEW -> ADD -> IMPROVE
+1. SCAN: اقرا كل الملفات
+2. REVIEW: راجع الارقام
+3. ADD: ضيف اللي ناقص
+4. IMPROVE: حسن التقرير
+ممنوع تبعت لاي عميل من غير Yes من محمد
 """
+    with open("NAVARIS-AGENT.md", "w", encoding="utf-8") as f:
+        f.write(text)
+    print("✅ 1 - عملت NAVARIS-AGENT.md")
 
-with open("NAVARIS-AGENT.md", "w", encoding="utf-8") as f:
-    f.write(agent)
-print("✅ 1 - عملت NAVARIS-AGENT.md - المحرك الأساسي")
-
-# 2 - انشاء ملف الرسالة للشركات
-msg = """السلام عليكم - أنا محمد حافظ - Mohamed Hafez - NAVARIS
-بساعد شركات البترول والطاقة والنقل الدولي واللوجستيات والتوكيلات الملاحية
-في 15 دقيقة - بعمل Business X-Ray - أشعة مجانية 30%
-1. هتكسب كام؟ ROI - Payback - Break-even
-2. فين الخطر الواحد اللي بيخسرك فلوس؟
-3. ايه أول 3 خطوات عشان توقف الخسارة؟
-نقبل 5 شركات في الشهر فقط.
-تحب نبدأ بـ 15 دقيقة امتى؟ - محمد حافظ - WhatsApp +20 1278166680
+def make_message_file():
+    text = """رسالة للشركات:
+السلام عليكم - انا محمد حافظ - NAVARIS
+نقدر نساعدكم في Supply Vessel - Maintenance - X-Ray للمشاريع
+تحب ابعتلكم عرض سريع؟
 """
+    with open("MESSAGE-COMPANIES.txt", "w", encoding="utf-8") as f:
+        f.write(text)
+    print("✅ 2 - عملت MESSAGE-COMPANIES.txt")
 
-with open("MESSAGE-COMPANIES.txt", "w", encoding="utf-8") as f:
-    f.write(msg)
-print("✅ 2 - عملت MESSAGE-COMPANIES.txt - رسالة الشركات")
+def calculator():
+    print("\n--- حاسبة NAVARIS ---")
+    try:
+        days = float(input("عدد الايام : ") or 14)
+        day_rate = float(input("Day Rate بالدولار : ") or 12000)
+    except:
+        days = 14
+        day_rate = 12000
+    revenue = days * day_rate
+    cost = revenue * 0.65
+    profit = revenue - cost
+    roi = (profit / cost * 100) if cost else 0
+    print(f"Revenue : ${revenue:,.0f}")
+    print(f"Profit : ${profit:,.0f}")
+    print(f"ROI : {roi:.1f}%")
+    print("✅ 3 - الحاسبة شغالة")
 
-# 3 - حاسبة NAVARIS - تحسب ROI - Payback - Break-even
-def navaris_calc(cost, gain, fixed, price, variable):
-    roi = (gain - cost) / cost * 100 if cost else 0
-    payback = cost / (gain/3) if gain else 0
-    breakeven = fixed / (price - variable) if price != variable else 0
-    usd = cost / 48.5
-    print(f"\n--- NAVARIS X-RAY ---")
-    print(f"التكلفة: {cost} جنيه = {usd:.0f} دولار")
-    print(f"ROI: {roi:.1f}%")
-    print(f"Payback: {payback:.1f} سنة")
-    print(f"Break-even: {breakeven:.0f} وحدة")
-    print(f"🔒 التفاصيل الكاملة 70% - تواصل مع محمد حافظ")
-    return roi
+def radar():
+    print("\n📡 NAVARIS - RADAR شغال...")
+    print("1 - مناقصات بترول")
+    print("2 - شركات Supply Vessel")
+    print("3 - الاتنين مع بعض")
+    choice = input("اختار 1 / 2 / 3 : ")
+    print(f"اخترت : {choice} - يعني الاتنين مع بعض")
 
-# مثال: مصنع أغذية - 100,000 جنيه
-navaris_calc(cost=100000, gain=150000, fixed=30000, price=100, variable=60)
+    tender = input("اسم المناقصة / الشركة : ")
+    vessel = input("نوع الـ Vessel المطلوب : ")
+    try:
+        days = float(input("عدد الايام : ") or 14)
+        day_rate = float(input("Day Rate بالدولار : ") or 12000)
+    except:
+        days = 14
+        day_rate = 12000
+    deadline = input("آخر معاد للتقديم : ")
 
-print("\n✅ 3 - الحاسبة شغالة - جرب تغير الأرقام")
-print("\n=== NAVARIS - خلص كل حاجة - DONE ===")
-print("اللي بعد كده: ارفع الملفين دول على GitHub - Add file - Upload")
+    revenue = days * day_rate
+    cost = revenue * 0.65
+    profit = revenue - cost
+    roi = (profit / cost * 100) if cost else 0
+
+    print(f"\n✅ RADAR لقى : {tender}")
+    print(f"Vessel : {vessel}")
+    print(f"آخر معاد : {deadline}")
+    print(f"Revenue : ${revenue:,.0f}")
+    print(f"Profit : ${profit:,.0f}")
+    print(f"ROI : {roi:.1f}%")
+    print("تحب أجهز X-Ray كامل ليها؟ اكتب Yes")
+
+    with open("RADAR-REPORT.txt", "w", encoding="utf-8") as f:
+        f.write(f"RADAR REPORT - {tender}\nVessel: {vessel}\nDeadline: {deadline}\nRevenue: ${revenue:,.0f}\nProfit: ${profit:,.0f}\nROI: {roi:.1f}%\n")
+    print("✅ اتحفظ في RADAR-REPORT.txt")
+
+if __name__ == "__main__":
+    make_agent_file()
+    make_message_file()
+    calculator()
+    print("\nDONE - كله تمام")
+    print("اكتب رادار عشان تشغل الرادار - او Enter عشان تخرج")
+    cmd = input("اكتب هنا : ").strip()
+    if cmd == "رادار" or cmd.lower() == "radar":
+        radar()
+    print("خلصت - اقفل وامشي")
