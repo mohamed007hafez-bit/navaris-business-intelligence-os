@@ -14,14 +14,14 @@
     "hotel-energy": {
       "status": "PARTIAL",
       "formula": "corporate_rate = BAR * (1 - discount) * longstay_factor; commission scenario = (BAR - corporate_rate) + BAR * 0.10",
-      "sources": ["STR/CoStar hospitality benchmarking (licensed; current source page not verified)", "Egyptian Hotel Association (publication/date to verify)", "ISO 31030:2021 travel risk management"],
-      "lead_evidence": "Fouad Hotel, 15 El Shohadaa St, Raml Station, Alexandria; EGP 290-1,000/night and Miramar association are user-supplied, not independently confirmed. Aelat Adaa, Raml Station, is user-reported local lead; address, identity, rates and availability unverified.",
+      "sources": ["STR/CoStar hospitality benchmarking (licensed; current source page not verified)", "Egyptian Hotel Association (publication/date to verify)", "ISO 31030:2021 travel risk management (applicability to verify)"],
+      "lead_evidence": "Fouad Hotel, 15 El Shohadaa St, Raml Station, Alexandria; EGP 290-1,000/night and Miramar association are user-supplied, not independently confirmed. Aelat Adaa, Raml Station, is an unverified lead.",
       "validity": "Scenario planning only until property identity, rate, taxes, availability, terms and affiliation are confirmed in writing."
     },
     "freight-forwarding": {
       "status": "TESTED_CALCULATION",
       "formula": "landed cost = FOB + freight + insurance + origin/destination charges + duties/taxes + other evidenced fees; scenario sell price = landed cost * (1 + margin)",
-      "sources": ["ICC Incoterms 2020 (official rules; specific rule and contract must be checked)", "Egyptian Customs Authority tariff/classification and applicable tax rules (verify for shipment date)", "Carrier/forwarder written quotes required"],
+      "sources": ["ICC Incoterms 2020 (official rules; specific rule and contract must be checked)", "Egyptian Customs Authority tariff/classification and applicable tax rules (verify for shipment/date)"],
       "commercial_model": "ELAFLEX 70/30 is a proposed split only; written party roles, collection trigger, costs, tax, liability and commission agreement required.",
       "validity": "Calculation code only. No freight rate, customs duty, tax, supplier relationship or 70/30 agreement is verified by this status."
     },
@@ -36,5 +36,17 @@
   "phase_2_status": "NOT STARTED — execute only after Phase 1 commit and CI review",
   "excel": "Existing NAVARIS workbook assets are present in repository; per-agent Template_Library workbook placement still requires tree-level verification.",
   "pdf": "Report generators require reportlab installed; output files are generated at runtime and are not claimed as committed PDFs.",
-  "last_change": "2026-10-25: Phase 1 fast-cash scope; separate code-test status from external evidence and lead verification."
+  "last_change": "2026-10-25: Phase 1 fast-cash scope; separate code-test status from external evidence and lead verification.",
+  "product_separation": {
+    "public_website": "Marketing and service inquiry buttons only; use root index.html and WEBSITE.md. Never expose internal playbooks, source registry, vendor records, client files or workpapers.",
+    "internal_toolkit": "Existing toolkit/, docs/NAVARIS_TOOLKIT_87.md, local Python scripts and editable workbooks remain internal work assets; status and evidence must be verified per component.",
+    "client_preview": "Show only explicitly approved limited summary. Full analysis and source registry are not public/free outputs."
+  },
+  "next_execution": [
+    "Audit and reuse existing phase_1 toolkit folders and their tests before creating replacements.",
+    "Run documented local tests and demo workbook generation; record actual results and blockers.",
+    "Adapt existing public website to WEBSITE.md CTA/service requirements; do not rebuild or publish without Pages validation.",
+    "Prepare marketing copy as drafts; client communications and publication require Mohamed Hafez approval.",
+    "Do not claim live research, production AI, scheduled jobs, payments or deployed applications without direct verification."
+  ]
 }
