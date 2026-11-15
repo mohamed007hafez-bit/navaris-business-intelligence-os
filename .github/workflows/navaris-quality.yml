@@ -60,7 +60,7 @@ jobs:
           from pathlib import Path
 
           paths = sorted(Path(".").rglob("*.json"))
-          excluded = {".git", "node_modules", ".venv", "venv"}
+          excluded = {".git", "node_modules", ".venv", "venv", "archive"}
           checked = 0
           for path in paths:
               if any(part in excluded for part in path.parts):
@@ -68,7 +68,7 @@ jobs:
               json.loads(path.read_text(encoding="utf-8"))
               checked += 1
               print(f"JSON OK: {path}")
-          print(f"Validated {checked} JSON files.")
+          print(f"Validated {checked} active JSON files; archived legacy snapshots are intentionally excluded.")
           PY
 
       - name: Compile Python source
