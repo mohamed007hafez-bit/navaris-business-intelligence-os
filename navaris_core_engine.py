@@ -49,50 +49,45 @@ def commission_spread(deal_value: float, rate: float = DEFAULT_INTERMEDIARY_COMM
         raise ValueError("Commission rate must be between 0 and 1")
     return value * pct
 
-def cash_collected(receipt: dict[str, Any] | None) -> float:
-    """Fail closed unless finance verification, reconciliation and human approval are recorded.
+def cash_collected(
+    receipt: dict[str, Any] | None,
+    *,
+    trusted_verifier=None,
+) -> float:
+    """Recognize cash only from a trusted verifier's approved attestation.
 
-    This validates the supplied control record; it does not itself authenticate
-    a bank document or the identity/authority of the reviewer.
+    A caller-supplied receipt record is not self-authenticating. Without an
+    independently configured verifier this function always returns zero.
     """
-    if not isinstance(receipt, dict):
-        return 0.0
-    required = ("amount","currency","bank_transaction_reference","received_date",
-                "evidence_reference","verified_by","verified_at","reconciliation_reference",
-                "approval_status","approved_by","approved_at")
-    if any(not receipt.get(k) for k in required):
-        return 0.0
-    if receipt.get("evidence_type") != "BANK_RECEIPT":
-        return 0.0
-    if receipt.get("verification_status") != "VERIFIED_BY_FINANCE":
-        return 0.0
-    if receipt.get("reconciliation_status") != "RECONCILED":
-        return 0.0
-    if receipt.get("approval_status") != "APPROVED":
+    if not isinstance(receipt, dict) or trusted_verifier is None:
         return 0.0
     try:
-        amount = float(receipt["amount"])
-    except (TypeError, ValueError):
+        attestation = trusted_verifier(receipt)
+    except Exception:
         return 0.0
-    if amount <= 0:
+    if not isinstance(attestation, dict) or attestation.get("status") != "APPROVED":
         return 0.0
     try:
-        from datetime import datetime
-        for key in ("verified_at", "approved_at"):
-            stamp = datetime.fromisoformat(str(receipt[key]).replace("Z", "+00:00"))
-            if stamp.tzinfo is None or stamp.utcoffset() is None:
-                return 0.0
+        amount = float(attestation.get("cash_collected", 0))
+        source_amount = float(receipt.get("amount", 0))
     except (TypeError, ValueError):
+        return 0.0
+    if amount <= 0 or amount != source_amount:
+        return 0.0
+    if str(attestation.get("currency", "")).upper() != str(receipt.get("currency", "")).upper():
+        return 0.0
+    if not all(attestation.get(k) for k in ("verified_by", "verified_at", "approved_by", "approved_at", "reconciliation_reference")):
         return 0.0
     return amount
 
 def financial_snapshot(*, opex: float, ebit: float, net_revenue: float,
-                       receipt: dict[str, Any] | None = None) -> dict[str, Any]:
+                       receipt: dict[str, Any] | None = None,
+                       trusted_verifier=None) -> dict[str, Any]:
     return {
         "core_version": CORE_VERSION,
         "operating_expense_ratio_percent": operating_expense_ratio(opex, net_revenue),
         "operating_margin_percent": operating_margin(ebit, net_revenue),
-        "cash_collected": cash_collected(receipt),
+        "cash_collected": cash_collected(receipt, trusted_verifier=trusted_verifier),
         "cash_policy": CASH_POLICY,
         "commission_rate_default": DEFAULT_INTERMEDIARY_COMMISSION_RATE,
         "commission_rate_note": "Planning default only; written agreement required.",
