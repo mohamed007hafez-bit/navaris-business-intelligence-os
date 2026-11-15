@@ -11,50 +11,61 @@ def _nonempty(record, keys):
     return [key for key in keys if not str(record.get(key, "")).strip()]
 
 
-def classify_cash_status(record):
-    """Classify cash only after bank-credit evidence is marked reconciled."""
+def classify_cash_status(record, *, trusted_verifier=None):
+    """Classify cash only from an independently trusted, approved attestation.
+
+    This module cannot authenticate bank records itself. Without a trusted
+    verifier supplied by the host, a claim remains PAYMENT_PENDING.
+    """
     record = record or {}
+    if trusted_verifier is None:
+        return {
+            "status": "PAYMENT_PENDING",
+            "missing_evidence": ["trusted_bank_finance_verifier_not_configured"],
+        }
+    try:
+        attestation = trusted_verifier(record)
+    except Exception:
+        return {"status": "PAYMENT_PENDING", "missing_evidence": ["trusted_verifier_error"]}
+    if not isinstance(attestation, dict) or attestation.get("status") != "APPROVED":
+        return {"status": "PAYMENT_PENDING", "missing_evidence": ["approved_bank_reconciliation_attestation"]}
     required = (
         "invoice_id", "bank_transaction_reference", "bank_posted_date",
-        "payer_legal_name", "expected_payer_legal_name", "amount", "expected_amount", "currency", "expected_currency", "evidence_sha256",
-        "finance_reviewer_id", "verified_at", "verification_status",
-        "reconciliation_reference", "reconciliation_status",
+        "payer_legal_name", "expected_payer_legal_name", "amount",
+        "expected_amount", "currency", "expected_currency", "evidence_sha256",
     )
     missing = _nonempty(record, required)
-    if missing:
-        return {"status": "PAYMENT_PENDING", "missing_evidence": missing}
     try:
         amount = Decimal(str(record["amount"]))
-    except (InvalidOperation, ValueError, TypeError):
-        return {"status": "PAYMENT_PENDING", "missing_evidence": ["valid_amount"]}
-    if not amount.is_finite() or amount <= 0:
-        return {"status": "PAYMENT_PENDING", "missing_evidence": ["positive_amount"]}
-    try:
         expected_amount = Decimal(str(record["expected_amount"]))
-    except (InvalidOperation, ValueError, TypeError):
-        return {"status": "PAYMENT_PENDING", "missing_evidence": ["valid_expected_amount"]}
-    if not expected_amount.is_finite() or amount != expected_amount:
-        return {"status": "PAYMENT_PENDING", "missing_evidence": ["amount_reconciliation_mismatch"]}
-    if str(record["currency"]).upper() != str(record["expected_currency"]).upper():
-        return {"status": "PAYMENT_PENDING", "missing_evidence": ["currency_reconciliation_mismatch"]}
-    if str(record["payer_legal_name"]).strip().casefold() != str(record["expected_payer_legal_name"]).strip().casefold():
-        return {"status": "PAYMENT_PENDING", "missing_evidence": ["payer_reconciliation_mismatch"]}
-    if str(record["verification_status"]).upper() != "VERIFIED_BY_FINANCE":
-        return {"status": "PAYMENT_PENDING", "missing_evidence": ["finance_verification_status"]}
-    if str(record["reconciliation_status"]).upper() != "RECONCILED":
-        return {"status": "PAYMENT_PENDING", "missing_evidence": ["bank_reconciliation_status"]}
-    if len(str(record["evidence_sha256"]).strip()) != 64:
-        return {"status": "PAYMENT_PENDING", "missing_evidence": ["evidence_sha256_must_be_64_chars"]}
+        attested_amount = Decimal(str(attestation.get("cash_collected", "0")))
+    except (InvalidOperation, ValueError, TypeError, KeyError):
+        return {"status": "PAYMENT_PENDING", "missing_evidence": ["valid_amounts"]}
+    if not amount.is_finite() or amount <= 0 or amount != expected_amount or amount != attested_amount:
+        missing.append("amount_reconciliation_mismatch")
+    if str(record.get("currency", "")).upper() != str(record.get("expected_currency", "")).upper():
+        missing.append("currency_reconciliation_mismatch")
+    if str(record.get("payer_legal_name", "")).strip().casefold() != str(record.get("expected_payer_legal_name", "")).strip().casefold():
+        missing.append("payer_reconciliation_mismatch")
+    if len(str(record.get("evidence_sha256", "")).strip()) != 64:
+        missing.append("evidence_sha256_must_be_64_chars")
+    for key in ("verified_by", "verified_at", "approved_by", "approved_at", "reconciliation_reference"):
+        if not attestation.get(key):
+            missing.append(f"attestation_{key}")
+    if missing:
+        return {"status": "PAYMENT_PENDING", "missing_evidence": sorted(set(missing))}
     return {
         "status": "CASH_COLLECTED",
         "invoice_id": str(record["invoice_id"]),
         "amount": str(amount),
         "currency": str(record["currency"]).upper(),
         "bank_transaction_reference": str(record["bank_transaction_reference"]),
-        "verified_by": str(record["finance_reviewer_id"]),
-        "verified_at": str(record["verified_at"]),
-        "reconciliation_reference": str(record["reconciliation_reference"]),
-        "note": "Record is marked reconciled; underlying bank evidence and reviewer authority must be authenticated by the operating system or authorized finance process.",
+        "verified_by": str(attestation["verified_by"]),
+        "verified_at": str(attestation["verified_at"]),
+        "approved_by": str(attestation["approved_by"]),
+        "approved_at": str(attestation["approved_at"]),
+        "reconciliation_reference": str(attestation["reconciliation_reference"]),
+        "note": "The trusted verifier attested bank verification, reconciliation and approval; its implementation and reviewer authority must be independently secured.",
     }
 
 
