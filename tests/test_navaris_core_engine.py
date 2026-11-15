@@ -20,14 +20,19 @@ class TestNAVARISCoreEngine(unittest.TestCase):
     def test_cash_defaults_to_zero_without_receipt(self):
         self.assertEqual(cash_collected(None), 0.0)
         self.assertEqual(cash_collected({"amount": 1000, "evidence_type": "INVOICE"}), 0.0)
-    def test_cash_requires_verified_reconciled_bank_receipt(self):
+    def test_cash_requires_bank_verification_reconciliation_and_human_approval(self):
         record = {"amount":"125.50","currency":"EGP","bank_transaction_reference":"TX-1",
-          "received_date":"2026-10-29","evidence_reference":"redacted://receipt/hash",
+          "received_date":"2026-10-29T09:00:00Z","evidence_reference":"redacted://receipt/hash",
           "verified_by":"finance-reviewer","verified_at":"2026-10-29T09:00:00Z",
           "reconciliation_reference":"REC-1","evidence_type":"BANK_RECEIPT",
-          "verification_status":"VERIFIED_BY_FINANCE","reconciliation_status":"RECONCILED"}
+          "verification_status":"VERIFIED_BY_FINANCE","reconciliation_status":"RECONCILED",
+          "approval_status":"APPROVED","approved_by":"owner-approver",
+          "approved_at":"2026-10-29T09:10:00Z"}
         self.assertEqual(cash_collected(record), 125.5)
-        record["reconciliation_status"] = "PENDING"
+        record["approval_status"] = "PENDING"
+        self.assertEqual(cash_collected(record), 0.0)
+        record["approval_status"] = "APPROVED"
+        record["approved_at"] = "2026-10-29T09:10:00"
         self.assertEqual(cash_collected(record), 0.0)
     def test_registry_has_nine_verticals_and_five_coordinators(self):
         self.assertEqual(len(VERTICALS), 9)
