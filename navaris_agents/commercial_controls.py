@@ -1,43 +1,142 @@
-"""Fail-closed commercial controls: receipt verification, demand-supply matching and SLA evidence."""
+"""Fail-closed commercial controls.
+
+Completeness checks are not bank authentication. Cash recognition requires a
+trusted bank/finance verifier supplied by the host application and an
+independent human approval attestation. No verifier is configured by default.
+"""
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any
+from typing import Any, Callable
 
 
-def verify_bank_receipt(record: dict[str, Any]) -> dict[str, Any]:
-    """Return verified only when required audit metadata exists; a boolean flag alone is insufficient."""
-    required = ("opportunity_id", "amount", "currency", "received_date",
-                "evidence_type", "evidence_reference_redacted", "verified_by", "verified_at")
+def _valid_aware_timestamp(value: Any) -> bool:
+    try:
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        return parsed.tzinfo is not None and parsed.utcoffset() is not None
+    except (TypeError, ValueError):
+        return False
+
+
+def verify_bank_receipt(
+    record: dict[str, Any],
+    *,
+    trusted_verifier: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Recognize cash only after trusted bank verification, reconciliation and approval.
+
+    A reference, screenshot, metadata fields, or self-asserted boolean cannot
+    authenticate a bank credit. Without a trusted verifier this returns zero.
+    The host must implement trusted_verifier using an authorized bank/finance
+    process and protect the approval identity and audit trail.
+    """
+    record = record or {}
+    required = (
+        "opportunity_id", "amount", "currency", "received_date",
+        "evidence_type", "evidence_reference_redacted",
+    )
     missing = [key for key in required if record.get(key) in (None, "")]
     try:
         amount = float(record.get("amount", 0))
         if amount <= 0:
             missing.append("amount_must_be_positive")
     except (TypeError, ValueError):
+        amount = 0.0
         missing.append("amount_must_be_numeric")
+
     if str(record.get("evidence_type", "")).upper() != "BANK_RECEIPT":
         missing.append("evidence_type_must_be_BANK_RECEIPT")
+    if record.get("received_date") and not _valid_aware_timestamp(record["received_date"]):
+        missing.append("received_date_must_be_timezone_aware_ISO8601")
     if missing:
-        return {"status": "UNVERIFIED", "cash_collected": 0.0,
-                "missing_or_invalid": sorted(set(missing))}
+        return {
+            "status": "UNVERIFIED",
+            "cash_collected": 0.0,
+            "missing_or_invalid": sorted(set(missing)),
+        }
+
+    if trusted_verifier is None:
+        return {
+            "status": "PENDING_INDEPENDENT_VERIFICATION",
+            "cash_collected": 0.0,
+            "reason": "No trusted bank/finance verification adapter is configured.",
+        }
+
     try:
-        verified_at = datetime.fromisoformat(str(record["verified_at"]).replace("Z", "+00:00"))
-        received_at = datetime.fromisoformat(str(record["received_date"]).replace("Z", "+00:00"))
-        if verified_at.tzinfo is None or received_at.tzinfo is None:
-            raise ValueError("timezone required")
-    except ValueError:
-        return {"status": "UNVERIFIED", "cash_collected": 0.0,
-                "missing_or_invalid": ["received_date_and_verified_at_must_be_timezone_aware_ISO8601"]}
-    return {"status": "RECEIVED_VERIFIED", "cash_collected": round(amount, 2),
-            "opportunity_id": str(record["opportunity_id"]),
-            "currency": str(record["currency"]).upper(),
-            "evidence_reference_redacted": str(record["evidence_reference_redacted"]),
-            "verified_by": str(record["verified_by"])}
+        attestation = trusted_verifier(record)
+    except Exception:
+        return {
+            "status": "VERIFICATION_ERROR",
+            "cash_collected": 0.0,
+            "reason": "Trusted verifier failed; manual review required.",
+        }
+
+    attestation = attestation if isinstance(attestation, dict) else {}
+    attestation_required = (
+        "bank_credit_verified", "reconciled", "human_approved",
+        "verified_amount", "verified_currency", "verified_by", "verified_at",
+        "approved_by", "approved_at", "reconciliation_reference",
+        "bank_transaction_reference",
+    )
+    absent = [key for key in attestation_required if attestation.get(key) in (None, "")]
+    if absent:
+        return {
+            "status": "PENDING_HUMAN_REVIEW",
+            "cash_collected": 0.0,
+            "missing_attestation": absent,
+        }
+    if (
+        attestation.get("bank_credit_verified") is not True
+        or attestation.get("reconciled") is not True
+        or attestation.get("human_approved") is not True
+    ):
+        return {
+            "status": "REJECTED_OR_PENDING",
+            "cash_collected": 0.0,
+            "reason": "Bank verification, reconciliation and human approval must all pass.",
+        }
+    try:
+        verified_amount = float(attestation["verified_amount"])
+    except (TypeError, ValueError):
+        verified_amount = 0.0
+    if verified_amount != amount:
+        return {
+            "status": "REJECTED",
+            "cash_collected": 0.0,
+            "reason": "Verified amount does not match the submitted receipt amount.",
+        }
+    if str(attestation["verified_currency"]).upper() != str(record["currency"]).upper():
+        return {
+            "status": "REJECTED",
+            "cash_collected": 0.0,
+            "reason": "Verified currency does not match the submitted receipt currency.",
+        }
+    if not _valid_aware_timestamp(attestation["verified_at"]) or not _valid_aware_timestamp(attestation["approved_at"]):
+        return {
+            "status": "REJECTED",
+            "cash_collected": 0.0,
+            "reason": "Verification and approval timestamps must be timezone-aware.",
+        }
+
+    return {
+        "status": "APPROVED",
+        "cash_collected": round(verified_amount, 2),
+        "opportunity_id": str(record["opportunity_id"]),
+        "currency": str(record["currency"]).upper(),
+        "evidence_reference_redacted": str(record["evidence_reference_redacted"]),
+        "bank_transaction_reference": str(attestation["bank_transaction_reference"]),
+        "verified_by": str(attestation["verified_by"]),
+        "verified_at": str(attestation["verified_at"]),
+        "approved_by": str(attestation["approved_by"]),
+        "approved_at": str(attestation["approved_at"]),
+        "reconciliation_reference": str(attestation["reconciliation_reference"]),
+    }
 
 
 def verify_demand_supply_match(demand: dict[str, Any], supply: dict[str, Any]) -> dict[str, Any]:
-    """Only return MATCH_VERIFIED when every mandatory demand/supply and evidence gate passes."""
+    """Return a human-review candidate only; never authorize commercial action."""
+    demand = demand or {}
+    supply = supply or {}
     demand_gates = ("buyer_identity_verified", "buyer_authority_verified",
                     "live_demand_verified", "specification_verified",
                     "destination_verified", "need_by_verified")
@@ -67,14 +166,19 @@ def verify_demand_supply_match(demand: dict[str, Any], supply: dict[str, Any]) -
     if missing:
         return {"status": "HOLD_UNVERIFIED", "actionable": False,
                 "missing_evidence": sorted(set(missing))}
-    return {"status": "MATCH_VERIFIED", "actionable": True,
-            "quantity_matched": requested, "currency": str(demand["currency"]).upper(),
-            "demand_evidence": demand["evidence_reference"],
-            "supply_evidence": supply["evidence_reference"]}
+    return {
+        "status": "MATCHED_FOR_HUMAN_REVIEW",
+        "actionable": False,
+        "quantity_matched": requested,
+        "currency": str(demand["currency"]).upper(),
+        "demand_evidence": demand["evidence_reference"],
+        "supply_evidence": supply["evidence_reference"],
+        "next_step": "Authorized human reviewer must verify evidence and approve any external action.",
+    }
 
 
 def evaluate_sla(record: dict[str, Any]) -> dict[str, Any]:
-    """Evaluate a pre-agreed SLA only from timezone-aware timestamps and a documented evidence reference."""
+    """Evaluate a pre-agreed SLA only from timezone-aware timestamps and evidence."""
     required = ("start_at", "stop_at", "target_minutes", "evidence_reference")
     missing = [key for key in required if record.get(key) in (None, "")]
     if record.get("eligible") is not True:
