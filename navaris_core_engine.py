@@ -54,7 +54,8 @@ def cash_collected(receipt: dict[str, Any] | None) -> float:
     if not isinstance(receipt, dict):
         return 0.0
     required = ("amount","currency","bank_transaction_reference","received_date",
-                "evidence_reference","verified_by","verified_at","reconciliation_reference")
+                "evidence_reference","verified_by","verified_at","reconciliation_reference",
+                "approval_status","approved_by","approved_at")
     if any(not receipt.get(k) for k in required):
         return 0.0
     if receipt.get("evidence_type") != "BANK_RECEIPT":
@@ -63,11 +64,23 @@ def cash_collected(receipt: dict[str, Any] | None) -> float:
         return 0.0
     if receipt.get("reconciliation_status") != "RECONCILED":
         return 0.0
+    if receipt.get("approval_status") != "APPROVED":
+        return 0.0
     try:
         amount = float(receipt["amount"])
     except (TypeError, ValueError):
         return 0.0
-    return amount if amount > 0 else 0.0
+    if amount <= 0:
+        return 0.0
+    try:
+        from datetime import datetime
+        for key in ("verified_at", "approved_at"):
+            stamp = datetime.fromisoformat(str(receipt[key]).replace("Z", "+00:00"))
+            if stamp.tzinfo is None or stamp.utcoffset() is None:
+                return 0.0
+    except (TypeError, ValueError):
+        return 0.0
+    return amount
 
 def financial_snapshot(*, opex: float, ebit: float, net_revenue: float,
                        receipt: dict[str, Any] | None = None) -> dict[str, Any]:
