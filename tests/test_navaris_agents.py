@@ -47,31 +47,43 @@ class OilfieldAgentTests(unittest.TestCase):
 
 
 class FinancialAgentTests(unittest.TestCase):
-    def test_cash_collected_requires_full_bank_receipt_evidence(self):
-        result = financial.summarize_cashflow([
+    def test_cash_claim_is_not_recognized_without_trusted_bank_verifier(self):
+        rows = [
             {"amount": 100, "direction": "in", "receipt_verified": True},
             {"amount": 50, "direction": "in", "receipt_verified": False},
             {"amount": 40, "direction": "out"},
             {"amount": 125, "direction": "in", "evidence_type": "BANK_RECEIPT",
              "evidence_reference_redacted": "RCPT-REDACTED-001", "opportunity_id": "NAV-OPP-001",
-             "currency": "EGP", "received_date": "2026-10-27T10:00:00+03:00",
-             "verified_by": "reviewer-id", "verified_at": "2026-10-27T10:05:00+03:00"},
-        ])
+             "currency": "EGP", "received_date": "2026-10-27T10:00:00+03:00"},
+        ]
+        result = financial.summarize_cashflow(rows)
         self.assertEqual(result["cash_in"], 275)
         self.assertEqual(result["cash_out"], 40)
         self.assertEqual(result["net_cashflow"], 235)
-        self.assertEqual(result["cash_collected"], 125)
+        self.assertEqual(result["cash_collected"], 0.0)
 
-    def test_mixed_currency_receipts_are_not_added_into_one_total(self):
+    def test_trusted_verifier_and_approval_are_required_for_cash(self):
+        row = {"amount": 125, "direction": "in", "evidence_type": "BANK_RECEIPT",
+               "evidence_reference_redacted": "RCPT-REDACTED-001", "opportunity_id": "NAV-OPP-001",
+               "currency": "EGP", "received_date": "2026-10-27T10:00:00+03:00"}
+        def trusted_verifier(record):
+            return {"bank_credit_verified": True, "reconciled": True, "human_approved": True,
+                    "verified_amount": 125, "verified_currency": "EGP",
+                    "verified_by": "finance-reviewer", "verified_at": "2026-10-27T10:05:00+03:00",
+                    "approved_by": "owner-approver", "approved_at": "2026-10-27T10:10:00+03:00",
+                    "reconciliation_reference": "RECON-001", "bank_transaction_reference": "BANK-TX-001"}
+        result = financial.summarize_cashflow([row], trusted_bank_verifier=trusted_verifier)
+        self.assertEqual(result["cash_collected"], 125.0)
+
+    def test_mixed_currency_receipts_are_not_added_into_one_total_without_verifier(self):
         common = {"direction": "in", "evidence_type": "BANK_RECEIPT",
                   "evidence_reference_redacted": "RCPT-REDACTED", "opportunity_id": "NAV-OPP-002",
-                  "received_date": "2026-10-27T10:00:00+03:00", "verified_by": "reviewer-id",
-                  "verified_at": "2026-10-27T10:05:00+03:00"}
+                  "received_date": "2026-10-27T10:00:00+03:00"}
         rows = [dict(common, amount=100, currency="EGP"),
                 dict(common, amount=20, currency="USD", evidence_reference_redacted="RCPT-REDACTED-2")]
         result = financial.summarize_cashflow(rows)
-        self.assertIsNone(result["cash_collected"])
-        self.assertEqual(result["cash_collected_by_currency"], {"EGP": 100.0, "USD": 20.0})
+        self.assertEqual(result["cash_collected"], 0.0)
+        self.assertEqual(result["cash_collected_by_currency"], {})
 
     def test_profitability(self):
         result = financial.profitability(revenue=1000, direct_costs=600, operating_costs=100)
