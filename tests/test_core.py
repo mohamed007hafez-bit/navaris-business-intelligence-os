@@ -28,7 +28,7 @@ def test_cash_requires_trusted_finance_verifier_and_approval():
  record={"invoice_id":"INV-1","bank_transaction_reference":"TX-1","bank_posted_date":"2026-10-28","payer_legal_name":"Buyer Ltd","expected_payer_legal_name":"Buyer Ltd","amount":"100","expected_amount":"100","currency":"USD","expected_currency":"USD","evidence_sha256":"a"*64}
  assert classify_cash_status(record)["status"]=="PAYMENT_PENDING"
  def trusted_verifier(_):
-  return {"status":"APPROVED","cash_collected":"100","verified_by":"finance-01","verified_at":"2026-10-28T10:00:00Z","approved_by":"owner-01","approved_at":"2026-10-28T10:05:00Z","reconciliation_reference":"REC-1"}
+  return {"status":"APPROVED","cash_collected":"100","currency":"USD","verified_by":"finance-01","verified_at":"2026-10-28T10:00:00Z","approved_by":"owner-01","approved_at":"2026-10-28T10:05:00Z","reconciliation_reference":"REC-1"}
  r=classify_cash_status(record,trusted_verifier=trusted_verifier)
  assert r["status"]=="CASH_COLLECTED" and r["amount"]=="100"
 def test_cash_rejects_unreviewed_claim():
