@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 CORE_VERSION = "1.0.0"
-CASH_POLICY = "CASH COLLECTED = 0 until a bank receipt is independently verified and reconciled."
+CASH_POLICY = "CASH COLLECTED = 0 until a bank receipt is independently verified, reconciled, and human-approved."
 DEFAULT_INTERMEDIARY_COMMISSION_RATE = 0.15  # Planning default only; written agreement required.
 
 VERTICALS = (
@@ -50,7 +50,11 @@ def commission_spread(deal_value: float, rate: float = DEFAULT_INTERMEDIARY_COMM
     return value * pct
 
 def cash_collected(receipt: dict[str, Any] | None) -> float:
-    """Fail closed unless a bank receipt has finance verification and reconciliation metadata."""
+    """Fail closed unless finance verification, reconciliation and human approval are recorded.
+
+    This validates the supplied control record; it does not itself authenticate
+    a bank document or the identity/authority of the reviewer.
+    """
     if not isinstance(receipt, dict):
         return 0.0
     required = ("amount","currency","bank_transaction_reference","received_date",
@@ -111,7 +115,7 @@ def master_registry() -> dict[str, Any]:
         "evidence_chain": ["FACT","SOURCE","FORMULA","CALCULATION","ASSUMPTION","INTERPRETATION","ACTION"],
         "safety_gates": [
             "Unknown is not zero and is not approval.",
-            "Cash is zero until a bank receipt is independently verified and reconciled.",
+            "Cash is zero until a bank receipt is independently verified, reconciled and human-approved.",
             "Never invent rates, licences, mandates, contracts, purchase intent or collected cash.",
             "External communication, tender submission, binding quotes and financial commitments require human approval.",
             "Regulated services require applicable authority, licence and appointment evidence.",
