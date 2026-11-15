@@ -1,8 +1,8 @@
 """Evidence gates for NAVARIS operations.
 
-These functions validate record completeness and declared status; they cannot
-authenticate a bank document or independently verify counterparties. CASH_COLLECTED
-requires an explicit reconciliation record from an authorized finance reviewer.
+These functions validate record completeness and trusted attestations; they cannot
+authenticate a bank document or reviewer identity by themselves. CASH_COLLECTED
+requires a trusted host verifier and an approved reconciliation attestation.
 """
 from decimal import Decimal, InvalidOperation
 
@@ -43,6 +43,8 @@ def classify_cash_status(record, *, trusted_verifier=None):
         return {"status": "PAYMENT_PENDING", "missing_evidence": ["valid_amounts"]}
     if not amount.is_finite() or amount <= 0 or amount != expected_amount or amount != attested_amount:
         missing.append("amount_reconciliation_mismatch")
+    if str(attestation.get("currency", "")).upper() != str(record.get("currency", "")).upper():
+        missing.append("attested_currency_mismatch")
     if str(record.get("currency", "")).upper() != str(record.get("expected_currency", "")).upper():
         missing.append("currency_reconciliation_mismatch")
     if str(record.get("payer_legal_name", "")).strip().casefold() != str(record.get("expected_payer_legal_name", "")).strip().casefold():
