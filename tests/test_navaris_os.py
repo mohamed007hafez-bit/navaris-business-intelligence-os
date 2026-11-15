@@ -50,9 +50,18 @@ class NavarisCoreTests(unittest.TestCase):
 
     def test_cash_projection_is_not_cash_collected(self):
         df, projection = calc_monthly_cash()
-        self.assertAlmostEqual(projection["5 clients (illustrative base)"], 27900)
-        self.assertEqual(projection["Actual cash collected (evidence-based)"], 0)
+        self.assertAlmostEqual(projection["5 clients (illustrative scenario)"], 27900)
+        self.assertEqual(projection["Actual cash collected (verified and approved)"], 0)
         self.assertIn("Actual Cash Collected", df.columns)
+
+    def test_unverified_cash_claim_is_not_recorded_as_collected(self):
+        df, projection = calc_monthly_cash([{
+            "Client": "Synthetic test", "Trips": 1, "Price per trip": 100,
+            "Actual Cash Collected": 100, "Evidence Status": "CLAIMED_RECEIVED"
+        }])
+        self.assertEqual(df.iloc[0]["Unverified Cash Claim"], 100)
+        self.assertEqual(df.iloc[0]["Actual Cash Collected"], 0)
+        self.assertEqual(projection["Actual cash collected (verified and approved)"], 0)
 
     def test_ncnda_is_draft_only(self):
         draft = generate_ncnda("Counterparty Ltd", "ممتاز")
