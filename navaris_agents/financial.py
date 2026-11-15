@@ -7,7 +7,11 @@ from openpyxl import Workbook, load_workbook
 from navaris_agents.commercial_controls import verify_bank_receipt
 
 
-def summarize_cashflow(rows: list[dict[str, Any]]) -> dict[str, Any]:
+def summarize_cashflow(
+    rows: list[dict[str, Any]],
+    *,
+    trusted_bank_verifier=None,
+) -> dict[str, Any]:
     """A boolean flag alone never counts as cash; full BANK_RECEIPT audit metadata is required."""
     if not rows:
         return {"status":"NO_DATA","cash_in":0.0,"cash_out":0.0,"net_cashflow":0.0,"cash_collected":0.0,"row_count":0}
@@ -24,8 +28,8 @@ def summarize_cashflow(rows: list[dict[str, Any]]) -> dict[str, Any]:
     collected_by_currency: dict[str, float] = {}
     for row in rows:
         if str(row.get("direction", "")).lower() == "in":
-            verified = verify_bank_receipt(row)
-            if verified["status"] == "RECEIVED_VERIFIED":
+            verified = verify_bank_receipt(row, trusted_verifier=trusted_bank_verifier)
+            if verified["status"] == "APPROVED":
                 currency = verified["currency"]
                 collected_by_currency[currency] = collected_by_currency.get(currency, 0.0) + verified["cash_collected"]
     # A single scalar is meaningful only when the verified receipts share one currency.
@@ -34,7 +38,7 @@ def summarize_cashflow(rows: list[dict[str, Any]]) -> dict[str, Any]:
             "net_cashflow": round(cash_in - cash_out, 2), "cash_collected": cash_collected,
             "cash_collected_by_currency": {k: round(v, 2) for k, v in collected_by_currency.items()},
             "row_count": len(rows),
-            "warning": "Collected cash requires BANK_RECEIPT evidence, redacted reference, amount, currency, received date, verifier and verification timestamp. Mixed currencies are never summed into one scalar."}
+            "warning": "Cash collected requires a trusted bank/finance verifier, reconciliation and human approval. No verifier is configured by default, so supplied inflows are not recognized as collected cash. Mixed currencies are never summed into one scalar."}
 
 
 def profitability(*, revenue: float, direct_costs: float, operating_costs: float = 0.0) -> dict[str, float]:
