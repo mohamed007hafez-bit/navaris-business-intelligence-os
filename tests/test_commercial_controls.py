@@ -6,8 +6,23 @@ from navaris_agents.router import route_request
 def valid_receipt():
     return {"opportunity_id":"NAV-OPP-001","amount":125,"currency":"EGP",
             "received_date":"2026-10-27T10:00:00+03:00","evidence_type":"BANK_RECEIPT",
-            "evidence_reference_redacted":"RCPT-001-REDACTED","verified_by":"reviewer-id",
-            "verified_at":"2026-10-27T10:05:00+03:00"}
+            "evidence_reference_redacted":"RCPT-001-REDACTED"}
+
+
+def trusted_bank_attestation(record):
+    return {
+        "bank_credit_verified": True,
+        "reconciled": True,
+        "human_approved": True,
+        "verified_amount": record["amount"],
+        "verified_currency": record["currency"],
+        "verified_by": "authorized-finance-reviewer",
+        "verified_at": "2026-10-27T10:05:00+03:00",
+        "approved_by": "owner-approver",
+        "approved_at": "2026-10-27T10:10:00+03:00",
+        "reconciliation_reference": "RECON-001",
+        "bank_transaction_reference": "BANK-TX-001",
+    }
 
 
 def valid_demand():
@@ -30,13 +45,30 @@ class CommercialControlTests(unittest.TestCase):
         self.assertEqual(result["status"],"UNVERIFIED")
         self.assertEqual(result["cash_collected"],0)
 
-    def test_full_receipt_metadata_verifies(self):
+    def test_receipt_metadata_without_trusted_verifier_is_not_cash(self):
         result=verify_bank_receipt(valid_receipt())
-        self.assertEqual(result["status"],"RECEIVED_VERIFIED")
-        self.assertEqual(result["cash_collected"],125)
+        self.assertEqual(result["status"],"PENDING_INDEPENDENT_VERIFICATION")
+        self.assertEqual(result["cash_collected"],0)
 
-    def test_demand_supply_match_requires_all_gates(self):
-        self.assertEqual(verify_demand_supply_match(valid_demand(),valid_supply())["status"],"MATCH_VERIFIED")
+    def test_receipt_requires_trusted_verification_reconciliation_and_approval(self):
+        result=verify_bank_receipt(valid_receipt(), trusted_verifier=trusted_bank_attestation)
+        self.assertEqual(result["status"],"APPROVED")
+        self.assertEqual(result["cash_collected"],125)
+        self.assertEqual(result["approved_by"],"owner-approver")
+
+    def test_attestation_amount_mismatch_is_rejected(self):
+        def bad_verifier(record):
+            attestation=trusted_bank_attestation(record)
+            attestation["verified_amount"]=999
+            return attestation
+        result=verify_bank_receipt(valid_receipt(), trusted_verifier=bad_verifier)
+        self.assertEqual(result["status"],"REJECTED")
+        self.assertEqual(result["cash_collected"],0)
+
+    def test_demand_supply_match_is_human_review_only(self):
+        result=verify_demand_supply_match(valid_demand(),valid_supply())
+        self.assertEqual(result["status"],"MATCHED_FOR_HUMAN_REVIEW")
+        self.assertFalse(result["actionable"])
         weak=valid_supply(); weak["capacity_verified"]=False
         self.assertEqual(verify_demand_supply_match(valid_demand(),weak)["status"],"HOLD_UNVERIFIED")
 
