@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071426">
+<title>NAVARIS OS — Operations Workspace</title>
+<style>
+:root{--bg:#06111f;--panel:rgba(14,31,52,.78);--panel2:rgba(19,39,63,.72);--line:rgba(167,190,218,.13);--text:#eaf0f8;--muted:#91a4ba;--gold:#d6b56f;--blue:#1b4d7b;--blue2:#2b6da5;--green:#43c58b;--yellow:#e3b85e;--red:#e27676;--shadow:0 18px 48px rgba(0,0,0,.28)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -10%,rgba(36,91,140,.27),transparent 36%),radial-gradient(ellipse at 10% 100%,rgba(20,54,89,.22),transparent 40%),var(--bg);color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+button,input,textarea{font:inherit}button{cursor:pointer;color:inherit}.app{min-height:100vh;display:grid;grid-template-columns:236px minmax(0,1fr);grid-template-rows:76px 1fr}
+.topbar{grid-column:1/-1;display:flex;align-items:center;gap:22px;padding:0 26px;border-bottom:1px solid var(--line);background:rgba(5,15,28,.76);backdrop-filter:blur(18px);position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:12px;min-width:210px}.brand-mark{width:38px;height:38px;border:1px solid rgba(214,181,111,.45);border-radius:12px;display:grid;place-items:center;color:var(--gold);font-weight:800;letter-spacing:-1px;background:linear-gradient(145deg,rgba(214,181,111,.16),rgba(28,72,111,.25));box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+.brand-name{font-size:13px;font-weight:800;letter-spacing:.15em}.brand-sub{font-size:10px;color:var(--muted);letter-spacing:.13em;margin-top:2px}
+.askbar{flex:1;max-width:860px;position:relative}.askbar input{width:100%;height:44px;padding:0 50px 0 17px;border:1px solid rgba(157,185,216,.18);border-radius:13px;background:rgba(17,37,60,.74);color:var(--text);outline:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}.askbar input:focus{border-color:rgba(214,181,111,.55);box-shadow:0 0 0 3px rgba(214,181,111,.08)}.askbar button{position:absolute;right:6px;top:6px;height:32px;width:36px;border:0;border-radius:9px;background:linear-gradient(135deg,#d9bc7e,#a98749);color:#142033;font-weight:900}
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:12px}.cash-chip{border:1px solid rgba(67,197,139,.25);background:rgba(67,197,139,.08);color:#a8e6ca;padding:8px 12px;border-radius:10px;font-size:11px;white-space:nowrap}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(214,181,111,.35);color:var(--gold);background:rgba(214,181,111,.08);font-size:11px;font-weight:700}
+.sidebar{padding:24px 14px;border-right:1px solid var(--line);background:rgba(8,20,35,.66);min-height:calc(100vh - 76px)}.side-label{padding:0 12px 12px;color:#6f849c;font-size:10px;letter-spacing:.16em;font-weight:700}.nav{display:grid;gap:6px}.nav button{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid transparent;background:transparent;border-radius:11px;color:#9fb0c3;text-align:left;transition:.18s}.nav button:hover{background:rgba(255,255,255,.035);color:var(--text)}.nav button.active{background:linear-gradient(100deg,rgba(36,87,133,.35),rgba(20,44,70,.55));border-color:rgba(111,159,201,.2);color:#fff}.nav-icon{width:24px;height:24px;display:grid;place-items:center;border-radius:7px;background:rgba(150,180,210,.08);font-size:12px;color:var(--gold)}.side-bottom{position:sticky;top:calc(100vh - 190px);margin-top:45px;padding:15px 12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.025)}.side-bottom strong{display:block;font-size:11px;color:var(--gold);margin-bottom:5px}.side-bottom p{margin:0;color:var(--muted);font-size:11px}
+main{padding:26px 28px 34px;min-width:0;max-width:1700px;width:100%;margin:0 auto}.page-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:22px}.eyebrow{font-size:10px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;font-weight:700}.page-head h1{margin:6px 0 4px;font-size:25px;letter-spacing:-.035em;font-weight:650}.page-head p{margin:0;color:var(--muted);font-size:12px}.head-actions{display:flex;gap:9px}.btn{border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.035);padding:9px 13px;color:#c9d5e3;font-size:11px}.btn:hover{border-color:rgba(214,181,111,.4);background:rgba(214,181,111,.07)}.btn.primary{background:linear-gradient(135deg,#d7b978,#ad8b50);border:0;color:#132033;font-weight:800}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:18px}.stat,.panel{border:1px solid var(--line);background:linear-gradient(145deg,rgba(21,42,66,.78),rgba(11,27,46,.78));border-radius:15px;box-shadow:var(--shadow);backdrop-filter:blur(16px)}.stat{padding:15px 17px}.stat-label{color:var(--muted);font-size:10px;letter-spacing:.1em;text-transform:uppercase}.stat-value{font-size:21px;font-weight:650;margin-top:7px;letter-spacing:-.03em}.stat-note{font-size:10px;color:#7389a2;margin-top:3px}
+.panel{overflow:hidden}.panel-head{display:flex;justify-content:space-between;align-items:center;padding:17px 19px;border-bottom:1px solid var(--line);gap:12px}.panel-title{font-size:13px;font-weight:700}.panel-sub{font-size:10px;color:var(--muted);margin-top:3px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:800px}th{text-align:left;padding:12px 15px;color:#7188a2;font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;background:rgba(5,16,29,.22);white-space:nowrap}td{padding:14px 15px;border-top:1px solid rgba(167,190,218,.08);font-size:11px;color:#c6d2df;white-space:nowrap}tbody tr{cursor:pointer;transition:background .15s}tbody tr:hover{background:rgba(91,137,179,.08)}tbody tr.selected{background:rgba(47,99,146,.15);box-shadow:inset 2px 0 var(--gold)}.project-name{font-weight:700;color:#edf3fa}.project-meta{font-size:9px;color:#778da6;margin-top:3px}.metric{font-variant-numeric:tabular-nums;color:#b9c8d8}.status{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border:1px solid var(--line);border-radius:20px;font-size:9px;color:#a8b7c7;background:rgba(255,255,255,.025)}.dot{width:6px;height:6px;border-radius:50%;background:#75869a}.status.green{color:#9ce0c0;border-color:rgba(67,197,139,.25);background:rgba(67,197,139,.07)}.status.green .dot{background:var(--green)}.status.yellow{color:#e8cc8c;border-color:rgba(227,184,94,.25);background:rgba(227,184,94,.07)}.status.yellow .dot{background:var(--yellow)}.status.red{color:#e9a5a5;border-color:rgba(226,118,118,.25);background:rgba(226,118,118,.07)}.status.red .dot{background:var(--red)}.progress{width:105px;height:5px;border-radius:8px;background:rgba(155,178,204,.12);overflow:hidden}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#3977a9,var(--gold));border-radius:8px}.progress-label{font-size:9px;color:#7288a1;margin-top:5px}.table-foot{padding:11px 17px;color:#6f849b;font-size:10px;border-top:1px solid var(--line)}
+.details{margin-top:17px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px}.detail-card{border:1px solid rgba(167,190,218,.1);background:rgba(4,16,29,.28);border-radius:12px;padding:15px}.detail-card h3{margin:0 0 12px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#d6e0eb}.field{margin-bottom:10px}.field label{display:block;font-size:9px;color:#8196ad;margin-bottom:5px}.field input,.field textarea{width:100%;border:1px solid rgba(167,190,218,.14);background:rgba(14,31,50,.78);color:#dce7f2;border-radius:8px;padding:9px 10px;outline:none;font-size:11px}.field input:focus,.field textarea:focus{border-color:rgba(214,181,111,.5)}.field textarea{resize:vertical;min-height:58px}.field input::placeholder,.field textarea::placeholder{color:#667d96}.output-box{border:1px solid rgba(167,190,218,.1);border-radius:9px;padding:11px;background:rgba(15,34,55,.52);color:#aebfd1;font-size:11px;min-height:37px}.output-row{display:grid;grid-template-columns:100px 1fr;gap:10px;margin-bottom:9px;align-items:center}.output-row span:first-child{color:#7890aa;font-size:10px}.detail-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.vault{margin:0 16px 16px;border:1px solid rgba(214,181,111,.19);border-radius:12px;background:rgba(14,29,46,.58);overflow:hidden}.vault-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;padding:13px 15px;background:transparent;border:0;color:#d6c18f;text-align:left;font-size:11px;font-weight:700}.vault-toggle span:last-child{font-size:10px;color:#8d9db0}.vault-content{display:none;padding:0 15px 15px}.vault.open .vault-content{display:block}.vault-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.vault-cell{padding:10px;border-radius:8px;background:rgba(3,14,25,.45);border:1px solid rgba(167,190,218,.08)}.vault-cell small{display:block;color:#748ba4;font-size:9px;margin-bottom:5px}.vault-cell b{font-size:11px;color:#c3cfdd;font-weight:600}
+.toast{position:fixed;right:22px;bottom:22px;z-index:30;padding:12px 15px;border:1px solid rgba(214,181,111,.3);border-radius:11px;background:#10243a;color:#e8edf4;box-shadow:var(--shadow);font-size:11px;opacity:0;transform:translateY(8px);pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translateY(0)}
+.empty-hint{color:#71879f;font-size:10px;padding:12px 15px}
+@media(max-width:980px){.app{grid-template-columns:190px minmax(0,1fr)}.topbar{padding:0 17px}.brand{min-width:180px}.stats{grid-template-columns:repeat(2,1fr)}main{padding:22px 18px}}
+@media(max-width:700px){.app{grid-template-columns:1fr;grid-template-rows:auto auto 1fr}.topbar{position:relative;flex-wrap:wrap;padding:13px 14px;gap:12px}.brand{min-width:0;flex:1}.top-actions{margin-left:0}.cash-chip{display:none}.askbar{order:3;flex-basis:100%;max-width:none}.sidebar{min-height:0;padding:10px 12px;border-right:0;border-bottom:1px solid var(--line);overflow-x:auto}.side-label{display:none}.nav{display:flex;min-width:max-content}.nav button{padding:9px 11px}.nav-icon{display:none}.side-bottom{display:none}main{padding:19px 12px 26px}.page-head{align-items:flex-start;flex-direction:column}.page-head h1{font-size:22px}.stats{gap:8px}.stat{padding:12px}.stat-value{font-size:18px}.detail-grid{grid-template-columns:1fr;padding:11px}.panel-head{padding:14px}.vault-grid{grid-template-columns:1fr 1fr}.head-actions{width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">N</div><div><div class="brand-name">NAVARIS OS</div><div class="brand-sub">BUSINESS OPERATIONS WORKSPACE</div></div></div>
+  <form class="askbar" id="askForm"><input id="question" type="text" placeholder="How can I help you today?" aria-label="Ask NAVARIS"><button aria-label="Submit question" type="submit">↗</button></form>
+  <div class="top-actions"><div class="cash-chip">CASH COLLECTED&nbsp; <strong>0</strong></div><div class="avatar" title="Founder">MH</div></div>
+</header>
+<aside class="sidebar">
+  <div class="side-label">WORKSPACE</div>
+  <nav class="nav" id="nav">
+    <button class="active" data-filter="Assets"><span class="nav-icon">◇</span>Assets</button>
+    <button data-filter="Investment"><span class="nav-icon">◈</span>Investment</button>
+    <button data-filter="Operations"><span class="nav-icon">▦</span>Operations</button>
+    <button data-filter="Consulting"><span class="nav-icon">⌘</span>Consulting</button>
+  </nav>
+  <div class="side-bottom"><strong>MOHAMED HAFEZ</strong><p>Mohamed Hafez for Consulting and Operation Management</p><p style="margin-top:8px">12+ Years</p></div>
+</aside>
+<main>
+  <section class="page-head">
+    <div><div class="eyebrow">CONTROL CENTER / PORTFOLIO</div><h1>Operations Overview</h1><p>One workspace. Separate ledgers. Evidence before decisions.</p></div>
+    <div class="head-actions"><button class="btn" id="refreshBtn">↻ Refresh view</button><button class="btn primary" id="newProjectBtn">＋ New project</button></div>
+  </section>
+  <section class="stats">
+    <div class="stat"><div class="stat-label">Active projects</div><div class="stat-value" id="activeCount">[TO BE CONFIRMED BY HAFEZ]</div><div class="stat-note">Project register not yet populated</div></div>
+    <div class="stat"><div class="stat-label">Portfolio NPV</div><div class="stat-value">[TO BE CONFIRMED BY HAFEZ]</div><div class="stat-note">Requires verified inputs</div></div>
+    <div class="stat"><div class="stat-label">Portfolio IRR</div><div class="stat-value">[TO BE CONFIRMED BY HAFEZ]</div><div class="stat-note">Requires verified inputs</div></div>
+    <div class="stat"><div class="stat-label">Cash collected</div><div class="stat-value">0</div><div class="stat-note">Documentary receipt gate</div></div>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><div><div class="panel-title">Project Portfolio</div><div class="panel-sub" id="tableCaption">Select a project to inspect its inputs, outputs and calculation vault.</div></div><button class="btn" id="clearFilterBtn">Show all</button></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Project name</th><th>Stage</th><th>NPV</th><th>IRR</th><th>BEP</th><th>Status</th><th>Progress</th></tr></thead>
+        <tbody id="projectRows">
+          <tr class="selected" data-id="draft-001"><td><div class="project-name">[TO BE CONFIRMED BY HAFEZ]</div><div class="project-meta">Project record awaiting approved details</div></td><td>[TO BE CONFIRMED BY HAFEZ]</td><td class="metric">[TO BE CONFIRMED BY HAFEZ]</td><td class="metric">[TO BE CONFIRMED BY HAFEZ]</td><td class="metric">[TO BE CONFIRMED BY HAFEZ]</td><td><span class="status"><i class="dot"></i>Awaiting review</span></td><td><div class="progress"><span></span></div><div class="progress-label">[TO BE CONFIRMED BY HAFEZ]</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-foot">No financial values or project progress are assumed. Populate only from reviewed source records.</div>
+  </section>
+  <section class="panel details">
+    <div class="panel-head"><div><div class="panel-title" id="detailTitle">Selected Project — Details</div><div class="panel-sub">Input is editable. Output is displayed separately. Calculations stay inside Vault.</div></div><span class="status"><i class="dot"></i>Draft workspace</span></div>
+    <div class="detail-grid">
+      <div class="detail-card">
+        <h3>Input / Project data</h3>
+        <div class="field"><label for="projectInputName">Project name</label><input id="projectInputName" placeholder="[TO BE CONFIRMED BY HAFEZ]"></div>
+        <div class="field"><label for="projectStage">Current stage</label><input id="projectStage" placeholder="[TO BE CONFIRMED BY HAFEZ]"></div>
+        <div class="field"><label for="projectScope">Scope / requirement</label><textarea id="projectScope" placeholder="[TO BE CONFIRMED BY HAFEZ]"></textarea></div>
+        <div class="field"><label for="projectEvidence">Source / evidence reference</label><input id="projectEvidence" placeholder="[TO BE CONFIRMED BY HAFEZ]"></div>
+        <div class="detail-actions"><button class="btn" id="resetBtn">Reset fields</button><button class="btn primary" id="saveBtn">Save input</button></div>
+      </div>
+      <div class="detail-card">
+        <h3>Output / Decision view</h3>
+        <div class="output-row"><span>NPV</span><div class="output-box">[TO BE CONFIRMED BY HAFEZ]</div></div>
+        <div class="output-row"><span>IRR</span><div class="output-box">[TO BE CONFIRMED BY HAFEZ]</div></div>
+        <div class="output-row"><span>BEP</span><div class="output-box">[TO BE CONFIRMED BY HAFEZ]</div></div>
+        <div class="output-row"><span>Status</span><div class="output-box">Awaiting verified inputs and review</div></div>
+        <div class="output-row"><span>Next action</span><div class="output-box" id="nextAction">Confirm project data and evidence.</div></div>
+      </div>
+    </div>
+    <div class="vault" id="vault">
+      <button class="vault-toggle" id="vaultToggle" aria-expanded="false"><span>▣ &nbsp; Calculation Vault</span><span id="vaultState">LOCKED · Click to open +</span></button>
+      <div class="vault-content">
+        <div class="vault-grid">
+          <div class="vault-cell"><small>NPV methodology / inputs</small><b>[TO BE CONFIRMED BY HAFEZ]</b></div>
+          <div class="vault-cell"><small>IRR cash-flow series</small><b>[TO BE CONFIRMED BY HAFEZ]</b></div>
+          <div class="vault-cell"><small>BEP cost and price basis</small><b>[TO BE CONFIRMED BY HAFEZ]</b></div>
+          <div class="vault-cell"><small>Source documents</small><b>[TO BE CONFIRMED BY HAFEZ]</b></div>
+          <div class="vault-cell"><small>Assumptions register</small><b>[TO BE CONFIRMED BY HAFEZ]</b></div>
+          <div class="vault-cell"><small>Calculation validation</small><b>Not run — inputs not supplied</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div style="padding:16px 2px 0;color:#6e849c;font-size:10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span>Mohamed Hafez for Consulting and Operation Management</span><span>NAVARIS OS · 12+ Years · CASH COLLECTED = 0</span></div>
+</main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+ const $=id=>document.getElementById(id);
+ const toast=(message)=>{const el=$('toast');el.textContent=message;el.classList.add('show');clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>el.classList.remove('show'),2600)};
+ let currentFilter='Assets';
+ const rows=[{id:'draft-001',category:'Assets'}];
+ document.querySelectorAll('#nav button').forEach(btn=>btn.addEventListener('click',()=>{
+   document.querySelectorAll('#nav button').forEach(b=>b.classList.remove('active'));
+   btn.classList.add('active');currentFilter=btn.dataset.filter;
+   $('tableCaption').textContent='Workspace view: '+currentFilter+' · No category-specific project records have been confirmed.';
+   toast(currentFilter+' view selected');
+ }));
+ $('clearFilterBtn').addEventListener('click',()=>{document.querySelectorAll('#nav button').forEach(b=>b.classList.remove('active'));$('tableCaption').textContent='All categories · Project records require confirmation.';toast('Showing all categories')});
+ $('refreshBtn').addEventListener('click',()=>toast('View refreshed. No external data source is connected.'));
+ $('newProjectBtn').addEventListener('click',()=>{ $('projectInputName').focus();toast('Enter a project name and source evidence, then save the input.')});
+ $('saveBtn').addEventListener('click',()=>{
+   const name=$('projectInputName').value.trim();
+   const stage=$('projectStage').value.trim();
+   const scope=$('projectScope').value.trim();
+   const evidence=$('projectEvidence').value.trim();
+   if(!name&&!stage&&!scope&&!evidence){toast('Enter project information before saving.');return}
+   $('detailTitle').textContent=name||'[TO BE CONFIRMED BY HAFEZ] — Details';
+   $('nextAction').textContent=evidence?'Review the supplied source evidence.':'Attach source evidence before evaluation.';
+   const first=$('projectRows').querySelector('tr');
+   if(name)first.querySelector('.project-name').textContent=name;
+   if(stage)first.children[1].textContent=stage;
+   first.querySelector('.project-meta').textContent=scope?'Scope entered · evidence review pending':'Project record updated in this page session';
+   toast('Input saved in this page session only.');
+ });
+ $('resetBtn').addEventListener('click',()=>{['projectInputName','projectStage','projectScope','projectEvidence'].forEach(id=>$(id).value='');$('detailTitle').textContent='Selected Project — Details';$('nextAction').textContent='Confirm project data and evidence.';toast('Input fields reset')});
+ $('vaultToggle').addEventListener('click',()=>{
+   const open=$('vault').classList.toggle('open');$('vaultToggle').setAttribute('aria-expanded',String(open));$('vaultState').textContent=open?'OPEN · Click to close −':'LOCKED · Click to open +';
+ });
+ $('askForm').addEventListener('submit',e=>{
+   e.preventDefault();const q=$('question').value.trim();if(!q){toast('Type a question first.');return}
+   $('nextAction').textContent='Question captured for review: '+q;
+   $('question').value='';toast('Question captured. Live AI connection is not configured in this visual prototype.');
+ });
+ $('projectRows').querySelectorAll('tr').forEach(row=>row.addEventListener('click',()=>{
+   $('projectRows').querySelectorAll('tr').forEach(r=>r.classList.remove('selected'));row.classList.add('selected');
+   $('detailTitle').textContent=row.querySelector('.project-name').textContent+' — Details';
+   toast('Project selected');
+ }));
+})();
+</script>
+</body>
+</html>
