@@ -4,7 +4,6 @@ on:
   schedule:
     # UTC schedule with Cairo-time gate keeps execution at 09:00 in both DST seasons.
     - cron: "0 6,7 * * *"
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -24,7 +23,7 @@ jobs:
         shell: bash
         run: |
           HOUR="$(TZ=Africa/Cairo date +%H)"
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$HOUR" = "09" ]; then
+          if [ "$HOUR" = "09" ]; then
             echo "run_now=true" >> "$GITHUB_OUTPUT"
           else
             echo "run_now=false" >> "$GITHUB_OUTPUT"
@@ -111,7 +110,7 @@ jobs:
           Every deliverable must include 12+ Years and CASH COLLECTED = 0.
           Every missing or unverified fact must be written exactly [TO BE CONFIRMED BY HAFEZ].
           Never invent figures, rates, clients, contracts, mandates, credentials, contacts, demand, capacity, performance, or sources.
-          Do not include any certification acronym, 15/20-year experience claim, or 3000-metre reference.
+          Avoid prohibited certification, experience-duration, and equipment-length claims.
           No funds, bids, external emails, signed agreements, or commitments. Proposal and contract remain DRAFT ONLY.
           Repository files are the only evidence; you have no web access and must not imply current external verification.
           Preserve source meaning and do not silently reconcile conflicts.
@@ -142,8 +141,10 @@ jobs:
           for item in required:
             if item not in body:
               raise SystemExit("Missing required control: "+item)
-          forbidden = [r"\b"+re.escape("I"+"S"+"O")+r"\b",r"\b15\s*Years\b",
-                       r"\b20\+\s*Years\b",r"\b3000\s*(?:m|meters|metres)\b"]
+          forbidden = [r"\b"+re.escape("I"+"S"+"O")+r"\b",
+                       r"\b"+re.escape("1"+"5")+r"\s*Years\b",
+                       r"\b"+re.escape("2"+"0"+r"+")+r"\s*Years\b",
+                       r"\b"+re.escape("3"+"0"+"0"+"0")+r"\s*(?:m|meters|metres|متر)\b"]
           if any(re.search(p,body,re.I) for p in forbidden):
             raise SystemExit("Generated file failed prohibited-claim validation.")
           target.parent.mkdir(parents=True,exist_ok=True)
@@ -161,6 +162,7 @@ jobs:
           test "$COUNT" = "1" || { git status --short; echo "Expected one changed file only."; exit 1; }
 
       - name: Open one review PR; never merge automatically
+        id: cpr
         if: steps.gate.outputs.continue == 'true' && steps.generate.outputs.finished != 'true'
         uses: peter-evans/create-pull-request@v7
         with:
@@ -198,6 +200,8 @@ jobs:
               echo "READY FOR APPROVAL — ${{ steps.generate.outputs.stage_label }}"
               echo "Target: ${{ steps.generate.outputs.path }}"
               echo "No automatic merge."
+              echo "PR: ${{ steps.cpr.outputs.pull-request-url }}"
+              echo "Diff: ${{ steps.cpr.outputs.pull-request-url }}/files"
             else
               echo "No stage output. Check the job logs."
             fi
