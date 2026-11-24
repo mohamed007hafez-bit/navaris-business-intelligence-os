@@ -79,7 +79,7 @@ These are release-blocking content issues for the public marketing surface. Do n
 
 ### P1 — service catalogue inconsistency
 
-`backend/main.py` exposes four KHALIFAROCK service records and marks fee ranges as indicative, while the current KHALIFAROCK operating instructions identify one current sellable service, one supporting service, and later services as future/paused. Reconcile the API response and public service catalogue with the approved service state before treating it as a live commercial offer.
+`backend/main.py` exposes four retired legacy brand service records and marks fee ranges as indicative, while the current retired legacy brand operating instructions identify one current sellable service, one supporting service, and later services as future/paused. Reconcile the API response and public service catalogue with the approved service state before treating it as a live commercial offer.
 
 ### P1 — multiple agent architectures
 

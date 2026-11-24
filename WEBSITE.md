@@ -7,7 +7,7 @@ The public website is NAVARIS's marketing and lead-generation front door. It is 
 ## Brand | الهوية
 - **Founder / المؤسس:** محمد حافظ — Mohamed Hafez
 - **Product / المنتج:** NAVARIS — مساعدك الذكي في البيزنس الخاص بيك
-- Do not use HAFEZROCK or KHALIFAROCK as the NAVARIS brand.
+- Use Mohamed Hafez for Consulting and Operation Management as the official professional brand; NAVARIS OS is the platform.
 - Visual direction: navy `#0F2A44`, white, gold `#C9A86A`; mobile-first, accessible, bilingual Arabic-first.
 
 ## Public journey | رحلة الزائر
