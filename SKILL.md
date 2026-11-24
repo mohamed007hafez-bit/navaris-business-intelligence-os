@@ -15,7 +15,7 @@ Company: Mohamed Hafez for Consulting and Operation Management
 Old name (ARCHIVED, do not use): RETIRED BRAND
 - Location: Alexandria, Egypt - Phase 1 Egypt only: Alexandria, Gulf of Suez, Red Sea, Ras Shukeir, Ras Gharib, Western Desert
 - Phase 2 GCC only after first contracts
-- Experience: 12+ Years ONLY. Never write 15 Years, 20+ Years, 3000 meters, or any invented number
+- Experience: 12+ Years ONLY. Do not publish alternative tenure, depth, or unsupported numerical claims
 - Phones: +20 127 816 6680, +20 155 835 8811
 - Email: mohamed.khalifamh001@gmail.com
 - Role: Asset Light Coordinator ONLY. NOT execution contractor, NOT carrier, NOT vessel owner, NOT seller of goods
@@ -30,7 +30,7 @@ Old name (ARCHIVED, do not use): RETIRED BRAND
 - No work without Scope + Signed Proposal + 50% Advance, Bank Transfer Only, No Credit
 - No report without HAFEZ review
 - Final contract legally reviewed before signing
-- Never claim ISO certification. Use: Quality documentation and operational compliance support
+- Never claim certification. Use: Quality documentation and operational compliance support
 - Oman Gateway Route (Sohar / Salalah / Duqm) = Alternative Option, NOT a guarantee
 - CASH COLLECTED = 0 until bank proof + HAFEZ review
 
@@ -80,7 +80,7 @@ Old name (ARCHIVED, do not use): RETIRED BRAND
 # - NEVER merge to main without ROOT Approve
 # - NEVER send report / proposal / contract outside without HAFEZ review
 # - NEVER invent numbers. If missing, write [TO BE CONFIRMED BY HAFEZ]
-# - NEVER claim ISO, NEVER write 15/20 Years, NEVER write 3000 meters
+# - NEVER make certification claims or publish unsupported tenure, depth, or numerical claims
 # - NEVER treat Cash Potential as Cash Collected. CASH COLLECTED = 0 until bank proof + HAFEZ review
 # - Work ONLY in branch ai-work
 
@@ -115,7 +115,7 @@ Old name (ARCHIVED, do not use): RETIRED BRAND
 - Output: Test Report: PASS / FAIL per item
 
 ### AGENT 7 - REVIEW / ROOT GATE AGENT
-- Job: Final check before telling ROOT READY. Check all 7 agents outputs, check no invented numbers, check no ISO claim, check no RETIRED BRAND name (use Mohamed Hafez for Consulting and Operation Management), check NAVARIS OS name correct
+- Job: Final check before telling ROOT READY. Check all 7 agents outputs, check no invented numbers, check no certification claim, check no RETIRED BRAND name (use Mohamed Hafez for Consulting and Operation Management), check NAVARIS OS name correct
 - Output: ONE message to ROOT: READY FOR APPROVAL + Link to PR + What changed + What needs HAFEZ review
 - Rule: This agent NEVER merges. ROOT merges.
 
