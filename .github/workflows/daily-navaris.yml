@@ -18,13 +18,13 @@ jobs:
   clock:
     runs-on: ubuntu-latest
     outputs:
-      run_now: \${{ steps.local.outputs.run_now }}
+      run_now: ${{ steps.local.outputs.run_now }}
     steps:
       - id: local
         shell: bash
         run: |
           HOUR="$(TZ=Africa/Cairo date +%H)"
-          if [ "\${{ github.event_name }}" = "workflow_dispatch" ] || [ "$HOUR" = "09" ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$HOUR" = "09" ]; then
             echo "run_now=true" >> "$GITHUB_OUTPUT"
           else
             echo "run_now=false" >> "$GITHUB_OUTPUT"
@@ -42,7 +42,7 @@ jobs:
       - name: Wait for previous approval
         id: gate
         env:
-          GH_TOKEN: \${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           COUNT="$(gh pr list --base main --state open --json title --jq '[.[] | select(.title | startswith("NAVARIS Daily Stage —"))] | length')"
           if [ "$COUNT" -gt 0 ]; then
@@ -56,8 +56,8 @@ jobs:
         if: steps.gate.outputs.continue == 'true'
         id: generate
         env:
-          OPENAI_API_KEY: \${{ secrets.OPENAI_API_KEY }}
-          OPENAI_MODEL: \${{ vars.OPENAI_MODEL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
         run: |
           python - <<'PY'
           import json, os, re, sys, urllib.request, urllib.error
@@ -164,16 +164,16 @@ jobs:
         if: steps.gate.outputs.continue == 'true' && steps.generate.outputs.finished != 'true'
         uses: peter-evans/create-pull-request@v7
         with:
-          token: \${{ github.token }}
+          token: ${{ github.token }}
           base: main
-          branch: ai-work/daily-navaris-\${{ github.run_id }}
+          branch: ai-work/daily-navaris-${{ github.run_id }}
           delete-branch: true
-          add-paths: \${{ steps.generate.outputs.path }}
-          commit-message: "NAVARIS daily stage: \${{ steps.generate.outputs.stage_id }}"
-          title: "NAVARIS Daily Stage — \${{ steps.generate.outputs.stage_label }}"
+          add-paths: ${{ steps.generate.outputs.path }}
+          commit-message: "NAVARIS daily stage: ${{ steps.generate.outputs.stage_id }}"
+          title: "NAVARIS Daily Stage — ${{ steps.generate.outputs.stage_label }}"
           body: |
             ## READY FOR APPROVAL
-            Stage: \${{ steps.generate.outputs.stage_label }}
+            Stage: ${{ steps.generate.outputs.stage_label }}
 
             - Built from the latest main.
             - Exactly one deliverable file.
@@ -190,13 +190,13 @@ jobs:
         run: |
           {
             echo "## NAVARIS Daily Stage"
-            if [ "\${{ steps.gate.outputs.continue }}" = "false" ]; then
+            if [ "${{ steps.gate.outputs.continue }}" = "false" ]; then
               echo "Waiting for the previous stage PR to be reviewed and manually merged."
-            elif [ "\${{ steps.generate.outputs.finished }}" = "true" ]; then
+            elif [ "${{ steps.generate.outputs.finished }}" = "true" ]; then
               echo "**FINISHED** — all seven stages are on main."
-            elif [ -n "\${{ steps.generate.outputs.path }}" ]; then
-              echo "READY FOR APPROVAL — \${{ steps.generate.outputs.stage_label }}"
-              echo "Target: \${{ steps.generate.outputs.path }}"
+            elif [ -n "${{ steps.generate.outputs.path }}" ]; then
+              echo "READY FOR APPROVAL — ${{ steps.generate.outputs.stage_label }}"
+              echo "Target: ${{ steps.generate.outputs.path }}"
               echo "No automatic merge."
             else
               echo "No stage output. Check the job logs."
