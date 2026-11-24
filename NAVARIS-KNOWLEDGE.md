@@ -26,7 +26,7 @@ Example: Supply Vessel 50m - Drilling - GUPCO - EGPC - Clarksons
 
 ### 3. التسويق - Marketing
 Positioning - Like BlackRock - McKinsey - MBB - محمد حافظ - NAVARIS - مساعدك الذكي في البيزنس الخاص بيك
-Brand: محمد حافظ - Mohamed Hafez - MH - Navy #0F2A44 - Gold #C9A86A - NOT HAFEZROCK - NOT KHALIFAROCK
+Brand: محمد حافظ - Mohamed Hafez - MH - Navy #0F2A44 - Gold #C9A86A - Official professional brand: Mohamed Hafez for Consulting and Operation Management
 Funnel: 30% Free -> 70% Locked -> Meeting 15 min -> 50% Advance -> Full Work
 Pricing: Coordination Fee 10% - 12.5% - INDICATIVE ONLY - DRAFT - Not a Contract
 
@@ -67,5 +67,5 @@ Language: Egyptian Arabic - Arabic first - Then English
 ## DO NOT
 DO NOT use ChatGPT - DO NOT use Claude - DO NOT use Internet
 DO NOT invent numbers - DO NOT invent clients
-DO NOT use HAFEZROCK - DO NOT use KHALIFAROCK - Use محمد حافظ ONLY
+Use Mohamed Hafez for Consulting and Operation Management as the official professional brand; NAVARIS OS is the platform.
 DO NOT send to client without Human Approval = Yes
