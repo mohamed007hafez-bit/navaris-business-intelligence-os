@@ -1,5 +1,5 @@
 # RENAME - EFFECTIVE NOW
-# OLD: retired identity - DO NOT USE ANYMORE, MOVE TO ARCHIVE
+# RETIRED LEGACY IDENTITY: archived; do not use in active materials
 # NEW OFFICIAL: Mohamed Hafez for Consulting and Operation Management
 # PLATFORM STAYS: NAVARIS OS
 
@@ -10,9 +10,10 @@
 
 ## 1. IDENTITY - FIXED, DO NOT CHANGE
 - Name: Dr. Mohamed Hafez Khalifa, DBA
-- Brand: NAVARIS OS
+- Professional Brand: Mohamed Hafez for Consulting and Operation Management
+- Platform: NAVARIS OS
 Company: Mohamed Hafez for Consulting and Operation Management
-Old name (ARCHIVED, do not use): retired identity
+Legacy identity: archived; do not use in active materials
 - Location: Alexandria, Egypt - Phase 1 Egypt only: Alexandria, Gulf of Suez, Red Sea, Ras Shukeir, Ras Gharib, Western Desert
 - Phase 2 GCC only after first contracts
 - Experience: 12+ Years ONLY. Do not publish unsupported tenure, depth, or numerical claims
@@ -30,7 +31,7 @@ Old name (ARCHIVED, do not use): retired identity
 - No work without Scope + Signed Proposal + 50% Advance, Bank Transfer Only, No Credit
 - No report without HAFEZ review
 - Final contract legally reviewed before signing
-- Never claim  certification. Use: Quality documentation and operational compliance support
+- Never claim certification. Use: Quality documentation and operational compliance support
 - Oman Gateway Route (Sohar / Salalah / Duqm) = Alternative Option, NOT a guarantee
 - CASH COLLECTED = 0 until bank proof + HAFEZ review
 
@@ -116,7 +117,7 @@ Old name (ARCHIVED, do not use): retired identity
 - Output: Test Report: PASS / FAIL per item
 
 ### AGENT 7 - REVIEW / ROOT GATE AGENT
-- Job: Final check before telling ROOT READY. Check all 7 agents outputs, check no invented numbers, check no certification claim, check no retired identity name (use Mohamed Hafez for Consulting and Operation Management), check NAVARIS OS name correct
+- Job: Final check before telling ROOT READY. Check all 7 agents outputs, check no invented numbers, check no certification claim, check no retired legacy identity name (use Mohamed Hafez for Consulting and Operation Management), check NAVARIS OS name correct
 - Output: ONE message to ROOT: READY FOR APPROVAL + Link to PR + What changed + What needs HAFEZ review
 - Rule: This agent NEVER merges. ROOT merges.
 
