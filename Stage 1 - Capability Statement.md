@@ -38,7 +38,7 @@ NAVARIS - like Aladdin, like KhepriOne - One System - 7 Steps:
 **Supplementary:**
 Quality Documentation and Operational Compliance Support - SOPs - Checklists - Document Control - NCR
 
-This is documentation and readiness support, not ISO certification or ISO-certified inspection.
+This is documentation and operational readiness support only; no certification or certified inspection is offered.
 
 ### OPERATING MODEL
 
