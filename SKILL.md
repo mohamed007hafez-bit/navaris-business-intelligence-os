@@ -1,5 +1,5 @@
 # RENAME - EFFECTIVE NOW
-# OLD: KHALIFAROCK - DO NOT USE ANYMORE, MOVE TO ARCHIVE
+# OLD: RETIRED BRAND - DO NOT USE ANYMORE, MOVE TO ARCHIVE
 # NEW OFFICIAL: Mohamed Hafez for Consulting and Operation Management
 # PLATFORM STAYS: NAVARIS OS
 
@@ -12,7 +12,7 @@
 - Name: Dr. Mohamed Hafez Khalifa, DBA
 - Brand: NAVARIS OS
 Company: Mohamed Hafez for Consulting and Operation Management
-Old name (ARCHIVED, do not use): KHALIFAROCK
+Old name (ARCHIVED, do not use): RETIRED BRAND
 - Location: Alexandria, Egypt - Phase 1 Egypt only: Alexandria, Gulf of Suez, Red Sea, Ras Shukeir, Ras Gharib, Western Desert
 - Phase 2 GCC only after first contracts
 - Experience: 12+ Years ONLY. Never write 15 Years, 20+ Years, 3000 meters, or any invented number
@@ -115,7 +115,7 @@ Old name (ARCHIVED, do not use): KHALIFAROCK
 - Output: Test Report: PASS / FAIL per item
 
 ### AGENT 7 - REVIEW / ROOT GATE AGENT
-- Job: Final check before telling ROOT READY. Check all 7 agents outputs, check no invented numbers, check no ISO claim, check no KHALIFAROCK name (use Mohamed Hafez for Consulting and Operation Management), check NAVARIS OS name correct
+- Job: Final check before telling ROOT READY. Check all 7 agents outputs, check no invented numbers, check no ISO claim, check no RETIRED BRAND name (use Mohamed Hafez for Consulting and Operation Management), check NAVARIS OS name correct
 - Output: ONE message to ROOT: READY FOR APPROVAL + Link to PR + What changed + What needs HAFEZ review
 - Rule: This agent NEVER merges. ROOT merges.
 
