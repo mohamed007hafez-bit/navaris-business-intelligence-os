@@ -1,2 +1,0 @@
-# NAVARIS Client Portal (Next.js 14)
-Run `cd app && cp .env.example .env.local && npm install && npm run dev`. Configure Supabase and RLS before use. Stripe/Paymob are placeholders; payment processing is not active. For Vercel set Root Directory to `app`, configure secrets and verify DNS before assigning `app.navaris.business`. No Vercel deployment has been performed by this commit.

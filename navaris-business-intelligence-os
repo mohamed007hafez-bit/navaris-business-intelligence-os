@@ -1,6 +1,0 @@
-git clone https://github.com/YOUR-USERNAME/navaris-business-intelligence-os.git
-cd navaris-business-intelligence-os
-# انسخ الملفات اللي تحت - كلها - هنا
-git add .
-git commit -m "NAVARIS OS v1 - Structured - Capital Base + Agents + Payment"
-git push origin main

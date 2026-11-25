@@ -1,8 +1,0 @@
-node_modules/
-release/
-dist/
-data/
-__pycache__/
-.pytest_cache/
-.venv/
-*.sqlite3
