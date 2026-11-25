@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090d12">
+  <meta name="description" content="NAVARIS business intelligence workspace for Mohamed Hafez.">
+  <title>NAVARIS OS — Mohamed Hafez</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090d12;
+      --panel: rgba(20, 26, 34, .78);
+      --panel-strong: rgba(25, 32, 41, .94);
+      --line: rgba(214, 181, 119, .17);
+      --gold: #d6b577;
+      --gold-bright: #f0d7a4;
+      --text: #f3f0e9;
+      --muted: #9299a3;
+      --green: #63c99b;
+      --yellow: #e7bd69;
+      --red: #ef817c;
+      --radius: 16px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 82% -15%, rgba(181, 139, 67, .13), transparent 38rem),
+        radial-gradient(ellipse at -10% 70%, rgba(59, 88, 110, .12), transparent 35rem),
+        var(--bg);
+    }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    .app-shell { min-height: 100vh; }
+    .topbar {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 30px;
+      border-bottom: 1px solid rgba(255,255,255,.065);
+      background: rgba(10, 14, 19, .68);
+      backdrop-filter: blur(18px);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 205px; }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(240, 215, 164, .45);
+      border-radius: 11px;
+      background: linear-gradient(145deg, rgba(214,181,119,.24), rgba(214,181,119,.05));
+      color: var(--gold-bright);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -.05em;
+    }
+    .brand-name { font-size: 13px; font-weight: 750; letter-spacing: .2em; }
+    .brand-owner { margin-top: 3px; color: var(--muted); font-size: 10px; letter-spacing: .02em; }
+    .topbar-center { display: flex; align-items: center; gap: 8px; color: #b6bbc2; font-size: 11px; }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px rgba(99,201,155,.6); }
+    .topbar-right { display: flex; align-items: center; justify-content: flex-end; gap: 14px; min-width: 205px; }
+    .cash-chip {
+      padding: 8px 11px;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 10px;
+      background: rgba(255,255,255,.035);
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .08em;
+      white-space: nowrap;
+    }
+    .cash-chip strong { margin-left: 6px; color: var(--gold-bright); font-size: 12px; letter-spacing: 0; }
+    .avatar {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--gold-bright);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .workspace {
+      width: min(1510px, 100%);
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 24px;
+      margin: 0 auto;
+      padding: 30px;
+    }
+    .sidebar { padding-top: 7px; }
+    .sidebar-label, .eyebrow {
+      color: #818994;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+    .sidebar-label { padding: 0 11px; margin: 0 0 12px; }
+    .category-list { display: grid; gap: 5px; }
+    .category {
+      width: 100%;
+      min-height: 43px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 11px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      background: transparent;
+      color: #aeb4bd;
+      text-align: left;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+    .category:hover { background: rgba(255,255,255,.035); color: var(--text); }
+    .category.active {
+      border-color: rgba(214,181,119,.16);
+      background: linear-gradient(100deg, rgba(214,181,119,.12), rgba(214,181,119,.035));
+      color: var(--gold-bright);
+    }
+    .category-icon { width: 20px; color: #8d929a; text-align: center; font-size: 14px; }
+    .category.active .category-icon { color: var(--gold); }
+    .category-name { flex: 1; font-size: 12px; font-weight: 550; }
+    .category-count { color: #737b85; font-size: 10px; }
+    .sidebar-rule { height: 1px; margin: 22px 10px; background: rgba(255,255,255,.07); }
+    .sidebar-note {
+      margin: 0 6px;
+      padding: 13px;
+      border: 1px solid rgba(214,181,119,.14);
+      border-radius: 12px;
+      background: rgba(214,181,119,.035);
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.65;
+    }
+    .sidebar-note strong { display: block; margin-bottom: 5px; color: var(--gold-bright); font-size: 10px; }
+    main { min-width: 0; }
+    .welcome { margin: 4px 0 21px; }
+    h1 { margin: 0; font-size: clamp(24px, 3vw, 33px); font-weight: 580; letter-spacing: -.045em; }
+    .welcome p { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+    .composer {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-height: 71px;
+      padding: 10px 12px 10px 20px;
+      border: 1px solid rgba(214,181,119,.26);
+      border-radius: 15px;
+      background: linear-gradient(105deg, rgba(29,36,45,.85), rgba(18,24,31,.91));
+      box-shadow: 0 14px 45px rgba(0,0,0,.15), inset 0 1px rgba(255,255,255,.035);
+      backdrop-filter: blur(16px);
+    }
+    .composer-spark { color: var(--gold); font-size: 18px; }
+    .composer input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--text);
+      font-size: 14px;
+    }
+    .composer input::placeholder { color: #959ba4; opacity: 1; }
+    .composer button {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(240,215,164,.22);
+      border-radius: 11px;
+      background: linear-gradient(145deg, #e4c78d, #bb9657);
+      color: #18140d;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .composer-hint { margin: 9px 3px 25px; color: #737b85; font-size: 10px; }
+    .panel {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.075);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(23,30,39,.84), rgba(15,20,27,.88));
+      box-shadow: 0 18px 55px rgba(0,0,0,.17), inset 0 1px rgba(255,255,255,.025);
+      backdrop-filter: blur(14px);
+    }
+    .table-panel { margin-bottom: 16px; }
+    .panel-heading {
+      min-height: 69px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 15px 20px;
+      border-bottom: 1px solid rgba(255,255,255,.065);
+    }
+    .panel-heading h2 { margin: 0; font-size: 14px; font-weight: 620; }
+    .panel-heading p { margin: 5px 0 0; color: var(--muted); font-size: 10px; }
+    .record-count { color: #959ba4; font-size: 10px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; min-width: 790px; border-collapse: collapse; text-align: left; }
+    th {
+      height: 42px;
+      padding: 0 16px;
+      color: #828a94;
+      font-size: 9px;
+      font-weight: 650;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    td {
+      height: 74px;
+      padding: 11px 16px;
+      border-top: 1px solid rgba(255,255,255,.055);
+      color: #d7d9dc;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    tbody tr { cursor: pointer; transition: background .16s ease; }
+    tbody tr:hover, tbody tr.selected { background: rgba(214,181,119,.045); }
+    .project-cell { display: flex; align-items: center; gap: 11px; }
+    .project-mark {
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(214,181,119,.19);
+      border-radius: 10px;
+      background: rgba(214,181,119,.08);
+      color: var(--gold-bright);
+      font-size: 15px;
+    }
+    .project-name { color: #f1eee8; font-size: 12px; font-weight: 650; }
+    .project-type { margin-top: 4px; color: #818994; font-size: 9px; }
+    .pending-value { color: #c7a969; font-size: 10px; }
+    .status-pending {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #d7c291;
+      font-size: 10px;
+    }
+    .status-pending::before { width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); content: ""; box-shadow: 0 0 10px rgba(231,189,105,.3); }
+    .progress-cell { width: 142px; }
+    .progress-track { width: 100px; height: 4px; display: inline-block; margin-right: 7px; overflow: hidden; border-radius: 10px; background: rgba(255,255,255,.1); vertical-align: middle; }
+    .progress-track span { display: block; width: 0; height: 100%; background: var(--gold); }
+    .progress-label { color: #959ba4; font-size: 9px; vertical-align: middle; }
+    .table-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 13px 18px;
+      border-top: 1px solid rgba(255,255,255,.055);
+    }
+    .status-legend { display: flex; flex-wrap: wrap; gap: 13px; color: #939aa4; font-size: 9px; }
+    .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+    .legend-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .legend-dot.green { background: var(--green); }
+    .legend-dot.yellow { background: var(--yellow); }
+    .legend-dot.red { background: var(--red); }
+    .legend-note { color: #777f89; font-size: 9px; }
+    .details-panel { margin-bottom: 16px; }
+    .details-content { padding: 18px 20px 20px; }
+    .details-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .details-title { display: flex; align-items: center; gap: 11px; }
+    .details-title h3 { margin: 0; font-size: 14px; font-weight: 650; }
+    .details-title p { margin: 4px 0 0; color: var(--muted); font-size: 10px; }
+    .record-tag { padding: 6px 9px; border: 1px solid rgba(231,189,105,.2); border-radius: 8px; color: #d9c18c; font-size: 9px; white-space: nowrap; }
+    .detail-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 20px; }
+    .detail-item {
+      min-height: 67px;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 11px;
+      background: rgba(255,255,255,.018);
+    }
+    .detail-label { color: #858d97; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
+    .detail-value { margin-top: 8px; color: #d9c18c; font-size: 10px; line-height: 1.4; }
+    .detail-value.cash { color: var(--green); font-size: 15px; font-weight: 700; }
+    .record-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin-top: 14px;
+      padding: 11px 12px;
+      border: 1px solid rgba(214,181,119,.11);
+      border-radius: 10px;
+      background: rgba(214,181,119,.03);
+      color: #a4a9b0;
+      font-size: 10px;
+      line-height: 1.6;
+    }
+    .record-note strong { color: var(--gold-bright); font-weight: 600; }
+    .toolkit-panel { margin-bottom: 16px; }
+    .toolkit-content { padding: 18px 20px 20px; }
+    .toolkit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .toolkit-card {
+      min-height: 155px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 11px;
+      background: rgba(255,255,255,.018);
+    }
+    .toolkit-card h3 { margin: 0 0 10px; color: #f1eee8; font-size: 12px; }
+    .toolkit-status {
+      display: inline-flex;
+      margin-bottom: 9px;
+      padding: 5px 8px;
+      border: 1px solid rgba(231,189,105,.18);
+      border-radius: 8px;
+      color: #d9c18c;
+      font-size: 8px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .formula-line {
+      margin: 0 0 9px;
+      color: var(--gold-bright);
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 10px;
+      line-height: 1.55;
+      white-space: normal;
+    }
+    .toolkit-card p {
+      margin: 0;
+      color: #a4a9b0;
+      font-size: 10px;
+      line-height: 1.55;
+    }
+    .toolkit-card .pending-value { display: block; margin-top: 8px; }
+    .checkpoint-list {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .checkpoint-item {
+      min-height: 62px;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 10px;
+      color: #b9bec5;
+      background: rgba(255,255,255,.018);
+      font-size: 9px;
+      line-height: 1.5;
+    }
+    .checkpoint-item strong { display: block; margin-bottom: 4px; color: #d9c18c; font-size: 10px; }
+    .bottomline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 4px 2px 0;
+      color: #717984;
+      font-size: 9px;
+    }
+    .bottomline strong { color: #c7a969; font-weight: 550; }
+    .toast {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 5;
+      max-width: min(380px, calc(100vw - 32px));
+      padding: 13px 16px;
+      transform: translateY(12px);
+      border: 1px solid rgba(214,181,119,.25);
+      border-radius: 11px;
+      background: var(--panel-strong);
+      color: var(--text);
+      box-shadow: 0 12px 35px rgba(0,0,0,.35);
+      font-size: 11px;
+      opacity: 0;
+      pointer-events: none;
+      transition: .2s ease;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; clip-path: inset(50%); }
+
+    @media (max-width: 900px) {
+      .workspace { grid-template-columns: 1fr; gap: 19px; padding: 23px; }
+      .sidebar { padding: 0; }
+      .sidebar-label { margin-bottom: 9px; }
+      .category-list { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 6px; }
+      .category { justify-content: center; gap: 7px; padding: 0 7px; }
+      .category-count, .sidebar-rule, .sidebar-note { display: none; }
+      .category-icon { width: auto; }
+    }
+    @media (max-width: 620px) {
+      .topbar { height: 62px; padding: 0 15px; }
+      .brand { min-width: 0; }
+      .brand-mark { width: 32px; height: 32px; }
+      .brand-name { font-size: 11px; letter-spacing: .15em; }
+      .brand-owner, .topbar-center, .avatar { display: none; }
+      .topbar-right { min-width: 0; }
+      .cash-chip { padding: 7px 8px; font-size: 8px; }
+      .cash-chip strong { font-size: 10px; }
+      .workspace { gap: 16px; padding: 20px 14px; }
+      .category-list { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .category { justify-content: flex-start; min-height: 40px; }
+      .welcome { margin: 2px 0 17px; }
+      h1 { font-size: 25px; }
+      .welcome p { font-size: 11px; line-height: 1.5; }
+      .composer { min-height: 61px; gap: 9px; padding-left: 13px; }
+      .composer input { font-size: 12px; }
+      .composer button { width: 36px; height: 36px; }
+      .composer-hint { margin-bottom: 19px; line-height: 1.5; }
+      .panel-heading { min-height: 62px; padding: 13px 14px; }
+      .table-footer { align-items: flex-start; padding: 12px 14px; }
+      .detail-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; margin-top: 16px; }
+      .details-content { padding: 15px 14px; }
+      .toolkit-content { padding: 15px 14px; }
+      .toolkit-grid { grid-template-columns: 1fr; }
+      .checkpoint-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .details-top { align-items: flex-start; }
+      .bottomline { line-height: 1.6; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="NAVARIS home">
+        <span class="brand-mark" aria-hidden="true">N</span>
+        <span>
+          <span class="brand-name">NAVARIS</span>
+          <span class="brand-owner">محمد حافظ / Mohamed Hafez</span>
+        </span>
+      </a>
+      <div class="topbar-center"><span class="live-dot" aria-hidden="true"></span> Workspace ready <span lang="ar">/ مساحة العمل جاهزة</span></div>
+      <div class="topbar-right">
+        <div class="cash-chip">CASH COLLECTED <strong>= 0</strong></div>
+        <div class="avatar" aria-label="Mohamed Hafez">MH</div>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar" aria-label="Workspace categories">
+        <p class="sidebar-label">WORKSPACE / مساحة العمل</p>
+        <nav class="category-list" aria-label="Categories">
+          <button class="category active" type="button" aria-pressed="true"><span class="category-icon" aria-hidden="true">◈</span><span class="category-name">Assets <span lang="ar">/ الأصول</span></span><span class="category-count">01</span></button>
+          <button class="category" type="button" aria-pressed="false"><span class="category-icon" aria-hidden="true">↗</span><span class="category-name">Investment <span lang="ar">/ الاستثمار</span></span><span class="category-count">—</span></button>
+          <button class="category" type="button" aria-pressed="false"><span class="category-icon" aria-hidden="true">⌘</span><span class="category-name">Operations <span lang="ar">/ العمليات</span></span><span class="category-count">—</span></button>
+          <button class="category" type="button" aria-pressed="false"><span class="category-icon" aria-hidden="true">◇</span><span class="category-name">Consulting <span lang="ar">/ الاستشارات</span></span><span class="category-count">—</span></button>
+          <button class="category" type="button" aria-pressed="false"><span class="category-icon" aria-hidden="true">#</span><span class="category-name">Toolkit <span lang="ar">/ الأدوات</span></span><span class="category-count">87</span></button>
+        </nav>
+        <div class="sidebar-rule"></div>
+        <div class="sidebar-note">
+          <strong>Evidence first / الدليل أولاً</strong>
+          Unverified figures stay marked for confirmation. No external action is sent from this workspace.
+          <br><span lang="ar">الأرقام غير المؤكدة تظل قيد المراجعة. لا يتم إرسال أي إجراء خارجي.</span>
+        </div>
+      </aside>
+
+      <main>
+        <section class="welcome" aria-labelledby="welcome-title">
+          <p class="eyebrow">YOUR BUSINESS WORKSPACE / مساحة عملك</p>
+          <h1 id="welcome-title">Good day, Mohamed.</h1>
+          <p>One clear view of your projects, decisions, and next steps. <span lang="ar">نظرة واضحة على المشروعات والقرارات والخطوات التالية.</span></p>
+        </section>
+
+        <form class="composer" id="assistant-form">
+          <span class="composer-spark" aria-hidden="true">✳</span>
+          <label class="sr-only" for="assistant-input">How can I help you today?</label>
+          <input id="assistant-input" name="request" type="text" autocomplete="off" placeholder="How can I help you today? / أقدر أساعدك إزاي النهارده؟">
+          <button type="submit" aria-label="Submit request">↑</button>
+        </form>
+        <p class="composer-hint">Draft a question or task. Nothing is sent outside this page. <span lang="ar">اكتب سؤالك أو مهمتك — لن يتم إرسال أي شيء خارج هذه الصفحة.</span></p>
+
+        <section class="panel table-panel" aria-labelledby="projects-heading">
+          <div class="panel-heading">
+            <div>
+              <h2 id="projects-heading">Project overview <span lang="ar">/ نظرة عامة على المشروعات</span></h2>
+              <p>Key indicators and review status / المؤشرات الرئيسية وحالة المراجعة</p>
+            </div>
+            <span class="record-count">01 RECORD / سجل واحد</span>
+          </div>
+          <div class="table-wrap">
+            <table aria-label="Project metrics">
+              <thead>
+                <tr>
+                  <th scope="col">PROJECT / المشروع</th>
+                  <th scope="col">NPV</th>
+                  <th scope="col">IRR</th>
+                  <th scope="col">BEP / التعادل</th>
+                  <th scope="col">STATUS / الحالة</th>
+                  <th scope="col">PROGRESS / التقدم</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="selected" id="fouad-row" tabindex="0" aria-label="Fouad Hotel project, metrics pending confirmation">
+                  <td>
+                    <div class="project-cell">
+                      <span class="project-mark" aria-hidden="true">⌂</span>
+                      <span><span class="project-name">Fouad Hotel</span><span class="project-type">Hospitality / ضيافة · Asset / أصل</span></span>
+                    </div>
+                  </td>
+                  <td><span class="pending-value">[TO BE CONFIRMED BY HAFEZ]</span></td>
+                  <td><span class="pending-value">[TO BE CONFIRMED BY HAFEZ]</span></td>
+                  <td><span class="pending-value">[TO BE CONFIRMED BY HAFEZ]</span></td>
+                  <td><span class="status-pending">Pending review / قيد المراجعة</span></td>
+                  <td class="progress-cell"><span class="progress-track" aria-hidden="true"><span></span></span><span class="progress-label">[TO BE CONFIRMED BY HAFEZ]</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-footer">
+            <div class="status-legend" aria-label="Status legend">
+              <span class="legend-item"><span class="legend-dot green" aria-hidden="true"></span>Green / أخضر</span>
+              <span class="legend-item"><span class="legend-dot yellow" aria-hidden="true"></span>Yellow / أصفر</span>
+              <span class="legend-item"><span class="legend-dot red" aria-hidden="true"></span>Red / أحمر</span>
+            </div>
+            <span class="legend-note">No status assigned until reviewed / لا يتم تحديد الحالة قبل المراجعة</span>
+          </div>
+        </section>
+
+        <section class="panel details-panel" aria-labelledby="details-heading">
+          <div class="panel-heading">
+            <div>
+              <h2 id="details-heading">Project details <span lang="ar">/ تفاصيل المشروع</span></h2>
+              <p>Selected record / السجل المحدد</p>
+            </div>
+            <span class="record-tag">DRAFT · INDICATIVE ONLY</span>
+          </div>
+          <div class="details-content">
+            <div class="details-top">
+              <div class="details-title">
+                <span class="project-mark" aria-hidden="true">⌂</span>
+                <span><h3>Fouad Hotel</h3><p>Asset review / مراجعة أصل · Details await owner confirmation / التفاصيل بانتظار تأكيد المالك</p></span>
+              </div>
+              <span class="record-tag">NOT A CONTRACT / ليس عقداً</span>
+            </div>
+            <div class="detail-grid">
+              <div class="detail-item"><div class="detail-label">NPV / صافي القيمة الحالية</div><div class="detail-value">[TO BE CONFIRMED BY HAFEZ]</div></div>
+              <div class="detail-item"><div class="detail-label">IRR / معدل العائد الداخلي</div><div class="detail-value">[TO BE CONFIRMED BY HAFEZ]</div></div>
+              <div class="detail-item"><div class="detail-label">BEP / نقطة التعادل</div><div class="detail-value">[TO BE CONFIRMED BY HAFEZ]</div></div>
+              <div class="detail-item"><div class="detail-label">Progress / التقدم</div><div class="detail-value">[TO BE CONFIRMED BY HAFEZ]</div></div>
+            </div>
+            <div class="record-note">
+              <span aria-hidden="true">ⓘ</span>
+              <span><strong>CASH COLLECTED = 0.</strong> Financial values, progress, and decision status are not verified; confirm them with Mohamed Hafez before use. <span lang="ar">الأرقام والتقدم وحالة القرار غير مؤكدة؛ يرجى تأكيدها مع محمد حافظ قبل الاستخدام.</span></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel toolkit-panel" aria-labelledby="toolkit-heading">
+          <div class="panel-heading">
+            <div>
+              <h2 id="toolkit-heading">Toolkit <span lang="ar">/ الأدوات</span></h2>
+              <p>Documented formulas and operating controls / المعادلات والضوابط الموثقة</p>
+            </div>
+            <span class="record-tag">INTERNAL · DRAFT</span>
+          </div>
+          <div class="toolkit-content">
+            <div class="toolkit-grid">
+              <article class="toolkit-card">
+                <span class="toolkit-status">Partial · Scenario only</span>
+                <h3>Hotel corporate room rate / سعر الغرفة المؤسسي</h3>
+                <p class="formula-line">Corporate rate = BAR × (1 − discount) × longstay_factor</p>
+                <p class="formula-line">Commission scenario = (BAR − corporate_rate) + BAR × 10%</p>
+                <p>BAR, discount, longstay factor and commercial terms remain unverified.</p>
+                <span class="pending-value">[TO BE CONFIRMED BY HAFEZ]</span>
+              </article>
+
+              <article class="toolkit-card">
+                <span class="toolkit-status">Tested calculation · Evidence required</span>
+                <h3>Freight landed cost / التكلفة المشتملة للشحن</h3>
+                <p class="formula-line">Landed cost = FOB + freight + insurance + origin/destination charges + duties/taxes + other evidenced fees</p>
+                <p class="formula-line">Scenario sell price = landed cost × (1 + margin)</p>
+                <p>Incoterm, HS code, carrier quote, duties and taxes require verification.</p>
+                <span class="pending-value">[TO BE CONFIRMED BY HAFEZ]</span>
+              </article>
+
+              <article class="toolkit-card">
+                <span class="toolkit-status">Tested calculation · Screening only</span>
+                <h3>Altman original Z-score / درجة الترجيح الأصلية</h3>
+                <p class="formula-line">Z = 1.2X1 + 1.4X2 + 3.3X3 + 0.6X4 + 1.0X5</p>
+                <p>Limited to matching variable definitions and the original public-manufacturing domain. Not a credit decision.</p>
+                <span class="pending-value">[TO BE CONFIRMED BY HAFEZ]</span>
+              </article>
+
+              <article class="toolkit-card">
+                <span class="toolkit-status">Formula-first control</span>
+                <h3>Required analysis sequence / تسلسل التحليل</h3>
+                <p>Decision → governing formula → variable definitions → evidence/assumptions → calculation → limits → action → source validation.</p>
+                <p>Missing inputs stay unknown. Do not invent values or claim unverified business outcomes.</p>
+                <span class="pending-value">[TO BE CONFIRMED BY HAFEZ]</span>
+              </article>
+            </div>
+
+            <div class="record-note">
+              <span aria-hidden="true">ⓘ</span>
+              <span><strong>Toolkit 87 operating control</strong> — Checkpoints 81–87 are a closure framework, not a claim that all checkpoints have passed. Review evidence, owner, date and reviewer before closure.</span>
+            </div>
+            <div class="checkpoint-list" aria-label="Toolkit checkpoints 81 through 87">
+              <div class="checkpoint-item"><strong>81</strong>Review pipeline aging.</div>
+              <div class="checkpoint-item"><strong>82</strong>Review offers sent.</div>
+              <div class="checkpoint-item"><strong>83</strong>Review acceptance rate.</div>
+              <div class="checkpoint-item"><strong>84</strong>Review collected cash.</div>
+              <div class="checkpoint-item"><strong>85</strong>Review delivery margin.</div>
+              <div class="checkpoint-item"><strong>86</strong>Assign one next action per open item.</div>
+              <div class="checkpoint-item"><strong>87</strong>Close only with dated evidence.</div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="bottomline">
+          <span>محمد حافظ / Mohamed Hafez · NAVARIS Business Intelligence OS</span>
+          <strong>Human review required / يتطلب مراجعة بشرية</strong>
+          <span>DRAFT — INDICATIVE ONLY — Not a Contract</span>
+        </footer>
+      </main>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const form = document.getElementById("assistant-form");
+    const input = document.getElementById("assistant-input");
+    const toast = document.getElementById("toast");
+    let toastTimer;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 3200);
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const request = input.value.trim();
+      if (!request) {
+        input.focus();
+        showToast("Enter a question or task first. / اكتب سؤالك أو مهمتك أولاً.");
+        return;
+      }
+      showToast("Draft noted on this page only — no message was sent. / تم تسجيل المسودة هنا فقط — لم يتم إرسال أي رسالة.");
+      input.value = "";
+    });
+
+    document.querySelectorAll(".category").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".category").forEach((item) => {
+          item.classList.remove("active");
+          item.setAttribute("aria-pressed", "false");
+        });
+        button.classList.add("active");
+        button.setAttribute("aria-pressed", "true");
+        showToast(button.querySelector(".category-name").textContent.trim() + " selected. / تم التحديد.");
+      });
+    });
+
+    const projectRow = document.getElementById("fouad-row");
+    projectRow.addEventListener("click", () => {
+      projectRow.classList.add("selected");
+      document.getElementById("details-heading").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+    projectRow.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        projectRow.click();
+      }
+    });
+  </script>
+</body>
+</html>
